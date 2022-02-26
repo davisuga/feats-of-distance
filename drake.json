@@ -1,0 +1,2687 @@
+{
+  "data": {
+    "searchV2": {
+      "albums": {
+        "totalCount": 1000,
+        "items": [
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:3SpBlxme9WbeQdI9kx7KAV",
+              "name": "Certified Lover Boy",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02cd945b4e3de57edd28481a3f",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851cd945b4e3de57edd28481a3f",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273cd945b4e3de57edd28481a3f",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2021 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:1ATL5GLyefJaxhQzSPVrLX",
+              "name": "Scorpion",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02f907de96b9a4fbc04accc0d5",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851f907de96b9a4fbc04accc0d5",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273f907de96b9a4fbc04accc0d5",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2018 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:3dr9BS7vgCv7X1hWg4Zk3L",
+              "name": "Drake",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:0SYWNCdR6eomw6oktqGHbE",
+                    "profile": { "name": "Lor Sosa" }
+                  },
+                  {
+                    "uri": "spotify:artist:6GMYJwaziB4ekv1Y6wCDWS",
+                    "profile": { "name": "Soulja Boy" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e0251fad7ff556e45e17c37535d",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000485151fad7ff556e45e17c37535d",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b27351fad7ff556e45e17c37535d",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2021 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:40GMAhriYJRO1rsY4YdrZb",
+              "name": "Views",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e029416ed64daf84936d89e671c",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d000048519416ed64daf84936d89e671c",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b2739416ed64daf84936d89e671c",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2016 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:6XeIi9hKR8WJtNzmhMILfH",
+              "name": "Drake",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3z2IySIVkUy23tiLxLy4Wh",
+                    "profile": { "name": "Fatboy SSE" }
+                  },
+                  {
+                    "uri": "spotify:artist:6DQmPDqKdiXQGDWGXVUWXi",
+                    "profile": { "name": "Lar$$en" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02a056e4ab86b04ce5b452f63d",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851a056e4ab86b04ce5b452f63d",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273a056e4ab86b04ce5b452f63d",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2017 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:0ygGW68qMo4opA8BFCu5dg",
+              "name": "Drake Revolucionário",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:21ELc2P2rA3Cu6xw3VWqvv",
+                    "profile": { "name": "Mc Kadu" }
+                  },
+                  {
+                    "uri": "spotify:artist:3bpbNht7qJCmPo8sjVF3tA",
+                    "profile": { "name": "Mc Kanhoto" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e023efc62f0360c8d80664f95f8",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d000048513efc62f0360c8d80664f95f8",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b2733efc62f0360c8d80664f95f8",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2021 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:2aYuVO6GqSpFokJTuWoSiI",
+              "name": "Desce Aí (Flow Drake)",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:27azwwkxutWL1BWMkgNIh0",
+                    "profile": { "name": "Vulgo FK" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02caff790b8c823e7e73ff6783",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851caff790b8c823e7e73ff6783",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273caff790b8c823e7e73ff6783",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2021 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:3guqnX8zDpU0UvvWM1RxXr",
+              "name": "Drake",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:0sSXa9z76TfMcbAZuokauq",
+                    "profile": { "name": "Bart Baker" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02e76a90ea3bfb9d99472a03e3",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851e76a90ea3bfb9d99472a03e3",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273e76a90ea3bfb9d99472a03e3",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2016 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:1lXY618HWkwYKJWBRYR4MK",
+              "name": "More Life",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e024f0fd9dad63977146e685700",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d000048514f0fd9dad63977146e685700",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b2734f0fd9dad63977146e685700",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2017 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:7FL5Y4JJNYbNGDEZAfB7qe",
+              "name": "DRAKE",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:359LEc9g4W74HjfOXqXyvr",
+                    "profile": { "name": "Veen" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02b7796661c78f4f351506e7c1",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851b7796661c78f4f351506e7c1",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273b7796661c78f4f351506e7c1",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2021 }
+            }
+          }
+        ]
+      },
+      "artists": {
+        "totalCount": 976,
+        "items": [
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+              "profile": { "name": "Drake" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000e5eb9e46a78c5cd2f7a8e7669980",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000f1789e46a78c5cd2f7a8e7669980",
+                      "width": 160,
+                      "height": 160
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:03ilIKH0i08IxmjKcn63ne",
+              "profile": { "name": "Drake Bell" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000e5ebf022697d475649654541eecc",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000f178f022697d475649654541eecc",
+                      "width": 160,
+                      "height": 160
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:5c3GLXai8YOMid29ZEuR9y",
+              "profile": { "name": "Nick Drake" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/087fb05851e498c2791ca99000acf35b0fd49f19",
+                      "width": 640,
+                      "height": 950
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/267080662cf3c019ea8020a4e0e8dd5a7be4d909",
+                      "width": 64,
+                      "height": 95
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:0Y5tJX1MQlPlqiwlOH1tJY",
+              "profile": { "name": "Travis Scott" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000e5ebe707b87e3f65997f6c09bfff",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000f178e707b87e3f65997f6c09bfff",
+                      "width": 160,
+                      "height": 160
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:0p4ViyfJUTW0IT4SCBLexf",
+              "profile": { "name": "Drakeo the Ruler" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000e5eba603aef1d62687aa6af6f01f",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000f178a603aef1d62687aa6af6f01f",
+                      "width": 160,
+                      "height": 160
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:2m5ti7YuYYCVs8xfZgnVkx",
+              "profile": { "name": "Drake" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2737645656d7c2dc87d84204986",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048517645656d7c2dc87d84204986",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:1pJ00IJ3OgsAnMgn4dajzJ",
+              "profile": { "name": "Drake Sheeran" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b273eb7d3959ff5e3f32d7a972e5",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00004851eb7d3959ff5e3f32d7a972e5",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:4A9luWHjT9sLC0ZFZ3TmpS",
+              "profile": { "name": "Drake" },
+              "visuals": { "avatarImage": null }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:29ijED2bnnprp2TciAK1aO",
+              "profile": { "name": "Drake White" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000e5eb3af491f459fac4d1940d1313",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000f1783af491f459fac4d1940d1313",
+                      "width": 160,
+                      "height": 160
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:0O76d5oDfMqnPoxRN29bpx",
+              "profile": { "name": "Ella Drake" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2734fbc3a012a2a93e8cca94ff2",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048514fbc3a012a2a93e8cca94ff2",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "episodes": {
+        "totalCount": 1000,
+        "items": [
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:0ZTHyNpkcFqOureKSKBOc4",
+              "name": "Sinapse #79 - A Equação de Drake",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d14f67dd7592f797c8bd47615",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f14f67dd7592f797c8bd47615",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a14f67dd7592f797c8bd47615",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 2574907 },
+              "releaseDate": {
+                "isoString": "2022-01-31T14:27:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:59fUC0CFgoMfiLDXCuhjUM",
+                "name": "Sinapse",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ae2d4d611f1c62e08df186d373aaa32379f327fd",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/36c8cb18e198c01e155d356c3aa013b252d29667",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/6e9c2c51bb30517b4ff8265180bc9d387b55967c",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "Ciência Todo Dia" },
+                "mediaType": "AUDIO"
+              },
+              "description": "Existe vida fora da Terra? Talvez nós nunca tenhamos resposta para essa pergunta. Mas isso não significa que não tenhamos ferramentas que nos ajudem a fazer estimativas educadas, e uma delas é a equação de Drake. Nesse episódio, Pedro e Greg irão discutir (e dar os seus valores estimados) para cada termo da equação. Esse podcast é mantido pela nossa campanha do Catarse:http://catarse.me/cienciatododia Contato: sinapse@cienciatododia.com.br Nosso Twitter: @sinapsepodcast",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:1r9fxahT1CEnfwMpVAwZsR",
+              "name": "Found A Way ( Drake and Josh song) ",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ea294645192b65558a904dd8dbb0a0243558c497",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/daeff0852e9e948dc4d31fda3bd60b3317564e92",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/62c36385360faba83d311357cda6a8d963f087d5",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 181673 },
+              "releaseDate": {
+                "isoString": "2020-06-22T07:47:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:52Urp5qlvWJDtqGApjlpef",
+                "name": "Super Musik ",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/67583fba00e3313c0e439f02003b7b9f8b72eb53",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/c069b0076f89c2e958de14626dd0a468ab2542f6",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/72f5d5ea815dbba26445c8bb427056180605f420",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "Lucas Fiedler" },
+                "mediaType": "AUDIO"
+              },
+              "description": "Der Song zu einer super Schauspiel Serie hört ihn euch an",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:7hCXUCNGCnihzjG3HNjcrR",
+              "name": "Grae Drake's Movie Review",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/94266d1e1b6af15241aef54cbc3786db0108d7bf",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ff11539ab9f7c431fe58291fc4e53e15f3bec4cc",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/44d210ee5c6f97851455032f6caa273a1777b99b",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 772728 },
+              "releaseDate": {
+                "isoString": "2022-02-25T15:21:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:48SRA92WBlxSaTPPV6sX74",
+                "name": "kPod - The Kidd Kraddick Morning Show",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/9fb2c9b61e49ff809b9be05af2061e2f4218acb9",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/c83380ed4ac36612d3ebd03a20fa849cf8be3b60",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/041f9ffc7f284bfff6a21a35c74dae505b588aa4",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "YEA Networks" },
+                "mediaType": "AUDIO"
+              },
+              "description": "Our movie expert Grae Drake gives Kellie a heads up... It's not going to be an exciting week for her at the movies but a lot of other people may be interested. The movie that she is the most excited about.. The Foo Fighters movie! Hear her movie reviews now!",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:3TUX58ldyV0tqlgyJwkP1d",
+              "name": "Musicas para treinar pesado na academia ou em casa",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68dd00dfe3912bcd9444a5ee09a",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1fd00dfe3912bcd9444a5ee09a",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8ad00dfe3912bcd9444a5ee09a",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 2152072 },
+              "releaseDate": {
+                "isoString": "2021-10-06T11:38:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:3DNYNnPmjI8wbgEeumn4SO",
+                "name": "João Marcos",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000f68d2491355b2de91a8a195efdd8",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67656300005f1f2491355b2de91a8a195efdd8",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000ba8a2491355b2de91a8a195efdd8",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "joao marcos silva sousa" },
+                "mediaType": "AUDIO"
+              },
+              "description": "A sequencia com as melhores musicas eletronicas para treinar em casa ou na academia com motivação.",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:2Himte1XAHbrzqL92nipvQ",
+              "name": "MoídaNews #23 › DRAKE PÕE PIMENTA EM CAMISINHA, A VOLTA DA TV GLOBINHO E COVID REDUZ O P3NIS?",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68da3625a23c41f1feb5e41e25f",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1fa3625a23c41f1feb5e41e25f",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8aa3625a23c41f1feb5e41e25f",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 720483 },
+              "releaseDate": {
+                "isoString": "2022-01-18T21:22:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:1Xc4cLtFD8yBwJZFVQGlIk",
+                "name": "MoídaCast",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000f68d7676b6746084fe3a388a421f",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67656300005f1f7676b6746084fe3a388a421f",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000ba8a7676b6746084fe3a388a421f",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "CarneMoídaTV" },
+                "mediaType": "AUDIO"
+              },
+              "description": "Drake é acusado de por PIMENTA em preservativo, transplante de coração de porco em humanos é realizado e programa de Fátima Bernardes é CANCELADO pela Globo. HOJE NO MOÍDANEWS!VEM SER NOSSO APOIADOR! — Ajude a gente produzir essa bagaça e tenha várias recompensas F0DAS!Nome citado nos programas, sorteio todo mês, acesso ao nosso grupo secreto do Discord, pra falar com a gente por texto ou chamada de áudio, ouvir os programas ao vivo e sem censura e MUITO MAIS! http://picpay.me/moidacastRedes sociais:Instagram @MoidaCast: https://instagram.com/moidacastTwitter @MoidaCast: https://twitter.com/MoidaCastAPRESENTADO POR:Klaus Aires (@KlaustrofobiaTV)Kleber Tanide (@KleberTanide)Letícia Godoy (@HeyLeticiaGodoy)Rafaela Longhini (@longhinirafa)Silas Ravani (@SilasVRavani)EQUIPE:Edição & Montagem: Silas Ravani (@SilasVRavani)Capa: Sketch (@sketch1000grau)Um podcast exclusivo Spotify de CarneMoídaTV Learn more about your ad choices. Visit podcastchoices.com/adchoices",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:6S3M6FrkNMo6bheYs9QBoV",
+              "name": "ELA ME FALOU QUE QUER RAVE - VE SE PODE - MC Levin, Nikoolas Alves Exclusive, DJ Kaioken e DJ Gege",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d905c1c13d81ae551b43e4676",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f905c1c13d81ae551b43e4676",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a905c1c13d81ae551b43e4676",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 240558 },
+              "releaseDate": {
+                "isoString": "2021-10-25T22:34:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:2gALkz7RIv3CFaLND4fnWu",
+                "name": "@euomorales",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000f68db187ee920677daa05dbdadd1",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67656300005f1fb187ee920677daa05dbdadd1",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000ba8ab187ee920677daa05dbdadd1",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "Morales" },
+                "mediaType": "AUDIO"
+              },
+              "description": "✨",
+              "contentRating": { "label": "EXPLICIT" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:29jXj3BXnOqo7rSYBcU1aL",
+              "name": "Drake - One Dance (Sped Up + Pitched Up) TikTok Skeleton Edit [prod. purple drip boy]",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68de2fb16bb030eb67b3b22908b",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1fe2fb16bb030eb67b3b22908b",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8ae2fb16bb030eb67b3b22908b",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 121916 },
+              "releaseDate": {
+                "isoString": "2022-02-06T20:23:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:4ATzjW13XRr5t7diVCdwMX",
+                "name": "Cambridge Analytica - Daisy & Corentin ",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000f68d7d859152b514c62c62cbd42d",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67656300005f1f7d859152b514c62c62cbd42d",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000ba8a7d859152b514c62c62cbd42d",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "Corentin Daisy" },
+                "mediaType": "AUDIO"
+              },
+              "description": "Drake - One Dance (Sped Up + Pitched Up) TikTok Skeleton Edit [prod. purple drip boy] ",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:4kYj0f4Qite2moExlIhrLW",
+              "name": "CHEFIN - 212 (Prévia)",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d537473a9333448a68c0c3e9c",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f537473a9333448a68c0c3e9c",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a537473a9333448a68c0c3e9c",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 163352 },
+              "releaseDate": {
+                "isoString": "2022-01-05T03:26:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:3JRmzx6Y7kLsLGA8YPj2SU",
+                "name": "@euomorales",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000f68d002e8a6529c53a8fa93503d6",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67656300005f1f002e8a6529c53a8fa93503d6",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000ba8a002e8a6529c53a8fa93503d6",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "Morales" },
+                "mediaType": "AUDIO"
+              },
+              "description": "\uD83E\uDDF4",
+              "contentRating": { "label": "EXPLICIT" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:2IcBLAZ4R0OCnoymUJ1L1R",
+              "name": "Sagan om pojken och draken ",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/7706ccd452b8f1aa8b74bad9a7a7a9b208d1891f",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/a7f8bd04613f8804bed2f1b9a3c511a53f739f20",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/6a18e9d34399360baadfdc15b938747ffdcec255",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 645835 },
+              "releaseDate": {
+                "isoString": "2012-01-25T17:00:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:6XaoRCEPvYwGBRBIKTQhVd",
+                "name": "Sagotajm i Barnradion",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/2760699ecca5d5c018231dba6e7e64c9786d2593",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/475e7ed0ebd63b7ee84bbb9b33f441fe1c79509c",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/482faedfb90a4539c59bf9f6b7149678e1a872f3",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "Sveriges Radio" },
+                "mediaType": "AUDIO"
+              },
+              "description": "En pojke hjälper en stackars kråka som fastnat i en rosenbuske. Som tack får han ett par förtrollade vingar.  Moderna sagor på klassisk grundManus och röster: Johannes Berg Lilla barnets röst: Robin Blomkvist Ljud, regi och produktion: Karin Blomkvist Exekutiv producent Sveriges Radio: Inga Rexed Illustration: Johanna Kristiansson",
+              "contentRating": { "label": "NONE" }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Episode",
+              "uri": "spotify:episode:3jVNZxjSl4tMBcjvMTwmJ8",
+              "name": "Drake - Laugh Now Cry Later Lil Durk",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d976e0aba8615665b7ac83976",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f976e0aba8615665b7ac83976",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a976e0aba8615665b7ac83976",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "duration": { "totalMilliseconds": 344816 },
+              "releaseDate": {
+                "isoString": "2020-08-14T04:45:00Z",
+                "precision": "DAY"
+              },
+              "podcast": {
+                "uri": "spotify:show:4QkfskjSRwLWMMkAMndbBu",
+                "name": " The No Good Podcast ",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000f68d7ff291cff05b27260f21c9bb",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67656300005f1f7ff291cff05b27260f21c9bb",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6765630000ba8a7ff291cff05b27260f21c9bb",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "type": "PODCAST",
+                "publisher": { "name": "No Good Can Come From A Podcast" },
+                "mediaType": "AUDIO"
+              },
+              "description": "This week the guys talk about #drake dropping his new single with #lildurk called Laugh Now Cry Later! #ovo #nike",
+              "contentRating": { "label": "NONE" }
+            }
+          }
+        ]
+      },
+      "genres": { "totalCount": 0, "items": [] },
+      "playlists": {
+        "totalCount": 1000,
+        "items": [
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:3nUEVV2oodeYuwkbKCrRDD",
+              "name": "Drake",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0255404f712deb84d0650a4b41ab67616d00001e029416ed64daf84936d89e671c",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0255404f712deb84d0650a4b41ab67616d00001e029416ed64daf84936d89e671c",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0255404f712deb84d0650a4b41ab67616d00001e029416ed64daf84936d89e671c",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Bruno Cassorla",
+                "uri": "spotify:user:22wlnpcokzamsme4atzwc3aha",
+                "username": "22wlnpcokzamsme4atzwc3aha"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1DX7QOv5kjbU68",
+              "name": "This Is Drake",
+              "description": "Hear all of Drake's biggest and best hits in one playlist. Thank us later.",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://i.scdn.co/image/ab67706f0000000287bff188c40608c48b82068f",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:39oH8fid7H9se9tEP6NdGN",
+              "name": "Drake -> Greatest Hits",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e023dc98872a3cf00117e4623e5ab67616d00001e0258599e61e8a0487443d31bb6ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02d6adfbd3f091d6f2b9af6507",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e023dc98872a3cf00117e4623e5ab67616d00001e0258599e61e8a0487443d31bb6ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02d6adfbd3f091d6f2b9af6507",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e023dc98872a3cf00117e4623e5ab67616d00001e0258599e61e8a0487443d31bb6ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02d6adfbd3f091d6f2b9af6507",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "shopite",
+                "uri": "spotify:user:shopite",
+                "username": "shopite"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:7oJMxOSRLy4YWrGsq6HkID",
+              "name": "Throwback drake\uD83D\uDE2D\uD83E\uDD27\uD83D\uDD25",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0254ef13c30a024a7f1ba79efdab67616d00001e0272babba16ea5e3afe690b4f1ab67616d00001e02c7ea04a9b455e3f68ef82550",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0254ef13c30a024a7f1ba79efdab67616d00001e0272babba16ea5e3afe690b4f1ab67616d00001e02c7ea04a9b455e3f68ef82550",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0254ef13c30a024a7f1ba79efdab67616d00001e0272babba16ea5e3afe690b4f1ab67616d00001e02c7ea04a9b455e3f68ef82550",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Iso._jayy",
+                "uri": "spotify:user:jayy.2litt",
+                "username": "jayy.2litt"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1E4qQ00I1Jm1ay",
+              "name": "Drake Radio",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://seeded-session-images.scdn.co/v1/img/artist/3TVXtAsR1Inumwj472S9r4/en",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:5hGzEDCNbc4pbzTMtyznVI",
+              "name": "DRAKE",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02b835f6c6f16094a0030fe348ab67616d00001e02bca9593fa539a2f38ec0d095ab67616d00001e02f907de96b9a4fbc04accc0d5",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02b835f6c6f16094a0030fe348ab67616d00001e02bca9593fa539a2f38ec0d095ab67616d00001e02f907de96b9a4fbc04accc0d5",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02b835f6c6f16094a0030fe348ab67616d00001e02bca9593fa539a2f38ec0d095ab67616d00001e02f907de96b9a4fbc04accc0d5",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Rachael DeVaux",
+                "uri": "spotify:user:rachaeldevaux",
+                "username": "rachaeldevaux"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:0Ydllcfj5dBODw3MqS2VBF",
+              "name": "Drake melhores",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e028a01c7b77a34378a62f46402ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02cd945b4e3de57edd28481a3fab67616d00001e02f907de96b9a4fbc04accc0d5",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e028a01c7b77a34378a62f46402ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02cd945b4e3de57edd28481a3fab67616d00001e02f907de96b9a4fbc04accc0d5",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e028a01c7b77a34378a62f46402ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02cd945b4e3de57edd28481a3fab67616d00001e02f907de96b9a4fbc04accc0d5",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Off-Black",
+                "uri": "spotify:user:zyqzyq0or3l86q09xpo2loc6h",
+                "username": "zyqzyq0or3l86q09xpo2loc6h"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1DWWhdxQgDCTSy",
+              "name": "#NS10v10: Drake V Rihanna",
+              "description": "The ultimate battle brought to you by <a href=\"https://open.spotify.com/user/6b9qlasyhu275btgjffuy1kl9?si=VhMCcdOIR-iDSobpXJKEGg\">No Signal</a>",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://i.scdn.co/image/ab67706f00000002fa4e611ab757b14c19897f30",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:4oiKt5FkDwQ6MS8wDbCngv",
+              "name": "Drake Workout Hype Energy",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02adfb5909ec66db5fbb4d06c8ab67616d00001e02c7ea04a9b455e3f68ef82550",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02adfb5909ec66db5fbb4d06c8ab67616d00001e02c7ea04a9b455e3f68ef82550",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e029416ed64daf84936d89e671cab67616d00001e02adfb5909ec66db5fbb4d06c8ab67616d00001e02c7ea04a9b455e3f68ef82550",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "maxhatz372",
+                "uri": "spotify:user:maxhatz372",
+                "username": "maxhatz372"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1DX4VkTBdvsYXu",
+              "name": "Certified Lover Boy by Drake",
+              "description": "Certified Lover Boy is here. Hear the new album from Drake now. ",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://i.scdn.co/image/ab67706f00000002c6358da5fef3de8ad60fc4e3",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          }
+        ]
+      },
+      "podcasts": {
+        "totalCount": 785,
+        "items": [
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:1HmKArpI0NmOmXzZ1sDTmX",
+              "name": "Stuutjes & Draken",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/7863124065d3879c675b17205fb1cb4e53c2ed07",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/01012bae1723a7843912c03f3bf210f6dc72f0ee",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/8b32e6d874e3402c6e6e9c51da0d4e5a87ffebc7",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Stuutjes & Draken" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:5rRTokY3mG08yVeQFMSBm0",
+              "name": "Drake's Academia",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d985349719fa5020c2fbf684d",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f985349719fa5020c2fbf684d",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a985349719fa5020c2fbf684d",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Drake Miyake" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:7FLtSNA99fqD8T55FTqO5D",
+              "name": "This is not a Drake podcast",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/dc472257410480547da2edeb7e039e2f213bed0b",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/77ce58adcf0b39b864fef9150a07aa1341dc82e0",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/5bdfba0c13872856caec43a10619250729763f5d",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "CBC Podcasts" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:0GnKiYeK11476CfoQEYlEd",
+              "name": "Mano a Mano",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68dee58bb72bb64156442c38798",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1fee58bb72bb64156442c38798",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8aee58bb72bb64156442c38798",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Spotify Studios" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:2mrS3wuPAAcWZvTEZsat1z",
+              "name": "Drake podcasten",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d4b99de540bdeb9ce7afc4d66",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f4b99de540bdeb9ce7afc4d66",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a4b99de540bdeb9ce7afc4d66",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "RadioPlay" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:1GLSDdk9CDEwziGNIlnb8a",
+              "name": "Podpah",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68dda018f5c18ecebc5d3ff3b59",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1fda018f5c18ecebc5d3ff3b59",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8ada018f5c18ecebc5d3ff3b59",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Podpah" },
+              "mediaType": "MIXED"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:7y4yPytpLSyXQykQWUzHto",
+              "name": "BOHEEMSE DRAKEN IN EEN LEVEN AAN ZEE",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d2efbcd2201ee32ca7f76808a",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f2efbcd2201ee32ca7f76808a",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a2efbcd2201ee32ca7f76808a",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Huub Koch" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:0KQp5sdHq8Kp1EX41KJegC",
+              "name": "drake",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/368981df1c00e719742645f3811956ef16372634",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/5cf7b1b3272347cb1e84dbe4a62c3a4f2d6e3b99",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/53860e1012c8d03420ddebf14d324eeb3f6a2eb4",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "jose lopez" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:7mUOyZucR12oOAJgjPL4mu",
+              "name": "Drake Sports Media Podcast",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68d3569ecc33b92e34e8947b7f3",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1f3569ecc33b92e34e8947b7f3",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8a3569ecc33b92e34e8947b7f3",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "The Varsity Podcast Network" },
+              "mediaType": "AUDIO"
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:0a2XC1BpDvIvfWxXe0nHKV",
+              "name": "Over Prinsen en Prinsessen, Koningen en Draken, Ridders en Reuzen",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000f68dadd002cfa0e8d92062b54fe4",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67656300005f1fadd002cfa0e8d92062b54fe4",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab6765630000ba8aadd002cfa0e8d92062b54fe4",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Marieke Kropman" },
+              "mediaType": "AUDIO"
+            }
+          }
+        ]
+      },
+      "topResults": {
+        "items": [
+          {
+            "data": {
+              "__typename": "Artist",
+              "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+              "profile": { "name": "Drake" },
+              "visuals": {
+                "avatarImage": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000e5eb9e46a78c5cd2f7a8e7669980",
+                      "width": 640,
+                      "height": 640
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab6761610000f1789e46a78c5cd2f7a8e7669980",
+                      "width": 160,
+                      "height": 160
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:2HjigUJ8MyCVTSLfaopIXd",
+              "id": "2HjigUJ8MyCVTSLfaopIXd",
+              "name": "Drake Revolucionário",
+              "albumOfTrack": {
+                "uri": "spotify:album:0ygGW68qMo4opA8BFCu5dg",
+                "name": "Drake Revolucionário",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e023efc62f0360c8d80664f95f8",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048513efc62f0360c8d80664f95f8",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2733efc62f0360c8d80664f95f8",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "0ygGW68qMo4opA8BFCu5dg"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:21ELc2P2rA3Cu6xw3VWqvv",
+                    "profile": { "name": "Mc Kadu" }
+                  },
+                  {
+                    "uri": "spotify:artist:3bpbNht7qJCmPo8sjVF3tA",
+                    "profile": { "name": "Mc Kanhoto" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 167160 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:3nUEVV2oodeYuwkbKCrRDD",
+              "name": "Drake",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://mosaic.scdn.co/640/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0255404f712deb84d0650a4b41ab67616d00001e029416ed64daf84936d89e671c",
+                        "width": 640,
+                        "height": 640
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/300/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0255404f712deb84d0650a4b41ab67616d00001e029416ed64daf84936d89e671c",
+                        "width": 300,
+                        "height": 300
+                      },
+                      {
+                        "url": "https://mosaic.scdn.co/60/ab67616d00001e022090f4f6cc406e6d3c306733ab67616d00001e024f0fd9dad63977146e685700ab67616d00001e0255404f712deb84d0650a4b41ab67616d00001e029416ed64daf84936d89e671c",
+                        "width": 60,
+                        "height": 60
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Bruno Cassorla",
+                "uri": "spotify:user:22wlnpcokzamsme4atzwc3aha",
+                "username": "22wlnpcokzamsme4atzwc3aha"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Album",
+              "uri": "spotify:album:3SpBlxme9WbeQdI9kx7KAV",
+              "name": "Certified Lover Boy",
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00001e02cd945b4e3de57edd28481a3f",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d00004851cd945b4e3de57edd28481a3f",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/ab67616d0000b273cd945b4e3de57edd28481a3f",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "date": { "year": 2021 }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Podcast",
+              "uri": "spotify:show:1HmKArpI0NmOmXzZ1sDTmX",
+              "name": "Stuutjes & Draken",
+              "coverArt": {
+                "sources": [
+                  {
+                    "url": "https://i.scdn.co/image/7863124065d3879c675b17205fb1cb4e53c2ed07",
+                    "width": 64,
+                    "height": 64
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/01012bae1723a7843912c03f3bf210f6dc72f0ee",
+                    "width": 300,
+                    "height": 300
+                  },
+                  {
+                    "url": "https://i.scdn.co/image/8b32e6d874e3402c6e6e9c51da0d4e5a87ffebc7",
+                    "width": 640,
+                    "height": 640
+                  }
+                ]
+              },
+              "type": "PODCAST",
+              "publisher": { "name": "Stuutjes & Draken" },
+              "mediaType": "AUDIO"
+            }
+          }
+        ],
+        "featured": [
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1DX7QOv5kjbU68",
+              "name": "This Is Drake",
+              "description": "Hear all of Drake's biggest and best hits in one playlist. Thank us later.",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://i.scdn.co/image/ab67706f0000000287bff188c40608c48b82068f",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1E4qQ00I1Jm1ay",
+              "name": "Drake Radio",
+              "description": "",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://seeded-session-images.scdn.co/v1/img/artist/3TVXtAsR1Inumwj472S9r4/en",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1DWUQuMV5yVzhv",
+              "name": "Top Artists of 2019",
+              "description": "The most streamed artists globally on Spotify in 2019.",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://i.scdn.co/image/ab67706f0000000257386fdd630ad3cd674fb927",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Playlist",
+              "uri": "spotify:playlist:37i9dQZF1DX9oegrjMzKDW",
+              "name": "The Party Hits of the 2010s",
+              "description": "Party like it’s one of the years between 2010-2019.",
+              "images": {
+                "items": [
+                  {
+                    "sources": [
+                      {
+                        "url": "https://i.scdn.co/image/ab67706f000000028663be06e69f49628cf83a56",
+                        "width": null,
+                        "height": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              "owner": {
+                "name": "Spotify",
+                "uri": "spotify:user:spotify",
+                "username": "spotify"
+              }
+            }
+          }
+        ]
+      },
+      "tracks": {
+        "totalCount": 1000,
+        "items": [
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:2HjigUJ8MyCVTSLfaopIXd",
+              "id": "2HjigUJ8MyCVTSLfaopIXd",
+              "name": "Drake Revolucionário",
+              "albumOfTrack": {
+                "uri": "spotify:album:0ygGW68qMo4opA8BFCu5dg",
+                "name": "Drake Revolucionário",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e023efc62f0360c8d80664f95f8",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048513efc62f0360c8d80664f95f8",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2733efc62f0360c8d80664f95f8",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "0ygGW68qMo4opA8BFCu5dg"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:21ELc2P2rA3Cu6xw3VWqvv",
+                    "profile": { "name": "Mc Kadu" }
+                  },
+                  {
+                    "uri": "spotify:artist:3bpbNht7qJCmPo8sjVF3tA",
+                    "profile": { "name": "Mc Kanhoto" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 167160 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:2oRqU8CVBhp8ZAwaikwoCW",
+              "id": "2oRqU8CVBhp8ZAwaikwoCW",
+              "name": "Desce Aí (Flow Drake)",
+              "albumOfTrack": {
+                "uri": "spotify:album:2aYuVO6GqSpFokJTuWoSiI",
+                "name": "Desce Aí (Flow Drake)",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e02caff790b8c823e7e73ff6783",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00004851caff790b8c823e7e73ff6783",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b273caff790b8c823e7e73ff6783",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "2aYuVO6GqSpFokJTuWoSiI"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:27azwwkxutWL1BWMkgNIh0",
+                    "profile": { "name": "Vulgo FK" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 210485 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:6DCZcSspjsKoFjzjrWoCdn",
+              "id": "6DCZcSspjsKoFjzjrWoCdn",
+              "name": "God's Plan",
+              "albumOfTrack": {
+                "uri": "spotify:album:1ATL5GLyefJaxhQzSPVrLX",
+                "name": "Scorpion",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e02f907de96b9a4fbc04accc0d5",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00004851f907de96b9a4fbc04accc0d5",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b273f907de96b9a4fbc04accc0d5",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "1ATL5GLyefJaxhQzSPVrLX"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 198973 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:1zi7xx7UVEFkmKfv06H8x0",
+              "id": "1zi7xx7UVEFkmKfv06H8x0",
+              "name": "One Dance",
+              "albumOfTrack": {
+                "uri": "spotify:album:40GMAhriYJRO1rsY4YdrZb",
+                "name": "Views",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e029416ed64daf84936d89e671c",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048519416ed64daf84936d89e671c",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2739416ed64daf84936d89e671c",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "40GMAhriYJRO1rsY4YdrZb"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  },
+                  {
+                    "uri": "spotify:artist:3tVQdUvClmAT7URs9V3rsp",
+                    "profile": { "name": "WizKid" }
+                  },
+                  {
+                    "uri": "spotify:artist:77DAFfvm3O9zT5dIoG0eIO",
+                    "profile": { "name": "Kyla" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "NONE" },
+              "duration": { "totalMilliseconds": 173986 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:6XHVuErjQ4XNm6nDPVCxVX",
+              "id": "6XHVuErjQ4XNm6nDPVCxVX",
+              "name": "No Guidance (feat. Drake)",
+              "albumOfTrack": {
+                "uri": "spotify:album:1BfLzaTFI5qKsAAk0Ae6aV",
+                "name": "Indigo",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e029e588b0c2afe8178b2b76231",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048519e588b0c2afe8178b2b76231",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2739e588b0c2afe8178b2b76231",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "1BfLzaTFI5qKsAAk0Ae6aV"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:7bXgB6jMjp9ATFy66eO08Z",
+                    "profile": { "name": "Chris Brown" }
+                  },
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 260640 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:127QTOFJsJQp5LbJbu3A1y",
+              "id": "127QTOFJsJQp5LbJbu3A1y",
+              "name": "Toosie Slide",
+              "albumOfTrack": {
+                "uri": "spotify:album:3xIwVbGJuAcovYIhzbLO3J",
+                "name": "Toosie Slide",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e026443676b54522a86f6323e65",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048516443676b54522a86f6323e65",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2736443676b54522a86f6323e65",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "3xIwVbGJuAcovYIhzbLO3J"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 247058 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:40iJIUlhi6renaREYGeIDS",
+              "id": "40iJIUlhi6renaREYGeIDS",
+              "name": "Fair Trade (with Travis Scott)",
+              "albumOfTrack": {
+                "uri": "spotify:album:3SpBlxme9WbeQdI9kx7KAV",
+                "name": "Certified Lover Boy",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e02cd945b4e3de57edd28481a3f",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00004851cd945b4e3de57edd28481a3f",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b273cd945b4e3de57edd28481a3f",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "3SpBlxme9WbeQdI9kx7KAV"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  },
+                  {
+                    "uri": "spotify:artist:0Y5tJX1MQlPlqiwlOH1tJY",
+                    "profile": { "name": "Travis Scott" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 291175 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:5yY9lUy8nbvjM1Uyo1Uqoc",
+              "id": "5yY9lUy8nbvjM1Uyo1Uqoc",
+              "name": "Life Is Good (feat. Drake)",
+              "albumOfTrack": {
+                "uri": "spotify:album:5uCEoLCj3ZZZ1EtzQdQWVl",
+                "name": "Life Is Good (feat. Drake)",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e028a01c7b77a34378a62f46402",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048518a01c7b77a34378a62f46402",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2738a01c7b77a34378a62f46402",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "5uCEoLCj3ZZZ1EtzQdQWVl"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:1RyvyyTE3xzB2ZywiAwp0i",
+                    "profile": { "name": "Future" }
+                  },
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 237735 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:0wwPcA6wtMf6HUMpIRdeP7",
+              "id": "0wwPcA6wtMf6HUMpIRdeP7",
+              "name": "Hotline Bling",
+              "albumOfTrack": {
+                "uri": "spotify:album:40GMAhriYJRO1rsY4YdrZb",
+                "name": "Views",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e029416ed64daf84936d89e671c",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d000048519416ed64daf84936d89e671c",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b2739416ed64daf84936d89e671c",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "40GMAhriYJRO1rsY4YdrZb"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "NONE" },
+              "duration": { "totalMilliseconds": 267066 },
+              "playability": { "playable": true }
+            }
+          },
+          {
+            "data": {
+              "__typename": "Track",
+              "uri": "spotify:track:72TFWvU3wUYdUuxejTTIzt",
+              "id": "72TFWvU3wUYdUuxejTTIzt",
+              "name": "Work",
+              "albumOfTrack": {
+                "uri": "spotify:album:4UlGauD7ROb3YbVOFMgW5u",
+                "name": "ANTI (Deluxe)",
+                "coverArt": {
+                  "sources": [
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d00001e0233c6b920eabcf4c00d7a1093",
+                      "width": 300,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000485133c6b920eabcf4c00d7a1093",
+                      "width": 64,
+                      "height": 64
+                    },
+                    {
+                      "url": "https://i.scdn.co/image/ab67616d0000b27333c6b920eabcf4c00d7a1093",
+                      "width": 640,
+                      "height": 640
+                    }
+                  ]
+                },
+                "id": "4UlGauD7ROb3YbVOFMgW5u"
+              },
+              "artists": {
+                "items": [
+                  {
+                    "uri": "spotify:artist:5pKCCKE2ajJHZ9KAiaK11H",
+                    "profile": { "name": "Rihanna" }
+                  },
+                  {
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+                    "profile": { "name": "Drake" }
+                  }
+                ]
+              },
+              "contentRating": { "label": "EXPLICIT" },
+              "duration": { "totalMilliseconds": 219320 },
+              "playability": { "playable": true }
+            }
+          }
+        ]
+      },
+      "users": {
+        "totalCount": 1000,
+        "items": [
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:drake",
+              "id": "drake",
+              "displayName": "Drake",
+              "username": "drake",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b8270dd928d108eab4eba7caf3b",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee8570dd928d108eab4eba7caf3b"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:760igcx8rlxgzn7zp9jkgjghd",
+              "id": "760igcx8rlxgzn7zp9jkgjghd",
+              "displayName": "Drake",
+              "username": "760igcx8rlxgzn7zp9jkgjghd",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b82a3529ee002b1c56d99659981",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee85a3529ee002b1c56d99659981"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:clairedrake989898",
+              "id": "clairedrake989898",
+              "displayName": "Claire Drake",
+              "username": "clairedrake989898",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b8229d8983839b086e55649ae05",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee8529d8983839b086e55649ae05"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:jk9ugyoifvxy5r6x4r4r6ack3",
+              "id": "jk9ugyoifvxy5r6x4r4r6ack3",
+              "displayName": "Drake's",
+              "username": "jk9ugyoifvxy5r6x4r4r6ack3",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b821fa51e2203647e54fa0258ea",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee851fa51e2203647e54fa0258ea"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:uuywgxrh2z43i0mm45rgxifcc",
+              "id": "uuywgxrh2z43i0mm45rgxifcc",
+              "displayName": "drake",
+              "username": "uuywgxrh2z43i0mm45rgxifcc",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b826261e98c66dd9842ec22f1c6",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee856261e98c66dd9842ec22f1c6"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:6my52vfexcd1wjr4y7y8tbft7",
+              "id": "6my52vfexcd1wjr4y7y8tbft7",
+              "displayName": "FW Drake Bonez",
+              "username": "6my52vfexcd1wjr4y7y8tbft7",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b82764431f961e09e0c46e43c46",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee85764431f961e09e0c46e43c46"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:phifedom",
+              "id": "phifedom",
+              "displayName": "Drake Phifer",
+              "username": "phifedom",
+              "image": {
+                "smallImageUrl": "https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-1/274756097_10161517370429167_3665686307067480558_n.jpg?stp=cp0_dst-jpg_p50x50&_nc_cat=110&ccb=1-5&_nc_sid=dbb9e7&_nc_ohc=jfPE3-N64Q4AX-soL2I&_nc_ht=scontent-iad3-2.xx&edm=AP4hL3IEAAAA&oh=00_AT_897TcVXtZOwUldQg92LfNrQVbDZ-1qdWbtysHDCI-iQ&oe=621EEBAE",
+                "largeImageUrl": "https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-1/274756097_10161517370429167_3665686307067480558_n.jpg?stp=dst-jpg_p320x320&_nc_cat=110&ccb=1-5&_nc_sid=0c64ff&_nc_ohc=jfPE3-N64Q4AX-soL2I&_nc_ht=scontent-iad3-2.xx&edm=AP4hL3IEAAAA&oh=00_AT8t2Evz_vifJ_EOhEt3EiC-oH6LEDmFGyZ7pidTpzQRlw&oe=621EEBAE"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:johntdrake",
+              "id": "johntdrake",
+              "displayName": "John Drake",
+              "username": "johntdrake",
+              "image": {
+                "smallImageUrl": "https://scontent-dfw5-1.xx.fbcdn.net/v/t1.6435-1/140999783_10112714973991991_7596033209510894442_n.jpg?stp=cp0_dst-jpg_p50x50&_nc_cat=105&ccb=1-5&_nc_sid=dbb9e7&_nc_ohc=b0Ac4fYYvfEAX8l7LQt&_nc_ht=scontent-dfw5-1.xx&edm=AP4hL3IEAAAA&oh=00_AT-Mmsl64zduVIZCcLhl5157suQPJLEsDojWB2TIOIYA0Q&oe=62415B06",
+                "largeImageUrl": "https://scontent-dfw5-1.xx.fbcdn.net/v/t1.6435-1/140999783_10112714973991991_7596033209510894442_n.jpg?stp=dst-jpg_p320x320&_nc_cat=105&ccb=1-5&_nc_sid=0c64ff&_nc_ohc=b0Ac4fYYvfEAX8l7LQt&_nc_ht=scontent-dfw5-1.xx&edm=AP4hL3IEAAAA&oh=00_AT_LM5HMxSecjAobLujelJfxIYmHLb1LLnYVNxWsBXxyJA&oe=62415B06"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:drakewhiteofficial",
+              "id": "drakewhiteofficial",
+              "displayName": "Drake White",
+              "username": "drakewhiteofficial",
+              "image": {
+                "smallImageUrl": "https://i.scdn.co/image/ab67757000003b8208374bca0aee91894800bc29",
+                "largeImageUrl": "https://i.scdn.co/image/ab6775700000ee8508374bca0aee91894800bc29"
+              }
+            }
+          },
+          {
+            "data": {
+              "__typename": "User",
+              "uri": "spotify:user:djrobertdrake",
+              "id": "djrobertdrake",
+              "displayName": "Robert Drake",
+              "username": "djrobertdrake",
+              "image": {
+                "smallImageUrl": "https://scontent-dfw5-1.xx.fbcdn.net/v/t1.6435-1/89978626_10222113714970955_7788429085373366272_n.jpg?stp=c0.2.50.50a_cp0_dst-jpg_p50x50&_nc_cat=101&ccb=1-5&_nc_sid=dbb9e7&_nc_ohc=p3T84Hmfe3oAX9ifYAO&_nc_ht=scontent-dfw5-1.xx&edm=AP4hL3IEAAAA&oh=00_AT8x-wMdNkJ1oPHD8_jO2BPirC1W5TfCHNoj2Run1tvRCA&oe=623FF31F",
+                "largeImageUrl": "https://scontent-dfw5-1.xx.fbcdn.net/v/t1.6435-1/89978626_10222113714970955_7788429085373366272_n.jpg?stp=c0.13.320.320a_dst-jpg_p320x320&_nc_cat=101&ccb=1-5&_nc_sid=0c64ff&_nc_ohc=p3T84Hmfe3oAX9ifYAO&_nc_ht=scontent-dfw5-1.xx&edm=AP4hL3IEAAAA&oh=00_AT_LVKtrV8zOUVmR-Xu1nypPFtodePOYMRyGb-NZ2PmmUQ&oe=623FF31F"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

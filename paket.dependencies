@@ -1,0 +1,7 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: net5.0, netstandard2.0, netstandard2.1
+nuget Giraffe 6.0.0-alpha-2 alpha
+nuget Http.fs 5.4.0
+nuget Neo4j.Driver 4.4.0

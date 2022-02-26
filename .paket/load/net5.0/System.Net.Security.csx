@@ -1,0 +1,11 @@
+
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Collections.Concurrent.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Claims.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Cryptography.Algorithms.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Cryptography.Encoding.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Cryptography.OpenSsl.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Cryptography.Primitives.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Cryptography.X509Certificates.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Security.Principal.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Threading.csx" 
+#load "/home/davi/gits/FeatOfDistance/.paket/load/net5.0/System.Threading.ThreadPool.csx" 
