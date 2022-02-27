@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "FeatsOfDistance.App/1.0.0": {
         "dependencies": {
+          "FSharp.Data": "4.2.7",
           "Giraffe": "6.0.0-alpha-2",
           "Http.fs": "5.4.0",
           "Neo4j.Driver": "4.4.0"
@@ -62,6 +63,17 @@
           },
           "lib/netstandard2.1/zh-Hant/FSharp.Core.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "FSharp.Data/4.2.7": {
+        "dependencies": {
+          "FSharp.Core": "6.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Data.dll": {
+            "assemblyVersion": "4.2.7.0",
+            "fileVersion": "4.2.7.0"
           }
         }
       },
@@ -1031,6 +1043,13 @@
       "sha512": "sha512-VrFAiW8dEEekk+0aqlbvMNZzDvYXmgWZwAt68AUBqaWK8RnoEVUNglj66bZzhs4/U63q0EfXlhcEKnH1sTYLjw==",
       "path": "fsharp.core/6.0.1",
       "hashPath": "fsharp.core.6.0.1.nupkg.sha512"
+    },
+    "FSharp.Data/4.2.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gQO0u0q1z9wXOkSmL7TVQLspAGR/S2Vm3CDPStEHCcTQyivkgoZie0IsB2Zyl2inC+hmQa/jcVQNQjo7XB7Ujg==",
+      "path": "fsharp.data/4.2.7",
+      "hashPath": "fsharp.data.4.2.7.nupkg.sha512"
     },
     "Giraffe/6.0.0-alpha-2": {
       "type": "package",

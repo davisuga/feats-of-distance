@@ -41,6 +41,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "FSharp.Data": {
+              "target": "Package",
+              "version": "[4.2.7, )",
+              "generatePathProperty": true
+            },
             "Giraffe": {
               "target": "Package",
               "version": "[6.0.0-alpha-2, )",

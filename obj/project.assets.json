@@ -59,6 +59,18 @@
           }
         }
       },
+      "FSharp.Data/4.2.7": {
+        "type": "package",
+        "dependencies": {
+          "FSharp.Core": "4.7.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/FSharp.Data.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FSharp.Data.dll": {}
+        }
+      },
       "Giraffe/6.0.0-alpha-2": {
         "type": "package",
         "dependencies": {
@@ -1751,6 +1763,23 @@
         "lib/netstandard2.1/tr/FSharp.Core.resources.dll",
         "lib/netstandard2.1/zh-Hans/FSharp.Core.resources.dll",
         "lib/netstandard2.1/zh-Hant/FSharp.Core.resources.dll"
+      ]
+    },
+    "FSharp.Data/4.2.7": {
+      "sha512": "gQO0u0q1z9wXOkSmL7TVQLspAGR/S2Vm3CDPStEHCcTQyivkgoZie0IsB2Zyl2inC+hmQa/jcVQNQjo7XB7Ujg==",
+      "type": "package",
+      "path": "fsharp.data/4.2.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fsharp.data.4.2.7.nupkg.sha512",
+        "fsharp.data.nuspec",
+        "lib/netstandard2.0/FSharp.Data.dll",
+        "lib/netstandard2.0/FSharp.Data.xml.zip",
+        "logo.png",
+        "paket-installmodel.cache",
+        "typeproviders/fsharp41/netstandard2.0/FSharp.Data.DesignTime.deps.json",
+        "typeproviders/fsharp41/netstandard2.0/FSharp.Data.DesignTime.dll"
       ]
     },
     "Giraffe/6.0.0-alpha-2": {
@@ -5851,6 +5880,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "FSharp.Data >= 4.2.7",
       "Giraffe >= 6.0.0-alpha-2",
       "Http.fs >= 5.4.0",
       "Neo4j.Driver >= 4.4.0"
@@ -5896,6 +5926,11 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "FSharp.Data": {
+            "target": "Package",
+            "version": "[4.2.7, )",
+            "generatePathProperty": true
+          },
           "Giraffe": {
             "target": "Package",
             "version": "[6.0.0-alpha-2, )",

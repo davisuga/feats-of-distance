@@ -10,6 +10,9 @@
         <PackageReference Include="FSharp.Core">
             <Version>6.0.3</Version>
         </PackageReference>
+        <PackageReference Include="FSharp.Data">
+            <Version>4.2.7</Version>
+        </PackageReference>
         <PackageReference Include="Giraffe">
             <Version>6.0.0-alpha-2</Version>
         </PackageReference>

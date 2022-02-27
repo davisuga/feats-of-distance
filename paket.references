@@ -1,3 +1,4 @@
 Neo4j.Driver
 Http.fs
 Giraffe
+FSharp.Data

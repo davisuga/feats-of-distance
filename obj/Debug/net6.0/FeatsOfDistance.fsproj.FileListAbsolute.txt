@@ -44,3 +44,4 @@
 /home/davi/gits/FeatOfDistance/bin/Debug/net6.0/Neo4j.Driver.dll
 /home/davi/gits/FeatOfDistance/obj/Debug/net6.0/FeatsOfDistance.fsproj.SuggestedBindingRedirects.cache
 /home/davi/gits/FeatOfDistance/obj/Debug/net6.0/FeatsOfDistance.App.dll.config
+/home/davi/gits/FeatOfDistance/bin/Debug/net6.0/FSharp.Data.dll
