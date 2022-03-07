@@ -1,5 +1,17 @@
 {
   "deno.enable": true,
   "deno.lint": true,
-  "deno.unstable": true
+  "deno.unstable": true,
+  "editor.tokenColorCustomizations": {
+    "[Omni Owl (Minimal Italics)]": {
+      "textMateRules": [
+        {
+          "scope": "entity.name.function",
+          "settings": {
+            "foreground": "#67E480"
+          }
+        }
+      ]
+    }
+  }
 }

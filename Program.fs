@@ -11,6 +11,8 @@ open FSharp.Data
 open System.Web
 type Author = { name : string; img: string; id: string }
 open System.Reflection
+open System.IO
+open System.Text.RegularExpressions
 
 
 let toQueryString x =
@@ -59,14 +61,34 @@ let defaultSearchOptions = {
     offset =  1
 }
 
-let defaultExtensionsQ = """{"persistedQuery":{"version":1,"sha256Hash":"9542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd"}}"""
+type TokenResponse = {
+    token: string;
+    captures: string;
+    source: string
+}
 
-let headers =[
+let defaultExtensionsQ = """{"persistedQuery":{"version":1,"sha256Hash":"9542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd"}}"""
+let getTokenFromHtml (html: string) =
+    let groups = Seq.map (fun (x: Group) -> x.Value) (Regex.Match(            html,
+            "accessToken\":\"(.+?)\"").Groups.Values) |> Seq.fold (+) ""
+    {
+        token = groups.Replace("accessToken\":\"", "").Replace("\",\"", "")
+        captures = groups
+        source = html
+    }
+
+let newToken _ =
+    Request.createUrl Get ("https://open.spotify.com")
+    |> Request.setHeader (Custom     ("user-agent","Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"))
+    |> Request.responseAsString
+    |> run
+    |> getTokenFromHtml
+
+let headers = [
     ["authority";"api-partner.spotify.com"];
     ["sec-ch-ua";""" "Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98" """];
     ["accept-language";"en"];
     ["sec-ch-ua-mobile";"?0"];
-    ["authorization";"Bearer BQAieFDBSjrHDa2esukrw2nu8MHKJiJ2AHjDkjILA8O_lp22ETm68eDF1ycJ6-oR5pKjX16d5n3-ADo1l_4"];
     // ["content-type";"application/json;charset=UTF-8"];
     ["accept";"application/json"];
     ["user-agent";"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36"];
@@ -90,6 +112,9 @@ let rec composeHeaders  headers req =
 
 let headerList =  makeHeadersFromList headers
 
+let addTokenPrefix token =
+    let tokenPrefix = "Bearer "
+    in tokenPrefix + token
 
 let searchDesktop name  =
     Request.createUrl Get ("https://api-partner.spotify.com/pathfinder/v1/query?operationName=searchDesktop&variables=%7B%22searchTerm%22%3A%22"+name+"%22%2C%22offset%22%3A0%2C%22limit%22%3A10%2C%22numberOfTopResults%22%3A5%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%229542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd%22%7D%7D")
@@ -105,10 +130,13 @@ let queryArtistDiscographyAlbums artistID =
     |> composeHeaders headerList
     |> Request.responseAsString
 
+let reqQueryAlbumTracks albumID additionalHeaders = 
+    Request.createUrl Get ("https://api-partner.spotify.com/pathfinder/v1/query?operationName=queryAlbumTracks&variables=%7B%22uri%22%3A%22spotify%3Aalbum%3A"+albumID+"%22,%22offset%22%3A0,%22limit%22%3A300%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1,%22sha256Hash%22%3A%223ea563e1d68f486d8df30f69de9dcedae74c77e684b889ba7408c589d30f7f2e%22%7D%7D")
+    |> composeHeaders (List.append headerList  additionalHeaders)
+
 
 let queryAlbumTracks albumID = 
-    Request.createUrl Get ("https://api-partner.spotify.com/pathfinder/v1/query?operationName=queryAlbumTracks&variables=%7B%22uri%22%3A%22spotify%3Aalbum%3A"+albumID+"%22,%22offset%22%3A0,%22limit%22%3A300%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1,%22sha256Hash%22%3A%223ea563e1d68f486d8df30f69de9dcedae74c77e684b889ba7408c589d30f7f2e%22%7D%7D")
-    |> composeHeaders headerList
+    reqQueryAlbumTracks albumID []
     |> Request.responseAsString
 
 let getIdFromURI (s: string)  = s.Split(":")[2]
@@ -148,6 +176,63 @@ let dbConn _ =
     let driver = GraphDatabase.Driver("neo4j://localhost:7687", AuthTokens.Basic("neo4j", "BpWilDx5Ox3wG8NS9OI9FB-F9zYCGmSjJ3aMyOZLTKw"))
     driver.AsyncSession(fun o -> o.WithDatabase("neo4j") |> ignore)
 
+
+
+let flip f x y = f y x
+
+let logInfo (info: string) =
+    Console.WriteLine(info)
+    File.AppendAllText("logs.log", $"{DateTime.Now}: {info}\n")
+
+let getJobResponse req = 
+    job {
+                    
+                    use! response = getResponse req
+                    return response
+    }
+
+let rec tryQueryAlbumTracks requestHeaders id =
+        try
+            let res = getJobResponse (reqQueryAlbumTracks id requestHeaders ) |> run
+            match res.statusCode with 
+                    | 200 ->  
+                        logInfo $"200 with id {id}"
+                        res |> Response.readBodyAsString |> run |> QueryAlbumTracks.Parse |> Ok 
+                    | 401 -> 
+                        logInfo $"401 with id {id}"
+                        tryQueryAlbumTracks  [Custom ("authorization", addTokenPrefix(newToken().token))] id
+                    | 429 | _ -> 
+                        logInfo $"429 with id {id}"
+                        System.Threading.Thread.Sleep 100
+                        tryQueryAlbumTracks  [] id
+        with ex ->
+          Error $"Error {ex.ToString()} with {id}"
+
+let getTracks (a:QueryAlbumTracks.Root) = a.Data.Album.Tracks.Items
+
+let tracePipe message = tap (fun a -> message + " " + a.ToString())
+
+let searchTracksForAlbum (album: QueryArtistDiscographyAlbums.Root) =   
+    album.Data.Artist.Discography.Albums.Items
+    |> Array.Parallel.collect(fun a -> a.Releases.Items )
+    // |> Array.Parallel.map( fun y ->  File.WriteAllText("albums_2"+y.Uri, y.ToString()) |> ignore |> (fun _ -> y))
+    |> Array.Parallel.map(fun a -> a.Id )
+    |> tracePipe "Got ids"
+    |> Array.Parallel.map(tryQueryAlbumTracks [])
+    |> tracePipe "tryQueryAlbumTracks"
+    |> Array.Parallel.collect (fun a -> match a with
+                                        | Ok x -> getTracks x
+                                        | Error e -> 
+                                        
+                                        File.AppendAllText("errors", e.ToString())
+                                        [||]
+                                )
+    |> Array.Parallel.map( fun y ->  File.WriteAllText("tracks/"+y.Track.Uri, y.ToString()) |> ignore |> (fun _ -> y.ToString()))
+
+let readDiscographies dir = 
+    Directory.GetFiles(dir, "*.json")
+    |> Array.Parallel.map (QueryArtistDiscographyAlbums.Load)
+    |> Array.Parallel.map searchTracksForAlbum
 
 let tops = [|
     "Drake";
@@ -1171,18 +1256,31 @@ let sayHelloWorld next (ctx: HttpContext) =
             let tasks = Seq.map(fun x -> insertArtist(x),tops)
             return! text "" next ctx    
         }
+
+let readArtists dir = 
+    Directory.GetFiles(dir, "*.json") 
+         
+        |>  Array.Parallel.map (SearchDesktop.Load)
+        |> Array.Parallel.map (fun x -> x.Data.SearchV2.Artists.Items[0].Data.Uri 
+                                        |> getIdFromURI 
+                                        |> queryArtistDiscographyAlbums 
+                                        |> run 
+                                        |> QueryArtistDiscographyAlbums.Parse 
+                                        |> tap(fun y -> File.WriteAllText(x.Data.SearchV2.Artists.Items[0].Data.Uri, y.ToString()))) 
+
+
 let doMagic next (ctx: HttpContext) =
         task {
-            let artists = Array.Parallel.map(artistByName) tops |> Seq.filter(isOk) |> Seq.map(unwrapResult) 
+            // let artists = Array.Parallel.map(artistByName) tops |> Seq.filter(isOk) |> Seq.map(unwrapResult) 
             
-            Console.WriteLine(artists)
-            let ids = Seq.map(fun (x: SearchDesktop.Data3) -> getIdFromURI(x.Uri ) ) artists 
-            Console.WriteLine(ids)
-            
+            // Console.WriteLine(artists)
+            // let ids = Seq.map(fun (x: SearchDesktop.Data3) -> getIdFromURI(x.Uri ) ) artists 
+            // Console.WriteLine(ids)
+            let tracks = readDiscographies "/home/davi/gits/FeatOfDistance/discography"
             // let tasks = Array.map(fun x -> insertArtist(x).Wait().ToString()  ,tops) 
             // Console.WriteLine(tasks)
 
-            return! json ids next ctx
+            return! json tracks next ctx
         }
 let searchArtist next (ctx: HttpContext) =
         task {
@@ -1206,6 +1304,7 @@ let webApp =
         route "/search" >=> makeQueryHandler searchDesktop
         route "/album" >=> makeQueryHandler queryAlbumTracks
         route "/artist" >=> makeQueryHandler queryArtistDiscographyAlbums
+        route "/token" >=> text (newToken().ToString())
         route "/"       >=> text "It works!"]
 
 
