@@ -1,0 +1,4 @@
+(executable
+ (public_name featsOfDistance)
+ (name main)
+ (libraries featsOfDistance))

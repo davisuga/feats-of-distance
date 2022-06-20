@@ -1,0 +1,10 @@
+(library
+ (libraries cohttp cohttp-lwt-unix uri)
+ (name featsOfDistance)
+ (preprocess
+  (pps ppx_yojson_conv ppx_deriving.show)))
+
+(env
+ (dev
+  (flags
+   (:standard -w -66-30))))

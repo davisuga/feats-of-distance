@@ -1,0 +1,1 @@
+let () = FeatsOfDistance.Main.test ()
