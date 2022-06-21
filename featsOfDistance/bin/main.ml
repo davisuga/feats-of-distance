@@ -1,1 +1,1 @@
-let () = FeatsOfDistance.Main.test ()
+let () = FeatsOfDistance.Main.test () |> Lwt_main.run
