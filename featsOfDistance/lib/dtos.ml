@@ -123,8 +123,8 @@ and data_query_artist_discography_overview_artist = {
 and fluffy_discography = {
   albums : all_class;
   singles : all_class;
-  compilations : all_class;
-  all : all_class;
+      (* compilations : all_class; *)
+      (* all : all_class; *)
 }
 [@@yojson.allow_extra_fields]
 
