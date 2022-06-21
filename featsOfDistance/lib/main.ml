@@ -10,28 +10,94 @@ let uri =
 
 open Lwt.Syntax
 
+module type SpotifyQuery = sig
+  val operationName : string
+
+  module Result : sig
+    type t
+
+    val from_yojson : Yojson.Safe.t -> t
+    val to_yojson : t -> Yojson.Safe.t
+  end
+
+  module Variables : sig
+    type t
+
+    val create : string -> t
+    val pp : Format.formatter -> t -> unit
+    val show : t -> string
+    val from_yojson : Yojson.Safe.t -> t
+    val to_yojson : t -> Yojson.Safe.t
+  end
+end
+
+module SearchDesktop = struct
+  let operationName = "searchDesktop"
+
+  module Result = struct
+    type t = Dtos.search_desktop
+
+    let from_yojson = Dtos.search_desktop_of_yojson
+    let to_yojson = Dtos.yojson_of_search_desktop
+  end
+
+  module Variables = struct
+    type t = {
+      searchTerm : string;
+      offset : int;
+      limit : int;
+      numberOfTopResults : int;
+    }
+    [@@deriving yojson, show]
+
+    let default =
+      { searchTerm = "drake"; offset = 0; limit = 1; numberOfTopResults = 5 }
+
+    let from_yojson = t_of_yojson
+    let to_yojson = yojson_of_t
+  end
+end
+
+module ArtistOverview = struct
+  let operationName = "queryArtistOverview"
+
+  module Result = struct
+    type t = Dtos.query_artist_discography_overview
+
+    let from_yojson = Dtos.query_artist_discography_overview_of_yojson
+    let to_yojson = Dtos.yojson_of_query_artist_discography_overview
+  end
+
+  module Variables = struct
+    type t = { uri : string } [@@deriving yojson, show]
+
+    let default = { uri = "" }
+    let from_yojson = t_of_yojson
+    let to_yojson = yojson_of_t
+  end
+end
+
+module AlbumTracks = struct
+  let operationName = "queryAlbumTracks"
+
+  module Result = struct
+    type t = Dtos.query_album_tracks
+
+    let from_yojson = Dtos.query_album_tracks_of_yojson
+    let to_yojson = Dtos.yojson_of_query_album_tracks
+  end
+
+  module Variables = struct
+    type t = { uri : string; offset : int; limit : int }
+    [@@deriving yojson, show]
+
+    let default = { uri = ""; offset = 0; limit = 100 }
+    let from_yojson = t_of_yojson
+    let to_yojson = yojson_of_t
+  end
+end
+
 module Http = struct
-  type search_variables = {
-    searchTerm : string;
-    offset : int;
-    limit : int;
-    numberOfTopResults : int;
-  }
-  [@@deriving yojson, show]
-
-  type query_artist_overview_variables = { uri : string }
-  [@@deriving yojson, show]
-
-  type query_artist_discography_albums_variables = {
-    uri : string;
-    offset : int;
-    limit : int;
-  }
-  [@@deriving yojson, show]
-
-  type queryAlbumTracksVariables = query_artist_discography_albums_variables
-  [@@deriving yojson, show]
-
   let base_headers =
     [
       ("content-type", "application/json;charset=UTF-8");
@@ -80,29 +146,43 @@ module Http = struct
   let query_uri =
     Uri.of_string "https://api-partner.spotify.com/pathfinder/v1/query"
 
-  type variables_get_album_tracks = { uri : string; offset : int; limit : int }
-
-  let variables_default =
-    { searchTerm = ""; offset = 0; limit = 1; numberOfTopResults = 5 }
-
-  let searchTerm ?token term =
+  (* let trace msg any =
+     Printf. msg;
+     any *)
+  let querySpotify ?token variables to_yojson from_yojson operation_name =
     let* token =
       if Option.is_some token then Lwt.return (Option.get token)
       else new_token ()
     in
+    let parsed_variables = variables |> to_yojson |> Yojson.Safe.to_string in
     let params =
       [
-        ( "variables",
-          { variables_default with searchTerm = term }
-          |> yojson_of_search_variables |> Yojson.Safe.to_string );
-        ("operationName", "searchDesktop");
+        ("operationName", operation_name);
+        ("variables", parsed_variables);
         ("extensions", extensions);
       ]
     in
     let headers = make_header_with_token token in
     let uri = Uri.add_query_params' query_uri params in
-    Client.get ~headers uri >>= string_of_body >|= Yojson.Safe.from_string
-    >|= Dtos.search_desktop_of_yojson
+    Printf.printf "uri: %s\n" (uri |> Uri.to_string);
+    Client.get ~headers uri >>= string_of_body
+    >|= (fun x ->
+          print_string x;
+          print_newline ();
+          x)
+    >|= Yojson.Safe.from_string >|= from_yojson
+
+  let searchTerm ~token term =
+    let open SearchDesktop in
+    querySpotify ~token
+      { Variables.default with searchTerm = term }
+      Variables.to_yojson Result.from_yojson operationName
+
+  let getArtistOverview ~token term =
+    let open ArtistOverview.Variables in
+    let open ArtistOverview in
+    querySpotify ~token { uri = term } Variables.to_yojson Result.from_yojson
+      operationName
 end
 
 module List = struct
@@ -114,9 +194,11 @@ end
 let test () =
   let* token = Http.new_token () in
   Printf.printf "New token: %s\n" token;
-  let+ searchResult = Http.searchTerm ~token "drake" in
+  let* searchResult = Http.searchTerm ~token "drake" in
   let open Yojson.Safe.Util in
   let artistId =
     (searchResult.data.searchV2.artists.items |> List.Pipe.nth 0).data.uri
   in
-  Printf.printf "Artist id: %s\n" artistId
+  Printf.printf "Artist id: %s\n" artistId;
+  let+ artistOverview = Http.getArtistOverview ~token artistId in
+  Printf.printf "Artist name: %s\n" artistOverview.data.artist.profile.name
