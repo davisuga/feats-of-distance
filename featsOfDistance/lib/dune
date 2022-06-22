@@ -1,5 +1,5 @@
 (library
- (libraries cohttp cohttp-lwt-unix uri)
+ (libraries redis redis-lwt cohttp cohttp-lwt-unix uri)
  (name featsOfDistance)
  (preprocess
   (pps ppx_yojson_conv ppx_deriving.show)))
