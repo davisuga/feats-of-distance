@@ -1,3 +1,5 @@
+include ArtistDiscographyDto
+
 type profile = { name : string } [@@yojson.allow_extra_fields]
 
 and purple_item = { uri : string; profile : profile }
@@ -120,8 +122,10 @@ and data_query_artist_discography_overview_artist = {
 }
 [@@yojson.allow_extra_fields]
 
+and all_albums = ArtistDiscographyDto.artist_discography
+
 and fluffy_discography = {
-  albums : all_class;
+  albums : ArtistDiscographyDto.artist_discography;
   singles : all_class;
       (* compilations : all_class; *)
       (* all : all_class; *)
@@ -176,7 +180,8 @@ and artist_item_data = {
 }
 [@@yojson.allow_extra_fields]
 
-and visuals = { avatarImage : cover_art } [@@yojson.allow_extra_fields]
+and visuals = { avatarImage : cover_art option [@yojson.option] }
+[@@yojson.allow_extra_fields]
 
 and episodes = { totalCount : int; items : episodes_item list }
 [@@yojson.allow_extra_fields]
