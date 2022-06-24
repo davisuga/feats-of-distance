@@ -94,8 +94,8 @@ module AlbumTracks = struct
     [@@deriving yojson, show]
 
     let default = { uri = ""; offset = 0; limit = 100 }
-    let from_yojson = t_of_yojson
-    let to_yojson = yojson_of_t
+    let from_yojson = yojson_of_t
+    let to_yojson = t_of_yojson
   end
 end
 
@@ -207,17 +207,18 @@ let save_artist_from_json ?(prefix = "") path =
   printf "saving %s\n\n" path;
   let artist_json =
     Yojson.Safe.from_file (prefix ^ path)
-    |> SearchDesktop.Result.from_yojson
-    (* |> (fun json ->
+    (* |> SearchDesktop.Result.from_yojson *)
+    |> (fun json ->
          try SearchDesktop.Result.from_yojson json
          with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
            failwith
-             (Printf.sprintf "Failed to parse %s. \n %s \n %s"
-                (Yojson.Safe.to_string json)
-                (Yojson.Safe.to_string t) (Printexc.to_string e))) *)
-    |> Result.map get_first_artist_from_search_result
-    |> get_ok_or (fun error ->
-           failwith ("Couldn't parse search result. " ^ error))
+             (Printf.sprintf "Failed to parse  \n %s \n %s"
+                (* (Yojson.Safe.to_string json) *)
+                (Yojson.Safe.to_string t)
+                (Printexc.to_string e)))
+    |> get_first_artist_from_search_result
+    (* |> get_ok_or (fun error ->
+           failwith ("Couldn't parse search result. " ^ error)) *)
   in
 
   Storage.Redis.run_cypher_query
@@ -237,7 +238,8 @@ let save_all path =
   in
   Sys.readdir path
   |> Array.map (save_artist_from_json ~prefix:path)
-  |> Array.map Lwt_main.run
+  |> (fun a -> Parmap.A a)
+  |> Parmap.parmap ~ncores:8 Lwt_main.run
 
 let test () =
   let _r = save_all "./jsons/" in
