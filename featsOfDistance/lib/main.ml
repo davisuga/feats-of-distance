@@ -33,6 +33,7 @@ end
 
 module SearchDesktop = struct
   let operationName = "searchDesktop"
+  let sha = "9542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd"
 
   module Result = struct
     type t = Dtos.search_desktop
@@ -60,6 +61,7 @@ end
 
 module ArtistOverview = struct
   let operationName = "queryArtistOverview"
+  let sha = "433e28d1e949372d3ca3aa6c47975cff428b5dc37b12f5325d9213accadf770a"
 
   module Result = struct
     type t = Dtos.query_artist_discography_overview
@@ -121,8 +123,8 @@ module Http = struct
       ("sec-ch-ua-mobile", "?0");
     ]
 
-  let extensions =
-    "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"9542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd\"}}"
+  let make_extension =
+    Printf.sprintf "{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"%s\"}}"
 
   let uri = Uri.of_string "https://open.spotify.com/"
 
@@ -149,7 +151,7 @@ module Http = struct
   (* let trace msg any =
      Printf. msg;
      any *)
-  let querySpotify ?token variables to_yojson from_yojson operation_name =
+  let querySpotify ?token variables to_yojson from_yojson operation_name sha =
     let* token =
       if Option.is_some token then Lwt.return (Option.get token)
       else new_token ()
@@ -159,7 +161,7 @@ module Http = struct
       [
         ("operationName", operation_name);
         ("variables", parsed_variables);
-        ("extensions", extensions);
+        ("extensions", make_extension sha);
       ]
     in
     let headers = make_header_with_token token in
@@ -176,29 +178,81 @@ module Http = struct
     let open SearchDesktop in
     querySpotify ~token
       { Variables.default with searchTerm = term }
-      Variables.to_yojson Result.from_yojson operationName
+      Variables.to_yojson Result.from_yojson operationName sha
 
   let getArtistOverview ~token term =
     let open ArtistOverview.Variables in
     let open ArtistOverview in
     querySpotify ~token { uri = term } Variables.to_yojson Result.from_yojson
-      operationName
+      operationName sha
 end
 
 module List = struct
   module Pipe = struct
     let nth = flip List.nth
   end
+
+  include List
 end
 
+let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
+  (searchResult.data.searchV2.artists.items |> List.Pipe.nth 0).data
+
+open Printf
+
+let get_ok_or fn result =
+  match result with Ok something -> something | Error e -> fn e
+
+let save_artist_from_json ?(prefix = "") path =
+  printf "saving %s\n\n" path;
+  let artist_json =
+    Yojson.Safe.from_file (prefix ^ path)
+    |> SearchDesktop.Result.from_yojson
+    (* |> (fun json ->
+         try SearchDesktop.Result.from_yojson json
+         with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
+           failwith
+             (Printf.sprintf "Failed to parse %s. \n %s \n %s"
+                (Yojson.Safe.to_string json)
+                (Yojson.Safe.to_string t) (Printexc.to_string e))) *)
+    |> Result.map get_first_artist_from_search_result
+    |> get_ok_or (fun error ->
+           failwith ("Couldn't parse search result. " ^ error))
+  in
+
+  Storage.Redis.run_cypher_query
+    (Storage.Queries.create_artist
+       {
+         img =
+           (match artist_json.visuals.avatarImage with
+           | Some avatar -> (avatar.sources |> List.hd).url
+           | None -> "");
+         name = artist_json.profile.name;
+         id = artist_json.uri;
+       })
+
+let save_all path =
+  let _ =
+    Storage.Redis.run_cypher_query {|MATCH (n) DETACH DELETE n|} |> Lwt_main.run
+  in
+  Sys.readdir path
+  |> Array.map (save_artist_from_json ~prefix:path)
+  |> Array.map Lwt_main.run
+
 let test () =
+  let _r = save_all "./jsons/" in
   let* token = Http.new_token () in
   Printf.printf "New token: %s\n" token;
   let* searchResult = Http.searchTerm ~token "drake" in
   let open Yojson.Safe.Util in
-  let artistId =
-    (searchResult.data.searchV2.artists.items |> List.Pipe.nth 0).data.uri
-  in
+  let artistId = (get_first_artist_from_search_result searchResult).uri in
   Printf.printf "Artist id: %s\n" artistId;
+
   let+ artistOverview = Http.getArtistOverview ~token artistId in
-  Printf.printf "Artist name: %s\n" artistOverview.data.artist.profile.name
+  Printf.printf "Artist name: %s\n" artistOverview.data.artist.profile.name;
+  Printf.printf "Albums: %s"
+    (artistOverview.data.artist.discography.albums.items
+    |> Stdlib.List.map (fun item ->
+           let open ArtistDiscographyDto in
+           (item.releases.items |> Stdlib.List.hd).name)
+    |> String.concat ", ")
