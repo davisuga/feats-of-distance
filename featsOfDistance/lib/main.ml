@@ -132,9 +132,6 @@ module Http = struct
     Header.add_list (Header.init ())
       [ ("authorization", Printf.sprintf "Bearer %s" jwt) ]
 
-  let token =
-    "BQCBgcBCjj9PtkikMQw2wLEVSL8t6dVU6f0WTcB1Gp_Q5CburCDHr_UxagHwd3CQ3pctBPFRBw3Tuhipg0DiZn2lMoKYV3MJaJH2ned9be4-pu5o5qyD"
-
   let reg = "accessToken\":\"(.+?)\"" |> Re.Pcre.re |> Re.compile
   let string_of_body (_, body) = Cohttp_lwt.Body.to_string body
 
@@ -166,13 +163,15 @@ module Http = struct
     in
     let headers = make_header_with_token token in
     let uri = Uri.add_query_params' query_uri params in
-    Printf.printf "uri: %s\n" (uri |> Uri.to_string);
-    Client.get ~headers uri >>= string_of_body
-    >|= (fun x ->
+    (* Printf.printf "uri: %s\n" (uri |> Uri.to_string); *)
+    Client.get ~headers uri
+    >>= string_of_body
+    (* >|= (fun x ->
           print_string x;
           print_newline ();
-          x)
-    >|= Yojson.Safe.from_string >|= from_yojson
+          x) *)
+    >|= Yojson.Safe.from_string
+    >|= from_yojson
 
   let searchTerm ~token term =
     let open SearchDesktop in
@@ -203,76 +202,67 @@ open! Printf
 let get_ok_or fn result =
   match result with Ok something -> something | Error e -> fn e
 
+let try_parse_json_with ?(prefix = "") parse_yojson path =
+  try parse_yojson (Yojson.Safe.from_file (prefix ^ path))
+  with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
+    failwith
+      (Printf.sprintf "Failed to parse  \n %s \n %s" (Yojson.Safe.to_string t)
+         (Printexc.to_string e))
+
+let map_song_from_json (track_json : Dtos.genres_item) =
+  let open Models in
+  let artist_ids =
+    track_json.track.artists.items
+    |> List.map (fun (artist_item : Dtos.artist_track_item) ->
+           (artist_item.profile.name, artist_item.uri))
+  in
+  {
+    authors = artist_ids;
+    name = track_json.track.name;
+    id = track_json.track.uri;
+  }
+
+let map_artist_of_artist_json (artist_json : Dtos.artist_item_data) =
+  let open Models in
+  {
+    img =
+      (match artist_json.visuals.avatarImage with
+      | Some avatar -> Some (avatar.sources |> List.hd).url
+      | None -> None);
+    name = artist_json.profile.name;
+    id = artist_json.uri;
+  }
+
 let save_track_from_json ?(prefix = "") path =
   let track_json =
-    Yojson.Safe.from_file (prefix ^ path)
-    (* |> SearchDesktop.Result.from_yojson *)
-    |> fun json ->
-    try Dtos.genres_item_of_yojson json
-    with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
-      failwith
-        (Printf.sprintf "Failed to parse  \n %s \n %s"
-           (* (Yojson.Safe.to_string json) *)
-           (Yojson.Safe.to_string t)
-           (Printexc.to_string e))
-    (* |> get_ok_or (fun error ->
-           failwith ("Couldn't parse search result. " ^ error)) *)
+    try_parse_json_with Dtos.genres_item_of_yojson ~prefix path
   in
+
   if List.length track_json.track.artists.items = 1 then None
   else
-    let artist_ids =
-      track_json.track.artists.items
-      |> List.map (fun (artist_item : Dtos.artist_track_item) ->
-             (artist_item.profile.name, artist_item.uri))
-    in
-    Some
-      (Storage.Redis.run_cypher_query
-         (Storage.Queries.create_song
-            {
-              authors = artist_ids;
-              name = track_json.track.name;
-              id = track_json.track.uri;
-            }))
+    track_json
+    |> map_song_from_json
+    |> Storage.Queries.create_song
+    |> Storage.Redis.run_cypher_query
+    |> Option.some
 
 let save_artist_from_json ?(prefix = "") path =
-  let artist_json =
-    Yojson.Safe.from_file (prefix ^ path)
-    (* |> SearchDesktop.Result.from_yojson *)
-    |> (fun json ->
-         try SearchDesktop.Result.from_yojson json
-         with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
-           failwith
-             (Printf.sprintf "Failed to parse  \n %s \n %s"
-                (* (Yojson.Safe.to_string json) *)
-                (Yojson.Safe.to_string t)
-                (Printexc.to_string e)))
-    |> get_first_artist_from_search_result
-    (* |> get_ok_or (fun error ->
-           failwith ("Couldn't parse search result. " ^ error)) *)
-  in
-
-  Storage.Redis.run_cypher_query
-    (Storage.Queries.create_artist
-       {
-         img =
-           (match artist_json.visuals.avatarImage with
-           | Some avatar -> Some (avatar.sources |> List.hd).url
-           | None -> None);
-         name = artist_json.profile.name;
-         id = artist_json.uri;
-       })
+  try_parse_json_with SearchDesktop.Result.from_yojson ~prefix path
+  |> get_first_artist_from_search_result
+  |> map_artist_of_artist_json
+  |> Storage.Queries.create_artist
+  |> Storage.Redis.run_cypher_query
 
 let save_all_artists path =
   let _ = Storage.Redis.reset () |> Lwt_main.run in
-  Sys.readdir path |> Array.to_seq
-  (* |> (fun a -> Parany.Parmap.parmap a) *)
+  Sys.readdir path
+  |> Array.to_seq
   |> Seq.map (save_artist_from_json ~prefix:path)
 
 let save_all_tracks path =
   let _ = Storage.Redis.reset () |> Lwt_main.run in
-  Sys.readdir path |> Array.to_seq
-  (* |> Array.to_list *)
-  (* |> (fun a -> Parany.Parmap.parmap a) *)
+  Sys.readdir path
+  |> Array.to_seq
   |> Seq.filter_map (save_track_from_json ~prefix:path)
 
 let iter_run = Seq.iter (fun prms -> Lwt_main.run prms |> ignore)
@@ -284,18 +274,3 @@ let test () =
      in *)
   let _r = save_all_tracks "./tracks/" |> iter_run in
   Lwt.return_unit
-(* let* token = Http.new_token () in
-   Printf.printf "New token: %s\n" token;
-   let* searchResult = Http.searchTerm ~token "drake" in
-   let open Yojson.Safe.Util in
-   let artistId = (get_first_artist_from_search_result searchResult).uri in
-   Printf.printf "Artist id: %s\n" artistId;
-
-   let+ artistOverview = Http.getArtistOverview ~token artistId in
-   Printf.printf "Artist name: %s\n" artistOverview.data.artist.profile.name;
-   Printf.printf "Albums: %s"
-     (artistOverview.data.artist.discography.albums.items
-     |> Stdlib.List.map (fun item ->
-             let open ArtistDiscographyDto in
-             (item.releases.items |> Stdlib.List.hd).name)
-     |> String.concat ", ") *)
