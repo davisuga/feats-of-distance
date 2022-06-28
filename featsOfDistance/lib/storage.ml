@@ -34,7 +34,8 @@ module Queries = struct
     %s|}
       (song.authors |> List.map make_author_merging |> String.concat "\n")
       (String.escaped song.name) song.id
-      (song_authors |> List.map snd
+      (song_authors
+      |> List.map snd
       |> List.map (sprintf "MERGE (%s)-[:FEATURES_IN]->(song)")
       |> String.concat "\n")
 
