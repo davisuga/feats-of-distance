@@ -4,32 +4,59 @@ module Queries = struct
   open Printf
 
   let create_album (album : album) =
-    sprintf "CREATE (:Album {name: '%s', id: '%s', img: '%s' year: '%d'})"
+    sprintf {|CREATE (:Album {name: "%s", id: "%s", img: "%s" year: "%d"})|}
       album.name album.id album.cover_art_url album.year
 
   let create_artist artist =
-    sprintf "CREATE (:Author {name: '%s', id: '%s', img: '%s'})" artist.name
-      artist.id artist.img
+    sprintf {|CREATE (:Author {name: "%s", id: "%s", img: "%s"})|} artist.name
+      artist.id
+      (Option.value ~default:"" artist.img)
 
   (* let create_author_with_albums albums artist = 
      *)
-  let create_song = sprintf "CREATE (:Song {name: '%s', id: '%s'})"
+  let clean_spotify_uri = Str.global_replace (Str.regexp ":") ""
+
+  let make_author_merging (name, id) =
+    sprintf
+      {|MERGE (%s:Author {id: '%s', name: "%s"})
+    |}
+      (clean_spotify_uri id) id (String.escaped name)
+
+  let map_snd f (a, b) = (a, f b)
+  let snd (_, b) = b
+
+  let create_song (song : song) =
+    let song_authors = song.authors |> List.map (map_snd clean_spotify_uri) in
+
+    sprintf
+      {|%s
+    MERGE (song:Song {name: "%s", id: "%s"})
+    %s|}
+      (song.authors |> List.map make_author_merging |> String.concat "\n")
+      (String.escaped song.name) song.id
+      (song_authors |> List.map snd
+      |> List.map (sprintf "MERGE (%s)-[:FEATURES_IN]->(song)")
+      |> String.concat "\n")
+
+  let reset_db_query = {|MATCH (n) DETACH DELETE n|}
 end
 
 module Redis = struct
   open Redis_lwt
-  open! Lwt.Syntax
 
+  let ( let* ) = Lwt.bind
   let graph_db_name = "featsOfDistance"
-  let conn = Client.connect { host = "localhost"; port = 6379 } |> Lwt_main.run
-  let run = Client.send_request conn
+  let conn = Client.connect { host = "localhost"; port = 6379 }
+
+  let run args =
+    let* conn = conn in
+    Client.send_request conn args
 
   let run_cypher_query cy =
     Printf.printf "running %s\n\n" cy;
     run [ "GRAPH.QUERY"; graph_db_name; cy ]
 
-  let reset_db_query = {|MATCH (n) DETACH DELETE n|}
-  let reset () = run_cypher_query reset_db_query
+  let reset () = run_cypher_query Queries.reset_db_query
 
   let rec string_of_reply : Client.reply -> string = function
     | `Status s -> Printf.sprintf "(Status %s)" s
