@@ -6,7 +6,7 @@ type copyright_item = { typ : purple_type; [@key "type"] text : string }
 type copyright = { items : copyright_item list }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
-type source = { url : string; width : int; height : int }
+type source = { url : string; width : int option; height : int option }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
 type cover_art = { sources : source list }
