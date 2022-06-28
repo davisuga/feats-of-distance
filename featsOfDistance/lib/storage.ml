@@ -28,6 +28,9 @@ module Redis = struct
     Printf.printf "running %s\n\n" cy;
     run [ "GRAPH.QUERY"; graph_db_name; cy ]
 
+  let reset_db_query = {|MATCH (n) DETACH DELETE n|}
+  let reset () = run_cypher_query reset_db_query
+
   let rec string_of_reply : Client.reply -> string = function
     | `Status s -> Printf.sprintf "(Status %s)" s
     | `Moved { slot; host; port } ->
