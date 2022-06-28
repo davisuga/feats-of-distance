@@ -198,13 +198,43 @@ end
 let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
   (searchResult.data.searchV2.artists.items |> List.Pipe.nth 0).data
 
-open Printf
+open! Printf
 
 let get_ok_or fn result =
   match result with Ok something -> something | Error e -> fn e
 
+let save_track_from_json ?(prefix = "") path =
+  let track_json =
+    Yojson.Safe.from_file (prefix ^ path)
+    (* |> SearchDesktop.Result.from_yojson *)
+    |> fun json ->
+    try Dtos.genres_item_of_yojson json
+    with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
+      failwith
+        (Printf.sprintf "Failed to parse  \n %s \n %s"
+           (* (Yojson.Safe.to_string json) *)
+           (Yojson.Safe.to_string t)
+           (Printexc.to_string e))
+    (* |> get_ok_or (fun error ->
+           failwith ("Couldn't parse search result. " ^ error)) *)
+  in
+  if List.length track_json.track.artists.items = 1 then None
+  else
+    let artist_ids =
+      track_json.track.artists.items
+      |> List.map (fun (artist_item : Dtos.artist_track_item) ->
+             (artist_item.profile.name, artist_item.uri))
+    in
+    Some
+      (Storage.Redis.run_cypher_query
+         (Storage.Queries.create_song
+            {
+              authors = artist_ids;
+              name = track_json.track.name;
+              id = track_json.track.uri;
+            }))
+
 let save_artist_from_json ?(prefix = "") path =
-  printf "saving %s\n\n" path;
   let artist_json =
     Yojson.Safe.from_file (prefix ^ path)
     (* |> SearchDesktop.Result.from_yojson *)
@@ -226,35 +256,46 @@ let save_artist_from_json ?(prefix = "") path =
        {
          img =
            (match artist_json.visuals.avatarImage with
-           | Some avatar -> (avatar.sources |> List.hd).url
-           | None -> "");
+           | Some avatar -> Some (avatar.sources |> List.hd).url
+           | None -> None);
          name = artist_json.profile.name;
          id = artist_json.uri;
        })
 
-let save_all path =
-  let _ =
-    Storage.Redis.run_cypher_query {|MATCH (n) DETACH DELETE n|} |> Lwt_main.run
-  in
-  Sys.readdir path
-  |> Array.map (save_artist_from_json ~prefix:path)
-  |> (fun a -> Parmap.A a)
-  |> Parmap.parmap ~ncores:8 Lwt_main.run
+let save_all_artists path =
+  let _ = Storage.Redis.reset () |> Lwt_main.run in
+  Sys.readdir path |> Array.to_seq
+  (* |> (fun a -> Parany.Parmap.parmap a) *)
+  |> Seq.map (save_artist_from_json ~prefix:path)
+
+let save_all_tracks path =
+  let _ = Storage.Redis.reset () |> Lwt_main.run in
+  Sys.readdir path |> Array.to_seq
+  (* |> Array.to_list *)
+  (* |> (fun a -> Parany.Parmap.parmap a) *)
+  |> Seq.filter_map (save_track_from_json ~prefix:path)
+
+let iter_run = Seq.iter (fun prms -> Lwt_main.run prms |> ignore)
 
 let test () =
-  let _r = save_all "./jsons/" in
-  let* token = Http.new_token () in
-  Printf.printf "New token: %s\n" token;
-  let* searchResult = Http.searchTerm ~token "drake" in
-  let open Yojson.Safe.Util in
-  let artistId = (get_first_artist_from_search_result searchResult).uri in
-  Printf.printf "Artist id: %s\n" artistId;
+  (* let _r =
+       save_all_artists "./jsons/"
+       |> Seq.iter (fun prms -> Lwt_main.run prms |> ignore)
+     in *)
+  let _r = save_all_tracks "./tracks/" |> iter_run in
+  Lwt.return_unit
+(* let* token = Http.new_token () in
+   Printf.printf "New token: %s\n" token;
+   let* searchResult = Http.searchTerm ~token "drake" in
+   let open Yojson.Safe.Util in
+   let artistId = (get_first_artist_from_search_result searchResult).uri in
+   Printf.printf "Artist id: %s\n" artistId;
 
-  let+ artistOverview = Http.getArtistOverview ~token artistId in
-  Printf.printf "Artist name: %s\n" artistOverview.data.artist.profile.name;
-  Printf.printf "Albums: %s"
-    (artistOverview.data.artist.discography.albums.items
-    |> Stdlib.List.map (fun item ->
-           let open ArtistDiscographyDto in
-           (item.releases.items |> Stdlib.List.hd).name)
-    |> String.concat ", ")
+   let+ artistOverview = Http.getArtistOverview ~token artistId in
+   Printf.printf "Artist name: %s\n" artistOverview.data.artist.profile.name;
+   Printf.printf "Albums: %s"
+     (artistOverview.data.artist.discography.albums.items
+     |> Stdlib.List.map (fun item ->
+             let open ArtistDiscographyDto in
+             (item.releases.items |> Stdlib.List.hd).name)
+     |> String.concat ", ") *)
