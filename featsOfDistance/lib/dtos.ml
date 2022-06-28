@@ -14,10 +14,10 @@ type label = string [@@deriving yojson, show]
 type content_rating = { label : label }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
-type purple_item = { uri : string; profile : profile }
+type artist_track_item = { uri : string; profile : profile }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
-type track_artists = { items : purple_item list }
+type track_artists = { items : artist_track_item list }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
 type track = {
