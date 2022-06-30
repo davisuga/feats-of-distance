@@ -120,9 +120,30 @@ type reason = string
 type sharing_info = { shareId : string; shareUrl : string }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
+type discography_single_item_release_item = {
+  id : string;
+  uri : string;
+  name : string;
+}
+[@@deriving yojson, show] [@@yojson.allow_extra_fields]
+
+type discography_single_item_release = {
+  items : discography_single_item_release_item array;
+}
+[@@deriving yojson, show] [@@yojson.allow_extra_fields]
+
+type discography_single_item = { releases : discography_single_item_release }
+[@@deriving yojson, show] [@@yojson.allow_extra_fields]
+
+type discography_singles = {
+  totalCount : int;
+  items : discography_single_item list;
+}
+[@@deriving yojson, show] [@@yojson.allow_extra_fields]
+
 type fluffy_discography = {
   albums : ArtistDiscographyDto.artist_discography;
-  singles : all_class;
+  singles : discography_singles;
       (* compilations : all_class; *)
       (* all : all_class; *)
 }
