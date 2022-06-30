@@ -36,7 +36,7 @@ type releases_item = {
   name : string;
   typ : fluffy_type; [@key "type"]
   copyright : copyright;
-  date : date_class;
+  (* date : date_class; *)
   coverArt : cover_art;
   tracks : tracks;
   label : string;
@@ -53,6 +53,6 @@ type artist_discography_item = { releases : releases }
 
 type artist_discography = {
   totalCount : int;
-  items : artist_discography_item list;
+  items : artist_discography_item array;
 }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
