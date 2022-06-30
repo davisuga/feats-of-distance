@@ -26,7 +26,7 @@ module Queries = struct
       album.name album.id album.cover_art_url album.year
 
   let create_artist artist =
-    sprintf {|CREATE (:Author {name: "%s", id: "%s", img: "%s"})|} artist.name
+    sprintf {|MERGE (:Author {name: "%s", id: "%s", img: "%s"})|} artist.name
       artist.id
       (Option.value ~default:"" artist.img)
 
@@ -43,6 +43,9 @@ module Queries = struct
   let map_snd f (a, b) = (a, f b)
   let snd (_, b) = b
 
+  let seq_to_list (seq : 'a Seq.t) =
+    Seq.fold_left (fun acc seq_elem -> List.append acc [ seq_elem ]) [] seq
+
   let create_song (song : song) =
     let song_authors = song.authors |> List.map (map_snd clean_spotify_uri) in
 
@@ -54,7 +57,9 @@ module Queries = struct
       (String.escaped song.name) song.id
       (song_authors
       |> List.map snd
-      |> List.map (sprintf "MERGE (%s)-[:FEATURES_IN]->(song)")
+      |> List.map (fun uri ->
+             sprintf "MERGE (%s)-[:FEATURES_IN]->(song)-[:HAS_FEATURE]->(%s)"
+               uri uri)
       |> String.concat "\n")
 
   let reset_db_query = {|MATCH (n) DETACH DELETE n|}
@@ -71,10 +76,7 @@ module Redis = struct
     let* conn = conn in
     Client.send_request conn args
 
-  let run_cypher_query cy =
-    Printf.printf "running %s\n\n" cy;
-    run [ "GRAPH.QUERY"; graph_db_name; cy ]
-
+  let run_cypher_query cy = run [ "GRAPH.QUERY"; graph_db_name; cy ]
   let reset () = run_cypher_query Queries.reset_db_query
 
   let rec string_of_reply : Client.reply -> string = function
