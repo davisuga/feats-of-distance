@@ -175,11 +175,17 @@ let querySpotify ?token variables to_yojson from_yojson operation_name sha =
           bdy) *)
     >|= from_yojson
 
-let searchTerm ~token term =
+let searchTerm ?(token = default_token) term =
   let open SearchDesktop in
   querySpotify ~token
     { Variables.default with searchTerm = term }
     Variables.to_yojson Result.from_yojson operationName sha
+
+let search_artists ?(token = default_token) artist_name =
+  let+ result = searchTerm ~token artist_name in
+  result.data.searchV2.artists.items
+  |> Array.map (fun (i : Dtos.artist_item) ->
+         Domain.map_artist_of_artist_json i.data)
 
 let getArtistOverview ?(token = default_token) uri =
   let open ArtistOverview.Variables in
