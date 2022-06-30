@@ -196,7 +196,7 @@ type artist_item_data = {
 type artist_item = { data : artist_item_data }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
-type search_v2_artists = { totalCount : int; items : artist_item list }
+type search_v2_artists = { totalCount : int; items : artist_item array }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
 type release_date = { isoString : string; precision : string }
