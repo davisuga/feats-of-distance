@@ -163,8 +163,43 @@ let searchTerm ~token term =
     { Variables.default with searchTerm = term }
     Variables.to_yojson Result.from_yojson operationName sha
 
-let getArtistOverview ~token term =
+let getArtistOverview ?(token = default_token) uri =
   let open ArtistOverview.Variables in
   let open ArtistOverview in
-  querySpotify ~token { uri = term } Variables.to_yojson Result.from_yojson
+  querySpotify ~token { uri } Variables.to_yojson Result.from_yojson
     operationName sha
+
+let get_album_tracks ?(token = default_token) uri =
+  let open AlbumTracks.Variables in
+  let open AlbumTracks in
+  querySpotify ~token
+    { Variables.default with uri }
+    Variables.to_yojson Result.from_yojson operationName sha
+
+let get_album_ids_from_artist_overview
+    (overview : Dtos.query_artist_discography_overview) =
+  try
+    overview.data.artist.discography.albums.items.(0).releases.items
+    |> List.map (fun (album_data : ArtistDiscographyDto.releases_item) ->
+           album_data.uri)
+  with Invalid_argument _ ->
+    Printf.sprintf "data.artist.discography.albums.items.(0) is null: %s"
+      (ArtistDiscographyDto.show_artist_discography
+         overview.data.artist.discography.albums)
+    |> ignore;
+    []
+
+let get_singles_from_artist_overview
+    (overview : Dtos.query_artist_discography_overview) =
+  overview.data.artist.discography.singles.items
+  |> List.map (fun (single : Dtos.discography_single_item) ->
+         single.releases.items.(0).uri)
+
+let bimap_to_list (f1 : 'a -> 'b) (f2 : 'a -> 'b) a = List.append (f1 a) (f2 a)
+
+let get_albums_and_singles_by_artist_id ?(token = default_token) uid =
+  getArtistOverview ~token uid
+  >|= bimap_to_list get_album_ids_from_artist_overview
+        get_singles_from_artist_overview
+
+type boolean = True | False
