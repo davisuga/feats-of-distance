@@ -1,21 +1,17 @@
-open Utils
-open Http
+open! Utils
+open! Http
+open! Models
 
 let log m anything =
-  print_string m;
-  print_newline ();
-  anything
-
-module List = struct
-  module Pipe = struct
-    let nth = flip List.nth
-  end
-
-  include List
-end
+  if Option.is_some (Array.find_opt (fun arg -> arg = "--verbose") Sys.argv)
+  then (
+    print_string m;
+    print_newline ();
+    anything)
+  else anything
 
 let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
-  (searchResult.data.searchV2.artists.items |> List.Pipe.nth 0).data
+  searchResult.data.searchV2.artists.items.(0).data
 
 open! Printf
 
@@ -29,29 +25,7 @@ let try_parse_json_with ?(prefix = "") parse_yojson path =
       (Printf.sprintf "Failed to parse  \n %s \n %s" (Yojson.Safe.to_string t)
          (Printexc.to_string e))
 
-let map_song_from_json (track_json : Dtos.genres_item) =
-  let open Models in
-  let artist_ids =
-    track_json.track.artists.items
-    |> List.map (fun (artist_item : Dtos.artist_track_item) ->
-           (artist_item.profile.name, artist_item.uri))
-  in
-  {
-    authors = artist_ids;
-    name = track_json.track.name;
-    id = track_json.track.uri;
-  }
-
-let map_artist_of_artist_json (artist_json : Dtos.artist_item_data) =
-  let open Models in
-  {
-    img =
-      (match artist_json.visuals.avatarImage with
-      | Some avatar -> Some (avatar.sources |> List.hd).url
-      | None -> None);
-    name = artist_json.profile.name;
-    id = artist_json.uri;
-  }
+open Domain
 
 let save_track_from_json (track_json : Dtos.genres_item) =
   if List.length track_json.track.artists.items < 2 then None
@@ -78,7 +52,7 @@ let save_track_from_json_file ?(prefix = "") path =
     |> Option.some
 
 let save_artist_from_json ?(prefix = "") path =
-  try_parse_json_with SearchDesktop.Result.from_yojson ~prefix path
+  try_parse_json_with Http.SearchDesktop.Result.from_yojson ~prefix path
   |> get_first_artist_from_search_result
   |> map_artist_of_artist_json
   |> Storage.Queries.create_artist
@@ -98,9 +72,7 @@ open! Lwt.Syntax
 open Lwt.Infix
 
 let print_string_list = List.iter (Printf.printf "%s, ")
-let id a = a;;
-
-Parmap.debugging true
+let id a = a
 
 let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
   album_tracks.data.album.tracks.items
@@ -109,7 +81,7 @@ let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
   |> Lwt_list.map_s id
 
 let get_and_persist_album_tracks album_id =
-  get_album_tracks album_id
+  Http.get_album_tracks album_id
   |> log ("got album tracks for " ^ album_id)
   >>= persist_album_tracks_result
 
@@ -139,7 +111,7 @@ let parmap_lwt fn promise_list = parmap fn promise_list |> Lwt_list.map_s id
 let seq_parmap_lwt fn promise_list =
   seq_parmap fn promise_list >|= Lwt_seq.map_s id
 
-let persist_all_tracks_from_artist_id artist_id =
+let persist_all_tracks_from_artist_id_exn artist_id =
   artist_id
   |> Http.get_albums_and_singles_by_artist_id
   |> log ("got albums and singles by" ^ artist_id)
@@ -150,12 +122,34 @@ let persist_all_tracks_from_artist_ids_p artist_ids =
   artist_ids
   |> parmap Http.get_albums_and_singles_by_artist_id
   |> Lwt_list.map_s id
-  >|= parmap (parmap_lwt get_album_tracks)
+  >|= parmap (parmap_lwt Http.get_album_tracks)
   >>= Lwt_list.map_s id
   >>= Lwt_list.map_s (Lwt_list.map_s persist_album_tracks_result)
+
+let ignore_if_raising anything = try anything () with _ -> ()
+
+let persist_all_tracks_from_artist_id artist_id =
+  try Some (persist_all_tracks_from_artist_id_exn artist_id) with
+  | Ppx_yojson_conv_lib__Yojson_conv.Of_yojson_error (a, yojson) ->
+      ignore_if_raising (fun () ->
+          Printf.printf "%s:%d\n Failed to parse %s. \n Error: %s" __FILE__
+            __LINE__ (Yojson.Safe.show yojson) (Printexc.to_string a));
+      None
+  | Failure f ->
+      Printf.printf "Failure happend: %s" f;
+      None
+  | _ -> None
+
+let string_of_reply_reply_list
+    (rrl : Redis_lwt.Client.reply list list Lwt.t option) =
+  match rrl with
+  | Some promise ->
+      promise >|= fun r ->
+      List.flatten r |> List.map Storage.Redis.json_of_reply
+  | None -> Lwt.return [ `Null ]
 
 let test () =
   Core.In_channel.read_lines "./lib/data"
   |> log "lines read"
-  |> List.map persist_all_tracks_from_artist_id
-  |> Lwt_list.map_s id
+  |> List.filter_map persist_all_tracks_from_artist_id
+(* |> Lwt_list.map_s id *)
