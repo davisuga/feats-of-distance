@@ -1,1 +1,1 @@
-let () = FeatsOfDistance.Main.test () |> Lwt_main.run
+let () = FeatsOfDistance.Main.test () |> Lwt_main.run |> ignore
