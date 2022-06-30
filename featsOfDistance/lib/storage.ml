@@ -3,6 +3,24 @@ open Models
 module Queries = struct
   open Printf
 
+  let create_shortest_path name_a name_b =
+    sprintf
+      {|MATCH (a1:Author {name:'%s'}),
+  (a2:Author {name:'%s'})
+  RETURN shortestPath((a1)-[:FEATURES_IN|:HAS_FEATURE*1..20]->(a2))|}
+      (String.escaped name_a) (String.escaped name_b)
+
+  let create_multiget ids =
+    sprintf "match %s"
+      (ids |> List.map (sprintf {|(a {id: '%s'}),|}) |> String.concat "\n")
+
+  let capture_ids_from_path_query = Re2.find_all (Re2.create_exn {|\([0-9]+\)|})
+
+  let get_ids_from_shortest_path_response (rply : Redis_lwt.Client.reply) =
+    match rply with
+    | `Multibulk [ _; `Multibulk [ `Multibulk [ `Bulk str ] ]; _ ] -> str
+    | _ -> None
+
   let create_album (album : album) =
     sprintf {|CREATE (:Album {name: "%s", id: "%s", img: "%s" year: "%d"})|}
       album.name album.id album.cover_art_url album.year
