@@ -3,6 +3,7 @@ open Cohttp
 open Lwt.Infix
 open Lwt.Syntax
 open Utils
+
 module type SpotifyQuery = sig
   val operationName : string
 
@@ -134,6 +135,7 @@ let get_token_page () =
 
 let extract_token body = Re.Pcre.extract ~rex:reg body |> (flip Array.get) 1
 let new_token () = get_token_page () >|= extract_token
+let default_token = new_token () |> Lwt_main.run
 
 let query_uri =
   Uri.of_string "https://api-partner.spotify.com/pathfinder/v1/query"
@@ -152,10 +154,26 @@ let querySpotify ?token variables to_yojson from_yojson operation_name sha =
   in
   let headers = make_header_with_token token in
   let uri = Uri.add_query_params' query_uri params in
-  Client.get ~headers uri
-  >>= string_of_body
-  >|= Yojson.Safe.from_string
-  >|= from_yojson
+
+  let uri_final = operation_name ^ parsed_variables in
+  let cache_location = Printf.sprintf "./stuff/%s" uri_final in
+  if Sys.file_exists cache_location then
+    Core.In_channel.read_all cache_location
+    |> Yojson.Safe.from_string
+    |> from_yojson
+    |> Lwt.return
+  else
+    Client.get ~headers uri
+    >>= string_of_body
+    >|= (fun bdy ->
+          Core.Out_channel.write_all cache_location ~data:bdy;
+          bdy)
+    >|= Yojson.Safe.from_string
+    (* >|= (fun bdy ->
+          print_string "im runnin" |> ignore;
+          (* print_string bdy; *)
+          bdy) *)
+    >|= from_yojson
 
 let searchTerm ~token term =
   let open SearchDesktop in
