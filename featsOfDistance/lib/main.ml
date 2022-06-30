@@ -1,93 +1,10 @@
 open Utils
+open Http
 
-module type SpotifyQuery = sig
-  val operationName : string
-
-  module Result : sig
-    type t
-
-    val from_yojson : Yojson.Safe.t -> t
-    val to_yojson : t -> Yojson.Safe.t
-  end
-
-  module Variables : sig
-    type t
-
-    val create : string -> t
-    val pp : Format.formatter -> t -> unit
-    val show : t -> string
-    val from_yojson : Yojson.Safe.t -> t
-    val to_yojson : t -> Yojson.Safe.t
-  end
-end
-
-module SearchDesktop = struct
-  let operationName = "searchDesktop"
-  let sha = "9542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd"
-
-  module Result = struct
-    type t = Dtos.search_desktop
-
-    let from_yojson = Dtos.search_desktop_of_yojson
-    let to_yojson = Dtos.yojson_of_search_desktop
-  end
-
-  module Variables = struct
-    type t = {
-      searchTerm : string;
-      offset : int;
-      limit : int;
-      numberOfTopResults : int;
-    }
-    [@@deriving yojson, show]
-
-    let default =
-      { searchTerm = "drake"; offset = 0; limit = 1; numberOfTopResults = 5 }
-
-    let from_yojson = t_of_yojson
-    let to_yojson = yojson_of_t
-  end
-end
-
-module ArtistOverview = struct
-  let operationName = "queryArtistOverview"
-  let sha = "433e28d1e949372d3ca3aa6c47975cff428b5dc37b12f5325d9213accadf770a"
-
-  module Result = struct
-    type t = Dtos.query_artist_discography_overview
-
-    let from_yojson = Dtos.query_artist_discography_overview_of_yojson
-    let to_yojson = Dtos.yojson_of_query_artist_discography_overview
-  end
-
-  module Variables = struct
-    type t = { uri : string } [@@deriving yojson, show]
-
-    let default = { uri = "" }
-    let from_yojson = t_of_yojson
-    let to_yojson = yojson_of_t
-  end
-end
-
-module AlbumTracks = struct
-  let operationName = "queryAlbumTracks"
-
-  module Result = struct
-    type t = Dtos.query_album_tracks
-
-    let from_yojson = Dtos.query_album_tracks_of_yojson
-    let to_yojson = Dtos.yojson_of_query_album_tracks
-  end
-
-  module Variables = struct
-    type t = { uri : string; offset : int; limit : int }
-    [@@deriving yojson, show]
-
-    let default = { uri = ""; offset = 0; limit = 100 }
-    let from_yojson = yojson_of_t
-    let to_yojson = t_of_yojson
-  end
-end
+let log m anything =
+  print_string m;
+  print_newline ();
+  anything
 
 module List = struct
   module Pipe = struct
@@ -136,7 +53,18 @@ let map_artist_of_artist_json (artist_json : Dtos.artist_item_data) =
     id = artist_json.uri;
   }
 
-let save_track_from_json ?(prefix = "") path =
+let save_track_from_json (track_json : Dtos.genres_item) =
+  if List.length track_json.track.artists.items < 2 then None
+  else
+    track_json
+    |> map_song_from_json
+    |> log "mapping song from json"
+    |> Storage.Queries.create_song
+    |> Storage.Redis.run_cypher_query
+    |> log "cypher query run"
+    |> Option.some
+
+let save_track_from_json_file ?(prefix = "") path =
   let track_json =
     try_parse_json_with Dtos.genres_item_of_yojson ~prefix path
   in
@@ -162,16 +90,72 @@ let save_all_artists path =
   read_dir path |> Seq.map (save_artist_from_json ~prefix:path)
 
 let save_all_tracks path =
-  read_dir path |> Seq.filter_map (save_track_from_json ~prefix:path)
+  read_dir path |> Seq.filter_map (save_track_from_json_file ~prefix:path)
 
-let iter_run = Seq.iter (fun prms -> Lwt_main.run prms |> ignore)
+(* let iter_run = Seq.iter (fun prms -> Lwt_main.run prms |> ignore) *)
+
+open! Lwt.Syntax
+open Lwt.Infix
+
+let print_string_list = List.iter (Printf.printf "%s, ")
+let id a = a;;
+
+Parmap.debugging true
+
+let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
+  album_tracks.data.album.tracks.items
+  |> List.filter_map save_track_from_json
+  |> log "persist_album_tracks_result"
+  |> Lwt_list.map_s id
+
+let get_and_persist_album_tracks album_id =
+  get_album_tracks album_id
+  |> log ("got album tracks for " ^ album_id)
+  >>= persist_album_tracks_result
+
+let parmap (* fun fn a_list -> Parmap.parmap ~ncores:4 fn (Parmap.L a_list) *)
+    fn a_list =
+  List.fold_right
+    (fun a acc ->
+      try List.cons (fn a) acc
+      with e ->
+        Printf.eprintf "Error happened %s\n" (Printexc.to_string e);
+        acc)
+    a_list []
+
+let seq_parmap
+    (* fun fn a_list -> Parmap.parmap ~ncores:4 fn (Parmap.L a_list) *) fn
+    a_list =
+  Lwt_seq.fold_left
+    (fun a acc ->
+      try Lwt_seq.append acc (fn a)
+      with e ->
+        Printf.eprintf "Error happened %s\n" (Printexc.to_string e);
+        acc)
+    a_list Lwt_seq.empty
+
+let parmap_lwt fn promise_list = parmap fn promise_list |> Lwt_list.map_s id
+
+let seq_parmap_lwt fn promise_list =
+  seq_parmap fn promise_list >|= Lwt_seq.map_s id
+
+let persist_all_tracks_from_artist_id artist_id =
+  artist_id
+  |> Http.get_albums_and_singles_by_artist_id
+  |> log ("got albums and singles by" ^ artist_id)
+  (* >|= Lwt_stream.of_list *)
+  >>= Lwt_list.map_s get_and_persist_album_tracks
+
+let persist_all_tracks_from_artist_ids_p artist_ids =
+  artist_ids
+  |> parmap Http.get_albums_and_singles_by_artist_id
+  |> Lwt_list.map_s id
+  >|= parmap (parmap_lwt get_album_tracks)
+  >>= Lwt_list.map_s id
+  >>= Lwt_list.map_s (Lwt_list.map_s persist_album_tracks_result)
 
 let test () =
-  let _ = Storage.Redis.reset () |> Lwt_main.run in
-
-  (* let _r =
-       save_all_artists "./jsons/"
-       |> Seq.iter (fun prms -> Lwt_main.run prms |> ignore)
-     in *)
-  let _r = save_all_tracks "./tracks/" |> iter_run in
-  Lwt.return_unit
+  Core.In_channel.read_lines "./lib/data"
+  |> log "lines read"
+  |> List.map persist_all_tracks_from_artist_id
+  |> Lwt_list.map_s id
