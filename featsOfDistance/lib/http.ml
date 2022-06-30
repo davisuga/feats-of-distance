@@ -3,7 +3,95 @@ open Cohttp
 open Lwt.Infix
 open Lwt.Syntax
 open Utils
-open Main
+module type SpotifyQuery = sig
+  val operationName : string
+
+  module Result : sig
+    type t
+
+    val from_yojson : Yojson.Safe.t -> t
+    val to_yojson : t -> Yojson.Safe.t
+  end
+
+  module Variables : sig
+    type t
+
+    val create : string -> t
+    val pp : Format.formatter -> t -> unit
+    val show : t -> string
+    val from_yojson : Yojson.Safe.t -> t
+    val to_yojson : t -> Yojson.Safe.t
+  end
+end
+
+module SearchDesktop = struct
+  let operationName = "searchDesktop"
+  let sha = "9542c8275ed5dd875f7ef4b2446da1cd796861f649fa4c244103364083830edd"
+
+  module Result = struct
+    type t = Dtos.search_desktop
+
+    let from_yojson = Dtos.search_desktop_of_yojson
+    let to_yojson = Dtos.yojson_of_search_desktop
+  end
+
+  module Variables = struct
+    type t = {
+      searchTerm : string;
+      offset : int;
+      limit : int;
+      numberOfTopResults : int;
+    }
+    [@@deriving yojson, show]
+
+    let default =
+      { searchTerm = "drake"; offset = 0; limit = 1; numberOfTopResults = 5 }
+
+    let from_yojson = t_of_yojson
+    let to_yojson = yojson_of_t
+  end
+end
+
+module ArtistOverview = struct
+  let operationName = "queryArtistOverview"
+  let sha = "433e28d1e949372d3ca3aa6c47975cff428b5dc37b12f5325d9213accadf770a"
+
+  module Result = struct
+    type t = Dtos.query_artist_discography_overview
+
+    let from_yojson = Dtos.query_artist_discography_overview_of_yojson
+    let to_yojson = Dtos.yojson_of_query_artist_discography_overview
+  end
+
+  module Variables = struct
+    type t = { uri : string } [@@deriving yojson, show]
+
+    let default = { uri = "" }
+    let from_yojson = t_of_yojson
+    let to_yojson = yojson_of_t
+  end
+end
+
+module AlbumTracks = struct
+  let operationName = "queryAlbumTracks"
+  let sha = "3ea563e1d68f486d8df30f69de9dcedae74c77e684b889ba7408c589d30f7f2e"
+
+  module Result = struct
+    type t = Dtos.query_album_tracks
+
+    let from_yojson = Dtos.query_album_tracks_of_yojson
+    let to_yojson = Dtos.yojson_of_query_album_tracks
+  end
+
+  module Variables = struct
+    type t = { uri : string; offset : int; limit : int }
+    [@@deriving yojson, show]
+
+    let default = { uri = ""; offset = 0; limit = 100 }
+    let from_yojson = t_of_yojson
+    let to_yojson = yojson_of_t
+  end
+end
 
 let base_headers =
   [
