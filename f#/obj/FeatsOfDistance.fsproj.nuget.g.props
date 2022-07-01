@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/home/davi/.nuget/packages/</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/home/davi/.nuget/packages/</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.2.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="/home/davi/.nuget/packages/" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgNeo4j_Driver Condition=" '$(PkgNeo4j_Driver)' == '' ">/home/davi/.nuget/packages/neo4j.driver/4.4.0</PkgNeo4j_Driver>
+    <PkgHttp_fs Condition=" '$(PkgHttp_fs)' == '' ">/home/davi/.nuget/packages/http.fs/5.4.0</PkgHttp_fs>
+    <PkgGiraffe Condition=" '$(PkgGiraffe)' == '' ">/home/davi/.nuget/packages/giraffe/6.0.0-alpha-2</PkgGiraffe>
+    <PkgFSharp_Data Condition=" '$(PkgFSharp_Data)' == '' ">/home/davi/.nuget/packages/fsharp.data/4.2.7</PkgFSharp_Data>
+    <PkgFSharp_Collections_ParallelSeq Condition=" '$(PkgFSharp_Collections_ParallelSeq)' == '' ">/home/davi/.nuget/packages/fsharp.collections.parallelseq/1.2.0</PkgFSharp_Collections_ParallelSeq>
+  </PropertyGroup>
+</Project>

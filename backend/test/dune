@@ -1,0 +1,5 @@
+(test
+ (name featsOfDistance)
+ (flags
+  (:standard -rectypes))
+ (libraries alcotest lwt featsOfDistance))
