@@ -64,6 +64,14 @@ let start port =
          Dream.options "/graphql" (fun _req ->
              Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
          Dream.get "/" (Dream.graphiql "/graphql");
+         Dream.get "/inc" (fun req ->
+             match Dream.query req "num" with
+             | Some num ->
+                 Main.Rust.increment_ints_list [ int_of_string num ]
+                 |> List.map string_of_int
+                 |> String.concat ","
+                 |> Dream.html
+             | None -> Dream.html "");
          Dream.get "/relation" (fun req ->
              let from = Dream.query req "from" in
              let to' = Dream.query req "to" in
