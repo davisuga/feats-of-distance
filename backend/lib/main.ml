@@ -29,14 +29,6 @@ module Rust = struct
   external sleep : int -> unit = "rust_sleep"
 end
 
-let log m anything =
-  if Option.is_some (Array.find_opt (fun arg -> arg = "--verbose") Sys.argv)
-  then (
-    print_string m;
-    print_newline ();
-    anything)
-  else anything
-
 let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
   searchResult.data.searchV2.artists.items.(0).data
 
@@ -53,6 +45,7 @@ let try_parse_json_with ?(prefix = "") parse_yojson path =
          (Printexc.to_string e))
 
 open Domain
+open Lwt.Infix
 
 let save_track_from_json (track_json : Dtos.genres_item) =
   if List.length track_json.track.artists.items < 2 then None
@@ -61,8 +54,8 @@ let save_track_from_json (track_json : Dtos.genres_item) =
     |> map_song_from_json
     |> log "mapping song from json"
     |> Storage.Queries.create_song
-    |> Storage.Redis.run_cypher_query
-    |> log "cypher query run"
+    |> Storage.N4J.run_cypher_query
+    >|= log "cypher query run"
     |> Option.some
 
 let save_track_from_json_file ?(prefix = "") path =
@@ -156,16 +149,19 @@ let persist_all_tracks_from_artist_ids_p artist_ids =
 let ignore_if_raising anything = try anything () with _ -> ()
 
 let persist_all_tracks_from_artist_id artist_id =
-  try Some (persist_all_tracks_from_artist_id_exn artist_id) with
+  try
+    try%lwt persist_all_tracks_from_artist_id_exn artist_id >|= Option.some
+    with _ -> Lwt.return_none
+  with
   | Ppx_yojson_conv_lib__Yojson_conv.Of_yojson_error (a, yojson) ->
       ignore_if_raising (fun () ->
           Printf.printf "%s:%d\n Failed to parse %s. \n Error: %s" __FILE__
             __LINE__ (Yojson.Safe.show yojson) (Printexc.to_string a));
-      None
+      Lwt.return_none
   | Failure f ->
       Printf.printf "Failure happend: %s" f;
-      None
-  | _ -> None
+      Lwt.return_none
+  | _ -> Lwt.return_none
 
 let string_of_reply_reply_list
     (rrl : Redis_lwt.Client.reply list list Lwt.t option) =
@@ -175,8 +171,15 @@ let string_of_reply_reply_list
       List.flatten r |> List.map Storage.Redis.json_of_reply
   | None -> Lwt.return [ `Null ]
 
-let test () =
+let seed_from_fs () =
   Core.In_channel.read_lines "./lib/data"
   |> log "lines read"
-  |> List.filter_map persist_all_tracks_from_artist_id
+  |> Lwt_list.filter_map_s persist_all_tracks_from_artist_id
+
 (* |> Lwt_list.map_s id *)
+let test () =
+  seed_from_fs ()
+  (* |> Lwt_list.map_s Fun.id *)
+  >|= List.map (List.map concat_json_strings)
+  >|= List.map concat_json_strings
+  >|= concat_json_strings
