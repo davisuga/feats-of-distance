@@ -52,8 +52,20 @@ let cors_middleware inner_handler req =
 
   response
 
+open! Printf
+
 (* let default_query = "{\\n  artists {\\n    name\\n    id\\n  }\\n}\\n" *)
 (* content-type,Accept-Encoding,Accept-Language,Access-Control-Request-Headers,Access-Control-Request-Method,Connection,Host,Origin,Referer,Sec-Fetch-Mode,User-Agent,Content-Type *)
+type command_body = { command : string } [@@deriving yojson]
+
+let command_route =
+  Dream.post "/command" (fun req ->
+      Dream.body req
+      >|= Yojson.Safe.from_string
+      >|= command_body_of_yojson
+      >>= (fun command -> Storage.N4J.run_cypher_query command.command)
+      >>= Dream.json)
+
 let start port =
   Dream.run ~port ~interface:"0.0.0.0" ~adjust_terminal:false
   @@ Dream.logger
@@ -78,40 +90,24 @@ let start port =
              match (from, to') with
              | Some from, Some to' ->
                  Storage.Queries.create_shortest_path from to'
-                 |> Storage.Redis.run_cypher_query
-                 >|= Storage.Queries.get_json_response_from_reply
+                 |> Storage.N4J.run_cypher_query
+                 >|= Storage.N4J.get_json_response_from_reply
+                 >|= Option.map utf_decimal_decode
                  >|= Option.get
-                 >|= utf_decimal_decode
                  >>= Dream.json
              | _ -> Dream.respond "");
          Dream.get "/save_artist/:artist_uri" (fun req ->
              match Some (Dream.param req "artist_uri") with
              | Some uri ->
                  Main.persist_all_tracks_from_artist_id uri
-                 |> Main.string_of_reply_reply_list
+                 >|= Option.get
+                 >|= List.map Yojson.Safe.from_string
+                 (* >|= List.map yojson_fold *)
                  >|= yojson_fold
                  >|= Yojson.Safe.to_string
+                 (* >|= List.map Yojson.Safe.to_string *)
+                 (* |> Main.string_of_reply_reply_list
+                    >|= Yojson.Safe.to_string *)
                  >>= Dream.json
              | None -> Dream.respond ~status:`Bad_Request "");
        ]
-
-let lines ?encoding (src : [ `Channel of in_channel | `String of string ]) =
-  let rec loop d buf acc =
-    match Uutf.decode d with
-    | `Uchar u -> (
-        match Uchar.to_int u with
-        | 0x000A ->
-            let line = Buffer.contents buf in
-            Buffer.clear buf;
-            loop d buf (line :: acc)
-        | _ ->
-            Uutf.Buffer.add_utf_8 buf u;
-            loop d buf acc)
-    | `End -> List.rev (Buffer.contents buf :: acc)
-    | `Malformed _ ->
-        Uutf.Buffer.add_utf_8 buf Uutf.u_rep;
-        loop d buf acc
-    | `Await -> assert false
-  in
-  let nln = `Readline (Uchar.of_int 0x000A) in
-  loop (Uutf.decoder ~nln ?encoding src) (Buffer.create 512) []
