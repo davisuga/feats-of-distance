@@ -181,23 +181,23 @@ let querySpotify ?token variables to_yojson from_yojson operation_name sha =
 
   let uri_final = operation_name ^ parsed_variables in
   let cache_location = Printf.sprintf "./stuff/%s" uri_final in
-  (* if Sys.file_exists cache_location then
-       Core.In_channel.read_all cache_location
-       |> Yojson.Safe.from_string
-       |> from_yojson
-       |> Lwt.return
-     else *)
-  fetchPage ~headers uri
-  >>= string_of_body
-  >|= (fun bdy ->
-        Core.Out_channel.write_all cache_location ~data:bdy;
-        bdy)
-  >|= Yojson.Safe.from_string
-  (* >|= (fun bdy ->
-        print_string "im runnin" |> ignore;
-        (* print_string bdy; *)
-        bdy) *)
-  >|= from_yojson
+  if Sys.file_exists cache_location then
+    Core.In_channel.read_all cache_location
+    |> Yojson.Safe.from_string
+    |> from_yojson
+    |> Lwt.return
+  else
+    fetchPage ~headers uri
+    >>= string_of_body
+    >|= (fun bdy ->
+          Core.Out_channel.write_all cache_location ~data:bdy;
+          bdy)
+    >|= Yojson.Safe.from_string
+    (* >|= (fun bdy ->
+          print_string "im runnin" |> ignore;
+          (* print_string bdy; *)
+          bdy) *)
+    >|= from_yojson
 
 let searchTerm ?(token = !current_token) term =
   let open SearchDesktop in
