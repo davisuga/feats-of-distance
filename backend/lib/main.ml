@@ -45,17 +45,14 @@ let try_parse_json_with ?(prefix = "") parse_yojson path =
          (Printexc.to_string e))
 
 open Domain
-open Lwt.Infix
 
-let save_track_from_json (track_json : Dtos.genres_item) =
+let create_save_track_query_from_json (track_json : Dtos.genres_item) =
   if List.length track_json.track.artists.items < 2 then None
   else
     track_json
     |> map_song_from_json
     |> log "mapping song from json"
     |> Storage.Queries.create_song
-    |> Storage.N4J.run_cypher_query
-    >|= log "cypher query run"
     |> Option.some
 
 let save_track_from_json_file ?(prefix = "") path =
@@ -96,9 +93,9 @@ let id a = a
 
 let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
   album_tracks.data.album.tracks.items
-  |> List.filter_map save_track_from_json
+  |> List.filter_map create_save_track_query_from_json
   |> log "persist_album_tracks_result"
-  |> Lwt_list.map_s id
+  |> Storage.N4J.run_cypher_queries
 
 let get_and_persist_album_tracks album_id =
   Http.get_album_tracks album_id
@@ -172,14 +169,19 @@ let string_of_reply_reply_list
   | None -> Lwt.return [ `Null ]
 
 let seed_from_fs () =
-  Core.In_channel.read_lines "./lib/data"
+  let counter = ref 0 in
+  let lines = Core.In_channel.read_lines "./lib/data" in
+  lines
   |> log "lines read"
-  |> Lwt_list.filter_map_s persist_all_tracks_from_artist_id
+  |> Lwt_list.filter_map_p (fun id ->
+         persist_all_tracks_from_artist_id id
+         >|= logInfo
+               ("saved "
+               ^ string_of_int !counter
+               ^ " of "
+               ^ string_of_int
+                   (counter := !counter + 1;
+                    List.length lines)))
 
-(* |> Lwt_list.map_s id *)
 let test () =
-  seed_from_fs ()
-  (* |> Lwt_list.map_s Fun.id *)
-  >|= List.map (List.map concat_json_strings)
-  >|= List.map concat_json_strings
-  >|= concat_json_strings
+  seed_from_fs () >|= List.map concat_json_strings >|= concat_json_strings
