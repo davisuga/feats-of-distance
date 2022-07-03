@@ -153,6 +153,43 @@ let current_token = ref default_token
 let query_uri =
   Uri.of_string "https://api-partner.spotify.com/pathfinder/v1/query"
 
+module type Cache = sig
+  type 'a container
+  type t
+
+  val cache_location : t -> t
+  val get : t -> t container
+  val set : t -> t -> unit container
+  val get_or_update : t -> (t -> t) -> t
+  val map_cases : t -> (t -> 'a) -> (t -> 'a) -> 'a
+end
+
+module FsCache :
+  Cache with type 'a container := 'a option and type t := string = struct
+  let cache_location k = Printf.sprintf "./stuff/%s" k
+
+  let get k =
+    if Sys.file_exists k then Some (Core.In_channel.read_all (cache_location k))
+    else None
+
+  let set k v =
+    try Some (Core.Out_channel.write_all ~data:v (cache_location k))
+    with _ -> None
+
+  let get_or_update k run_expesive_task =
+    match get k with
+    | Some cached -> cached
+    | None ->
+        let value_to_cache = run_expesive_task k in
+        set k value_to_cache |> ignore;
+        value_to_cache
+
+  let map_cases cache_key handle_some handle_none =
+    match get cache_key with
+    | Some cached_val -> cached_val |> handle_some
+    | None -> handle_none cache_key
+end
+
 let rec fetchPage ~headers uri =
   let* resp, body = Client.get ~headers uri in
   let code = resp |> Response.status |> Code.code_of_status in
@@ -164,11 +201,14 @@ let rec fetchPage ~headers uri =
     fetchPage ~headers:new_headers uri)
   else Lwt.return (resp, body)
 
-let querySpotify ?token variables to_yojson from_yojson operation_name sha =
+let querySpotify ?token variables encode_variables decode_result operation_name
+    sha =
   let* token =
     if Option.is_some token then Lwt.return (Option.get token) else new_token ()
   in
-  let parsed_variables = variables |> to_yojson |> Yojson.Safe.to_string in
+  let parsed_variables =
+    variables |> encode_variables |> Yojson.Safe.to_string
+  in
   let params =
     [
       ("operationName", operation_name);
@@ -179,25 +219,16 @@ let querySpotify ?token variables to_yojson from_yojson operation_name sha =
   let headers = make_header_with_token token in
   let uri = Uri.add_query_params' query_uri params in
 
-  let uri_final = operation_name ^ parsed_variables in
-  let cache_location = Printf.sprintf "./stuff/%s" uri_final in
-  if Sys.file_exists cache_location then
-    Core.In_channel.read_all cache_location
-    |> Yojson.Safe.from_string
-    |> from_yojson
-    |> Lwt.return
-  else
-    fetchPage ~headers uri
-    >>= string_of_body
-    >|= (fun bdy ->
-          Core.Out_channel.write_all cache_location ~data:bdy;
-          bdy)
-    >|= Yojson.Safe.from_string
-    (* >|= (fun bdy ->
-          print_string "im runnin" |> ignore;
-          (* print_string bdy; *)
-          bdy) *)
-    >|= from_yojson
+  let cache_key = operation_name ^ parsed_variables in
+  FsCache.map_cases cache_key
+    (fun cached_val ->
+      cached_val |> Yojson.Safe.from_string |> decode_result |> Lwt.return)
+    (fun _ ->
+      fetchPage ~headers uri
+      >>= string_of_body
+      >|= Utils.tap (FsCache.set cache_key)
+      >|= Yojson.Safe.from_string
+      >|= decode_result)
 
 let searchTerm ?(token = !current_token) term =
   let open SearchDesktop in
