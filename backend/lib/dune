@@ -1,8 +1,17 @@
 (library
- (libraries str re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri)
+ (libraries
+  str
+  re2
+  dream
+  redis
+  redis-lwt
+  cohttp
+  callable_rust
+  cohttp-lwt-unix
+  uri)
  (name featsOfDistance)
  (preprocess
-  (pps ppx_yojson_conv ppx_deriving.show)))
+  (pps ppx_yojson_conv lwt_ppx ppx_deriving.show)))
 
 (env
  (dev
