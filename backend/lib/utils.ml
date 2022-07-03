@@ -9,24 +9,6 @@ let yojson_concat (yo_list : Yojson.Safe.t) (yo_elem : Yojson.Safe.t) =
 
 let yojson_fold = List.fold_left yojson_concat (`List [])
 
-let utf8encode s =
-  let prefs = [| 0x0; 0xc0; 0xe0 |] in
-  let s1 n = String.make 1 (Char.chr n) in
-  let rec ienc k sofar resid =
-    let bct = if k = 0 then 7 else 6 - k in
-    if resid < 1 lsl bct then s1 (prefs.(k) + resid) ^ sofar
-    else ienc (k + 1) (s1 (0x80 + (resid mod 64)) ^ sofar) (resid / 64)
-  in
-  ienc 0 "" (int_of_string ("0x" ^ s))
-
-let utf_decode s =
-  let re = Str.regexp "\\\\[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]" in
-  let subst = function
-    | Str.Delim u -> utf8encode (String.sub u 2 4)
-    | Str.Text t -> t
-  in
-  String.concat "" (List.map subst (Str.full_split re s))
-
 let utf_decimal_table =
   [
     ("\\\\195\\\\163", "ã");
@@ -72,5 +54,16 @@ let log m anything =
     anything)
   else anything
 
+let logInfo m anything =
+  if Option.is_some (Array.find_opt (fun arg -> arg = "--info") Sys.argv) then (
+    printf "%s" m;
+    print_newline ();
+    anything)
+  else anything
+
 let yojson_flat = Core.Fn.compose yojson_fold (List.map Yojson.Safe.from_string)
 let concat_json_strings strings = sprintf "[%s]" (String.concat "," strings)
+
+let tap eff ret =
+  eff ret |> ignore;
+  ret
