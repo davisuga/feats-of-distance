@@ -209,14 +209,13 @@ module N4J = struct
       |> Cohttp_lwt.Body.of_string
     in
 
-    Cohttp_lwt_unix.Client.post ~body ~headers url >>= Http.string_of_body
+    Cohttp_lwt_unix.Client.post ~body ~headers url
+    >>= Http.string_of_body
+    >|= utf_decimal_decode
     >|= fun body ->
     Utils.log ("response: " ^ body) body |> ignore;
     body
 
   let run_cypher_query cy = run_cypher_queries [ cy ]
-
-  let get_json_response_from_reply r =
-    Dream.log "%s" r;
-    Some r
+  let get_json_response_from_reply r = Some r
 end
