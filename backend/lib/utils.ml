@@ -57,3 +57,18 @@ let utf_decimal_decode s =
     (fun (decimal_code, character) acc ->
       Re2.rewrite_exn ~template:character (Re2.create_exn decimal_code) acc)
     utf_decimal_table s
+
+let get_env_var var ~default = Sys.getenv_opt var |> Option.value ~default
+
+open Printf
+
+let log m anything =
+  if Option.is_some (Array.find_opt (fun arg -> arg = "--verbose") Sys.argv)
+  then (
+    printf "%s" m;
+    print_newline ();
+    anything)
+  else anything
+
+let yojson_flat = Core.Fn.compose yojson_fold (List.map Yojson.Safe.from_string)
+let concat_json_strings strings = sprintf "[%s]" (String.concat "," strings)
