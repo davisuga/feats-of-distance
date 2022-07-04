@@ -63,7 +63,7 @@ let command_route =
       Dream.body req
       >|= Yojson.Safe.from_string
       >|= command_body_of_yojson
-      >>= (fun command -> Storage.N4J.run_cypher_query command.command)
+      >>= (fun command -> N4J.run_cypher_query command.command)
       >>= Dream.json)
 
 let start port =
@@ -73,6 +73,7 @@ let start port =
   @@ Dream.router
        [
          Dream.post "/graphql" (Dream.graphql Lwt.return schema);
+         command_route;
          Dream.options "/graphql" (fun _req ->
              Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
          Dream.get "/" (Dream.graphiql "/graphql");
@@ -90,8 +91,8 @@ let start port =
              match (from, to') with
              | Some from, Some to' ->
                  Storage.Queries.create_shortest_path from to'
-                 |> Storage.N4J.run_cypher_query
-                 >|= Storage.N4J.get_json_response_from_reply
+                 |> N4J.run_cypher_query
+                 >|= N4J.get_json_response_from_reply
                  >|= Option.map utf_decimal_decode
                  >|= Option.get
                  >>= Dream.json

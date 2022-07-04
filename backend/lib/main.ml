@@ -95,7 +95,7 @@ let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
   album_tracks.data.album.tracks.items
   |> List.filter_map create_save_track_query_from_json
   |> log "persist_album_tracks_result"
-  |> Storage.N4J.run_cypher_queries
+  |> N4J.run_cypher_queries
 
 let get_and_persist_album_tracks album_id =
   Http.get_album_tracks album_id
