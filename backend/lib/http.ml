@@ -153,43 +153,6 @@ let current_token = ref default_token
 let query_uri =
   Uri.of_string "https://api-partner.spotify.com/pathfinder/v1/query"
 
-module type Cache = sig
-  type 'a container
-  type t
-
-  val cache_location : t -> t
-  val get : t -> t container
-  val set : t -> t -> unit container
-  val get_or_update : t -> (t -> t) -> t
-  val map_cases : t -> (t -> 'a) -> (t -> 'a) -> 'a
-end
-
-module FsCache :
-  Cache with type 'a container := 'a option and type t := string = struct
-  let cache_location k = Printf.sprintf "./stuff/%s" k
-
-  let get k =
-    if Sys.file_exists k then Some (Core.In_channel.read_all (cache_location k))
-    else None
-
-  let set k v =
-    try Some (Core.Out_channel.write_all ~data:v (cache_location k))
-    with _ -> None
-
-  let get_or_update k run_expesive_task =
-    match get k with
-    | Some cached -> cached
-    | None ->
-        let value_to_cache = run_expesive_task k in
-        set k value_to_cache |> ignore;
-        value_to_cache
-
-  let map_cases cache_key handle_some handle_none =
-    match get cache_key with
-    | Some cached_val -> cached_val |> handle_some
-    | None -> handle_none cache_key
-end
-
 let rec fetchPage ~headers uri =
   let* resp, body = Client.get ~headers uri in
   let code = resp |> Response.status |> Code.code_of_status in
@@ -218,7 +181,7 @@ let querySpotify ?token variables encode_variables decode_result operation_name
   in
   let headers = make_header_with_token token in
   let uri = Uri.add_query_params' query_uri params in
-
+  let open Cache in
   let cache_key = operation_name ^ parsed_variables in
   FsCache.map_cases cache_key
     (fun cached_val ->
@@ -282,7 +245,3 @@ let get_albums_and_singles_by_artist_id ?(token = !current_token) uid =
         get_singles_from_artist_overview
 
 type boolean = True | False
-
-let _ =
-  let reg = Re2.create_exn {|\\195\\169|} in
-  Re2.rewrite_exn ~template:"é" reg "Ax\\195\\169"
