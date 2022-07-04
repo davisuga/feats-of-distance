@@ -1,9 +1,12 @@
-/albumtracks
-/albums
-/discography
-/jsons
-/tracks
-/albums_2
+**/albumtracks
+**/albums
+**/discography
+**/jsons
+**/tracks
+**/tracks_2
+**/stuff
+**/albums_2
 
 .fake
 .ionide
+_build
