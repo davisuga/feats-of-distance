@@ -54,6 +54,8 @@ let log m anything =
     anything)
   else anything
 
+let trace msg anything = log (Printf.sprintf msg anything) anything
+
 let logInfo m anything =
   if Option.is_some (Array.find_opt (fun arg -> arg = "--info") Sys.argv) then (
     printf "%s" m;
@@ -63,7 +65,40 @@ let logInfo m anything =
 
 let yojson_flat = Core.Fn.compose yojson_fold (List.map Yojson.Safe.from_string)
 let concat_json_strings strings = sprintf "[%s]" (String.concat "," strings)
+let remove_hd_and_last result = String.sub result 1 (String.length result - 2)
 
 let tap eff ret =
   eff ret |> ignore;
   ret
+
+(* [run cmd] runs a shell command, waits until it terminates, and
+   returns a list of strings that the process outputed *)
+let run cmd =
+  Lwt_process.shell cmd |> log ("running " ^ cmd) |> Lwt_process.pread
+
+let run_with_args = Lwt_process.pread
+
+module List = struct
+  include List
+
+  let tail = function _ :: tail -> tail | _ -> []
+end
+
+let replace input output = Str.global_replace (Str.regexp_string input) output
+
+exception ParseError of string
+
+let print_yojson_exn (a, yojson) =
+  Printf.sprintf "%s:%d\n Failed to parse %s. \n Error: %s" __FILE__ __LINE__
+    (Yojson.Safe.show yojson) (Printexc.to_string a)
+
+let join_partitions (a, b) = List.append a b
+
+module StringSet = Core.Set.Make (Core.String)
+
+let uniq_string_list = Core.Fn.compose StringSet.to_list StringSet.of_list
+
+let contains sub string_a =
+  Core.String.substr_index string_a ~pattern:sub <> None
+
+let run_if boolean fn stuff = if boolean then fn stuff else stuff
