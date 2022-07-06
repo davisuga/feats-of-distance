@@ -3,7 +3,7 @@ open Utils
 
 let artist =
   Graphql_lwt.Schema.(
-    obj "artist" ~fields:(fun _info ->
+    obj "Artist" ~fields:(fun _info ->
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
@@ -14,6 +14,53 @@ let artist =
           field "img" ~typ:string
             ~args:Arg.[]
             ~resolve:(fun _info artist -> artist.img);
+        ]))
+
+let properties =
+  Graphql_lwt.Schema.(
+    obj "Properties" ~fields:(fun _info ->
+        [
+          field "id" ~typ:(non_null string)
+            ~args:Arg.[]
+            ~resolve:(fun _info (prop : N4j_path_dto.properties) -> prop.id);
+          field "name" ~typ:(non_null string)
+            ~args:Arg.[]
+            ~resolve:(fun _info (prop : N4j_path_dto.properties) -> prop.name);
+        ]))
+
+let node =
+  Graphql_lwt.Schema.(
+    obj "Node" ~fields:(fun _info ->
+        [
+          field "id" ~typ:(non_null string)
+            ~args:Arg.[]
+            ~resolve:(fun _info (prop : N4j_path_dto.node) -> prop.id);
+          field "properties" ~typ:(non_null properties)
+            ~args:Arg.[]
+            ~resolve:(fun _info (prop : N4j_path_dto.node) -> prop.properties);
+          field "labels"
+            ~typ:(non_null (list (non_null string)))
+            ~args:Arg.[]
+            ~resolve:(fun _info (prop : N4j_path_dto.node) -> prop.labels);
+        ]))
+
+let feat =
+  let open N4j_path_dto in
+  Graphql_lwt.Schema.(
+    obj "Featire" ~fields:(fun _info ->
+        [
+          field "uri" ~typ:(non_null string)
+            ~args:Arg.[]
+            ~resolve:(fun _info relation -> relation.id);
+          field "properties" ~typ:(non_null properties)
+            ~args:Arg.[]
+            ~resolve:(fun _info relation -> relation.properties);
+          field "start" ~typ:(non_null node)
+            ~args:Arg.[]
+            ~resolve:(fun _info relation -> relation.start);
+          field "end" ~typ:(non_null node)
+            ~args:Arg.[]
+            ~resolve:(fun _info relation -> relation.end_);
         ]))
 
 open! Lwt.Infix
@@ -28,10 +75,32 @@ let schema =
           ~resolve:(fun _info () search_term ->
             match search_term with
             | Some term ->
-                Http.search_artists term (* >|= Models.artist_of_yojson *)
-                >|= Array.to_list
-                >|= Result.ok
+                Http.search_artists term >|= Array.to_list >|= Result.ok
             | None -> Lwt.return (Result.Error "Empty search term"));
+        io_field "features"
+          ~typ:(non_null (list (non_null feat)))
+          ~args:
+            Arg.
+              [
+                arg "from" ~typ:string;
+                arg "to" ~typ:string;
+                arg "limit" ~typ:int;
+              ]
+          ~resolve:(fun _info () from to_ limit ->
+            match (from, to_) with
+            | Some from, Some to' ->
+                Storage.Queries.create_shortest_path
+                  ~limit:(Option.value limit ~default:2)
+                  from to'
+                |> N4J.run_cypher_query
+                >|= N4J.get_json_response_from_reply
+                >|= Option.map utf_decimal_decode
+                >|= Option.get
+                >|= Yojson.Safe.from_string
+                >|= N4j_path_dto.path_response_dto_of_yojson
+                >|= N4j_path_dto.relations_of_response
+                >|= Result.ok
+            | _ -> Lwt.return (Result.Error "Invalid params"));
       ])
 
 open Lwt.Syntax
