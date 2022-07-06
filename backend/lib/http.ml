@@ -164,6 +164,12 @@ let rec fetchPage ~headers uri =
     fetchPage ~headers:new_headers uri)
   else Lwt.return (resp, body)
 
+exception FetchError of string * string
+
+let fetchPage ~headers uri =
+  try%lwt fetchPage ~headers uri
+  with e -> raise (FetchError (uri |> Uri.to_string, Printexc.to_string e))
+
 let querySpotify ?token variables encode_variables decode_result operation_name
     sha =
   let* token =
