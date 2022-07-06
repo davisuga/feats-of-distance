@@ -26,3 +26,8 @@ let yojson_of_item = function
 
 type found_path = item list [@@deriving yojson]
 type path_response_dto = found_path list [@@deriving yojson]
+
+let get_if_relationship = function Node _ -> None | Relationship r -> Some r
+
+let relations_of_response (path : path_response_dto) =
+  List.flatten path |> List.filter_map get_if_relationship
