@@ -11,13 +11,13 @@ module Queries = struct
        RETURN toJSON(nodes(shortestPath((a1)-[:FEATURES_IN|:HAS_FEATURE*1..100]->(a2))))|}
       id_a id_b
 
-  let create_shortest_path id_a id_b =
+  let create_shortest_path ?(limit = 2) id_a id_b =
     sprintf
       {|MATCH (a1:Author {id:'%s'}),
           (a2:Author {id:'%s'})
            RETURN apoc.convert.toJson(shortestPath((a1)-[:FEATS_WITH*1..100]-(a2)))
-           LIMIT 100|}
-      id_a id_b
+           LIMIT %d|}
+      id_a id_b limit
 
   let create_multiget ids =
     sprintf "%s"
