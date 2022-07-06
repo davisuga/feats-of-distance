@@ -77,14 +77,6 @@ let start port =
          Dream.options "/graphql" (fun _req ->
              Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
          Dream.get "/" (Dream.graphiql "/graphql");
-         Dream.get "/inc" (fun req ->
-             match Dream.query req "num" with
-             | Some num ->
-                 Main.Rust.increment_ints_list [ int_of_string num ]
-                 |> List.map string_of_int
-                 |> String.concat ","
-                 |> Dream.html
-             | None -> Dream.html "");
          Dream.get "/relation" (fun req ->
              let from = Dream.query req "from" in
              let to' = Dream.query req "to" in
@@ -103,12 +95,8 @@ let start port =
                  Main.persist_all_tracks_from_artist_id uri
                  >|= Option.get
                  >|= List.map Yojson.Safe.from_string
-                 (* >|= List.map yojson_fold *)
                  >|= yojson_fold
                  >|= Yojson.Safe.to_string
-                 (* >|= List.map Yojson.Safe.to_string *)
-                 (* |> Main.string_of_reply_reply_list
-                    >|= Yojson.Safe.to_string *)
                  >>= Dream.json
              | None -> Dream.respond ~status:`Bad_Request "");
        ]
