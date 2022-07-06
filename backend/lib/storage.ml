@@ -15,8 +15,8 @@ module Queries = struct
     sprintf
       {|MATCH (a1:Author {id:'%s'}),
           (a2:Author {id:'%s'})
-           RETURN shortestPath((a1)-[:FEATS_WITH*1..100]-(a2))
-           LIMIT 2|}
+           RETURN apoc.convert.toJson(shortestPath((a1)-[:FEATS_WITH*1..100]-(a2)))
+           LIMIT 100|}
       id_a id_b
 
   let create_multiget ids =
@@ -26,12 +26,8 @@ module Queries = struct
   let capture_ids_from_path_query =
     Re2.find_all_exn (Re2.create_exn {|\([0-9]+\)|})
 
-  let create_album (album : album) =
-    sprintf {|CREATE (:Album {name: "%s", id: "%s", img: "%s" year: "%d"})|}
-      album.name album.id album.cover_art_url album.year
-
   let create_artist artist =
-    sprintf {|MERGE (:Author {name: "%s", id: "%s", img: "%s"})|} artist.name
+    sprintf {|MERGE (:Author {name: \"%s\", id: '%s', img: '%s'})|} artist.name
       artist.id
       (Option.value ~default:"" artist.img)
 
@@ -41,7 +37,7 @@ module Queries = struct
 
   let make_author_merging (name, id) =
     sprintf
-      {|MERGE (%s:Author {id: '%s', name: "%s"})
+      {|MERGE (%s:Author {id: '%s', name: \"%s\"})
     |}
       (clean_spotify_uri id) id (String.escaped name)
 
@@ -51,7 +47,7 @@ module Queries = struct
   let create_feat_between_artists (song : song) artist_a_uri artist_b_uri =
     if artist_a_uri = artist_b_uri then ""
     else
-      sprintf {|MERGE (%s)-[:FEATS_WITH {name:"%s", id:"%s"}]->(%s)|}
+      sprintf {|MERGE (%s)-[:FEATS_WITH {name:\"%s\", id:'%s'}]->(%s)|}
         artist_a_uri (String.escaped song.name) song.id artist_b_uri
 
   let seq_to_list (seq : 'a Seq.t) =
