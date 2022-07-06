@@ -2,33 +2,6 @@ open! Utils
 open! Http
 open! Models
 
-module Rust = struct
-  external tests_teardown : unit -> unit = "ocaml_interop_teardown"
-  external twice : int -> int = "rust_twice"
-  external twice_boxed_i64 : int64 -> int64 = "rust_twice_boxed_i64"
-  external twice_boxed_i32 : int32 -> int32 = "rust_twice_boxed_i32"
-  external twice_boxed_float : float -> float = "rust_twice_boxed_float"
-
-  external twice_unboxed_float : (float[@unboxed]) -> (float[@unboxed])
-    = "" "rust_twice_unboxed_float"
-
-  external add_unboxed_floats_noalloc : float -> float -> float
-    = "" "rust_add_unboxed_floats_noalloc"
-    [@@unboxed] [@@noalloc]
-
-  external increment_bytes : bytes -> int -> bytes = "rust_increment_bytes"
-
-  external increment_ints_list : int list -> int list
-    = "rust_increment_ints_list"
-
-  external make_tuple : string -> int -> string * int = "rust_make_tuple"
-  external make_some : string -> string option = "rust_make_some"
-  external make_ok : int -> (int, string) result = "rust_make_ok"
-  external make_error : string -> (int, string) result = "rust_make_error"
-  external sleep_releasing : int -> unit = "rust_sleep_releasing"
-  external sleep : int -> unit = "rust_sleep"
-end
-
 let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
   searchResult.data.searchV2.artists.items.(0).data
 
@@ -95,7 +68,7 @@ let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
   album_tracks.data.album.tracks.items
   |> List.filter_map create_save_track_query_from_json
   |> log "persist_album_tracks_result"
-  |> N4J.run_cypher_queries
+  |> N4J.run_cypher_queries_cmd ~sort:true
 
 let get_and_persist_album_tracks album_id =
   Http.get_album_tracks album_id
@@ -148,15 +121,17 @@ let ignore_if_raising anything = try anything () with _ -> ()
 let persist_all_tracks_from_artist_id artist_id =
   try
     try%lwt persist_all_tracks_from_artist_id_exn artist_id >|= Option.some
-    with _ -> Lwt.return_none
+    with exn ->
+      Dream.log "Oh shit: %s" (Printexc.to_string exn);
+      Lwt.return_none
   with
   | Ppx_yojson_conv_lib__Yojson_conv.Of_yojson_error (a, yojson) ->
       ignore_if_raising (fun () ->
-          Printf.printf "%s:%d\n Failed to parse %s. \n Error: %s" __FILE__
-            __LINE__ (Yojson.Safe.show yojson) (Printexc.to_string a));
+          Dream.log "%s:%d\n Failed to parse %s. \n Error: %s" __FILE__ __LINE__
+            (Yojson.Safe.show yojson) (Printexc.to_string a));
       Lwt.return_none
   | Failure f ->
-      Printf.printf "Failure happend: %s" f;
+      Dream.log "Failure happend: %s" f;
       Lwt.return_none
   | _ -> Lwt.return_none
 
