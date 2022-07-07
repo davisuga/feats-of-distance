@@ -1,0 +1,1 @@
+web: ./backend/main.exe
