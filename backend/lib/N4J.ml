@@ -74,8 +74,8 @@ let run_cypher_queries_cmd ?(sort = false) queries =
    *)
   Utils.run
     (Printf.sprintf
-       "$JAVA_HOME/bin/java -jar ./cypher-shell.jar --format plain -p \"%s\" \
-        -a %s -u %s \"%s\""
+       "$JAVA_HOME/bin/java -jar ./backend/cypher-shell.jar --format plain -p \
+        \"%s\" -a %s -u %s \"%s\""
        neo4j_password uri neo4j_user statements)
   >|= trace "command result: %s"
   >|= Str.split (Str.regexp "\n")
