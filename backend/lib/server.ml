@@ -135,6 +135,14 @@ let command_route =
       >>= (fun command -> N4J.run_cypher_query command.command)
       >>= Dream.json)
 
+let run =
+  Dream.post "/run" (fun req ->
+      Dream.body req
+      >|= Yojson.Safe.from_string
+      >|= command_body_of_yojson
+      >>= (fun command -> Utils.run command.command)
+      >>= Dream.html)
+
 let start port =
   Dream.run ~port ~interface:"0.0.0.0" ~adjust_terminal:false
   @@ Dream.logger
@@ -143,6 +151,7 @@ let start port =
        [
          Dream.post "/graphql" (Dream.graphql Lwt.return schema);
          command_route;
+         run;
          Dream.options "/graphql" (fun _req ->
              Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
          Dream.get "/" (Dream.graphiql "/graphql");
