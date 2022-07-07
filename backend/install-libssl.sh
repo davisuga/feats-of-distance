@@ -1,7 +1,1 @@
-wget https://www.openssl.org/source/openssl-1.1.1o.tar.gz
-tar xf openssl-1.1.1o.tar.gz
-cd openssl-1.1.1o
-./config
-make
-make test
-make install
+dpkg -i libssl1.1_1.1.0l-1~deb9u6_amd64.deb
