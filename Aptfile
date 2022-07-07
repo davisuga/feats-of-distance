@@ -1,1 +1,3 @@
 openssl
+libssl-dev
+libssl-ocaml
