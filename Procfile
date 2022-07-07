@@ -1,1 +1,1 @@
-web: bash ./install-libssl; ./backend/main.exe
+web: bash ./backend/install-libssl.sh; ./backend/main.exe
