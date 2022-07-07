@@ -3,6 +3,7 @@ type n4j_payload = { statements : statement list } [@@deriving yojson]
 
 open Utils
 open Core.Fn
+open Lwt.Syntax
 
 let build_n4j_payload statements =
   { statements = statements |> List.map (fun stmt -> { statement = stmt }) }
@@ -69,9 +70,7 @@ let run_cypher_queries_cmd ?(sort = false) queries =
     |> String.concat "\n"
   in
 
-  let java_path =
-    get_env_var "JAVA_HOME" ~default:"/usr/lib/jvm/jdk-17" ^ "/bin/java"
-  in
+  let* java_path = Utils.run {|whereis java | awk -F" " '{ print $2 }'|} in
   Utils.run
     (Printf.sprintf
        "%s -jar cypher-shell.jar --format plain -p \"%s\" -a %s -u %s \"%s\""
