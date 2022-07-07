@@ -123,8 +123,6 @@ let cors_middleware inner_handler req =
 
 open! Printf
 
-(* let default_query = "{\\n  artists {\\n    name\\n    id\\n  }\\n}\\n" *)
-(* content-type,Accept-Encoding,Accept-Language,Access-Control-Request-Headers,Access-Control-Request-Method,Connection,Host,Origin,Referer,Sec-Fetch-Mode,User-Agent,Content-Type *)
 type command_body = { command : string } [@@deriving yojson]
 
 let command_route =

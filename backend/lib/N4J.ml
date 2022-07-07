@@ -70,11 +70,13 @@ let run_cypher_queries_cmd ?(sort = false) queries =
     |> String.concat "\n"
   in
 
-  let* java_path = Utils.run {|whereis java | awk -F" " '{ print $2 }'|} in
+  (* let* java_path = Utils.run {|whereis java | awk -F" " '{ print $2 }'|} in
+   *)
   Utils.run
     (Printf.sprintf
-       "%s -jar cypher-shell.jar --format plain -p \"%s\" -a %s -u %s \"%s\""
-       java_path neo4j_password uri neo4j_user statements)
+       "$JAVA_HOME/bin/java -jar ./cypher-shell.jar --format plain -p \"%s\" \
+        -a %s -u %s \"%s\""
+       neo4j_password uri neo4j_user statements)
   >|= trace "command result: %s"
   >|= Str.split (Str.regexp "\n")
   >|= List.filter_map (fun result ->
