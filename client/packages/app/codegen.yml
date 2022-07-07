@@ -1,0 +1,15 @@
+overwrite: true
+schema: 'http://${BACKEND_URL}/graphql'
+documents: 'features/**/*.graphql'
+generates:
+  graphql/client.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: 'http://${BACKEND_URL}/graphql'
+        fetchParams:
+          headers:
+            Content-Type: application/json

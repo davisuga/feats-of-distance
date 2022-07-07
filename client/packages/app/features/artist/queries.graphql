@@ -1,0 +1,7 @@
+query searchArtist($searchTerm: String!) {
+  artists(search_term: $searchTerm) {
+    name
+    uri
+    img
+  }
+}
