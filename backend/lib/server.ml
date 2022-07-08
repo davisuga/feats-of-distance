@@ -47,10 +47,12 @@ let node =
 let feat =
   let open N4j_path_dto in
   Graphql_lwt.Schema.(
-    obj "Featire" ~fields:(fun _info ->
+    obj "Feature" ~fields:(fun _info ->
+
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
+            
             ~resolve:(fun _info relation -> relation.id);
           field "properties" ~typ:(non_null properties)
             ~args:Arg.[]
