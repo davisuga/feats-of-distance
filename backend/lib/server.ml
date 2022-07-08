@@ -168,7 +168,7 @@ let start port =
          Dream.get "/save_artist/:artist_uri" (fun req ->
              match Some (Dream.param req "artist_uri") with
              | Some uri ->
-                 Main.persist_all_tracks_from_artist_id uri
+                 Scrapper.persist_all_tracks_from_artist_id uri
                  >|= Option.get
                  >|= List.map Yojson.Safe.from_string
                  >|= yojson_fold

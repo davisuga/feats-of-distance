@@ -2,31 +2,31 @@ open! Utils
 open! Http
 open! Models
 
-let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
-  searchResult.data.searchV2.artists.items.(0).data
+module Lens = struct
+  let get_first_artist_from_search_result (searchResult : Dtos.search_desktop) =
+    searchResult.data.searchV2.artists.items.(0).data
 
+  let get_tracks_of_album_query_result (album_tracks : Dtos.query_album_tracks)
+      =
+    album_tracks.data.album.tracks.items
+end
+
+open Lens
 open! Printf
 
 let get_ok_or fn result =
   match result with Ok something -> something | Error e -> fn e
 
-let try_parse_json_with ?(prefix = "") parse_yojson path =
-  try parse_yojson (Yojson.Safe.from_file (prefix ^ path))
-  with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
-    failwith
-      (Printf.sprintf "Failed to parse  \n %s \n %s" (Yojson.Safe.to_string t)
-         (Printexc.to_string e))
-
 open Domain
+(* let get_artists_of_track_item (track_json : Dtos.genres_item) = (track_json |> map_song_from_json) *)
 
-let create_save_track_query_from_json (track_json : Dtos.genres_item) =
+let map_song_from_json_if_valid (track_json : Dtos.genres_item) =
   if List.length track_json.track.artists.items < 2 then None
-  else
-    track_json
-    |> map_song_from_json
-    |> log "mapping song from json"
-    |> Storage.Queries.create_song
-    |> Option.some
+  else track_json |> map_song_from_json |> Option.some
+
+let create_save_track_query_from_json track_json =
+  map_song_from_json_if_valid track_json
+  |> Option.map Storage.Queries.create_song
 
 let save_track_from_json_file ?(prefix = "") path =
   let track_json =
@@ -64,9 +64,13 @@ open Lwt.Infix
 let print_string_list = List.iter (Printf.printf "%s, ")
 let id a = a
 
-let persist_album_tracks_result (album_tracks : Dtos.query_album_tracks) =
-  album_tracks.data.album.tracks.items
-  |> List.filter_map create_save_track_query_from_json
+let map_album_tracks_result_to_domain album_tracks_result =
+  get_tracks_of_album_query_result album_tracks_result
+  |> List.filter_map map_song_from_json_if_valid
+
+let persist_album_tracks_result album_tracks =
+  map_album_tracks_result_to_domain album_tracks
+  |> List.map Storage.Queries.create_song
   |> log "persist_album_tracks_result"
   |> N4J.run_cypher_queries_cmd ~sort:true
 
