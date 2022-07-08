@@ -1,12 +1,12 @@
 let map_song_from_json (track_json : Dtos.genres_item) =
   let open Models in
-  let artist_ids =
+  let artists_name_and_uri =
     track_json.track.artists.items
     |> List.map (fun (artist_item : Dtos.artist_track_item) ->
            (artist_item.profile.name, artist_item.uri))
   in
   {
-    authors = artist_ids;
+    authors = artists_name_and_uri;
     name = track_json.track.name;
     id = track_json.track.uri;
   }
