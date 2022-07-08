@@ -4,17 +4,19 @@ open! Utils
 module Queries = struct
   open Printf
 
+  (* let mark_author_as_saved artist_id =  *)
+
   let create_shortest_path_song_nodes id_a id_b =
     sprintf
-      {|MATCH (a1:Author {id:'%s'}),
-      (a2:Author {id:'%s'})
+      {|MATCH (a1:Author {uri:'%s'}),
+      (a2:Author {uri:'%s'})
        RETURN toJSON(nodes(shortestPath((a1)-[:FEATURES_IN|:HAS_FEATURE*1..100]->(a2))))|}
       id_a id_b
 
   let create_shortest_path ?(limit = 2) id_a id_b =
     sprintf
-      {|MATCH (a1:Author {id:'%s'}),
-          (a2:Author {id:'%s'})
+      {|MATCH (a1:Author {uri:'%s'}),
+          (a2:Author {uri:'%s'})
            RETURN apoc.convert.toJson(shortestPath((a1)-[:FEATS_WITH*1..100]-(a2)))
            LIMIT %d|}
       id_a id_b limit
@@ -47,7 +49,7 @@ module Queries = struct
   let create_feat_between_artists (song : song) artist_a_uri artist_b_uri =
     if artist_a_uri = artist_b_uri then ""
     else
-      sprintf {|MERGE (%s)-[:FEATS_WITH {name:\"%s\", id:'%s'}]->(%s)|}
+      sprintf {|MERGE (%s)-[:FEATS_WITH {name:\"%s\", uri:'%s'}]->(%s)|}
         artist_a_uri (String.escaped song.name) song.id artist_b_uri
 
   let seq_to_list (seq : 'a Seq.t) =
