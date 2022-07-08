@@ -102,3 +102,10 @@ let contains sub string_a =
   Core.String.substr_index string_a ~pattern:sub <> None
 
 let run_if boolean fn stuff = if boolean then fn stuff else stuff
+
+let try_parse_json_with ?(prefix = "") parse_yojson path =
+  try parse_yojson (Yojson.Safe.from_file (prefix ^ path))
+  with Ppx_yojson_conv_lib.Yojson_conv.Of_yojson_error (e, t) ->
+    failwith
+      (Printf.sprintf "Failed to parse  \n %s \n %s" (Yojson.Safe.to_string t)
+         (Printexc.to_string e))
