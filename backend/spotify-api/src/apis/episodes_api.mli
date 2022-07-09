@@ -10,5 +10,5 @@ val get_a_shows_episodes : id:string -> ?market:string -> ?limit:int32 -> ?offse
 val get_an_episode : id:string -> ?market:string -> unit -> Episode_object.t Lwt.t
 val get_multiple_episodes : ids:string -> ?market:string -> unit -> Get_multiple_episodes_200_response.t Lwt.t
 val get_users_saved_episodes : ?market:string -> ?limit:int32 -> ?offset:int32 -> unit -> Get_users_saved_episodes_200_response.t Lwt.t
-val remove_episodes_user : ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
-val save_episodes_user : ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val remove_episodes_user : ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t
+val save_episodes_user : ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t

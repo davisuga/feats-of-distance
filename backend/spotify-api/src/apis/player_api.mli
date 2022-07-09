@@ -16,6 +16,6 @@ val set_repeat_mode_on_users_playback : state:string -> ?device_id:string -> uni
 val set_volume_for_users_playback : volume_percent:int32 -> ?device_id:string -> unit -> unit Lwt.t
 val skip_users_playback_to_next_track : ?device_id:string -> unit -> unit Lwt.t
 val skip_users_playback_to_previous_track : ?device_id:string -> unit -> unit Lwt.t
-val start_a_users_playback : ?device_id:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val start_a_users_playback : ?device_id:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t
 val toggle_shuffle_for_users_playback : state:bool -> ?device_id:string -> unit -> unit Lwt.t
-val transfer_a_users_playback : request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val transfer_a_users_playback : request_body:(string * String.t) list -> unit -> unit Lwt.t

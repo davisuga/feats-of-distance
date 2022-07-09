@@ -5,7 +5,7 @@
  *
  *)
 
-val add_tracks_to_playlist : playlist_id:string -> ?position:int32 -> ?uris:string -> request_body:(string * Any_type.t) list -> unit -> Reorder_or_replace_playlists_tracks_200_response.t Lwt.t
+val add_tracks_to_playlist : playlist_id:string -> ?position:int32 -> ?uris:string -> request_body:(string * String.t) list -> unit -> Reorder_or_replace_playlists_tracks_200_response.t Lwt.t
 val check_users_saved_tracks : ids:string -> bool list Lwt.t
 val get_an_albums_tracks : id:string -> ?market:string -> ?limit:int32 -> ?offset:int32 -> unit -> Simplified_tracks_paging_object.t Lwt.t
 val get_an_artists_top_tracks : id:string -> ?market:string -> unit -> Get_an_artists_top_tracks_200_response.t Lwt.t
@@ -19,6 +19,6 @@ val get_track : id:string -> ?market:string -> unit -> Track_object.t Lwt.t
 val get_users_saved_tracks : ?market:string -> ?limit:int32 -> ?offset:int32 -> unit -> Get_users_saved_tracks_200_response.t Lwt.t
 val get_users_top_tracks : ?time_range:string -> ?limit:int32 -> ?offset:int32 -> unit -> Tracks_paging_object.t Lwt.t
 val remove_tracks_playlist : playlist_id:string -> remove_tracks_playlist_request_t:Remove_tracks_playlist_request.t -> unit -> Reorder_or_replace_playlists_tracks_200_response.t Lwt.t
-val remove_tracks_user : ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
-val reorder_or_replace_playlists_tracks : playlist_id:string -> ?uris:string -> request_body:(string * Any_type.t) list -> unit -> Reorder_or_replace_playlists_tracks_200_response.t Lwt.t
-val save_tracks_user : ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val remove_tracks_user : ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t
+val reorder_or_replace_playlists_tracks : playlist_id:string -> ?uris:string -> request_body:(string * String.t) list -> unit -> Reorder_or_replace_playlists_tracks_200_response.t Lwt.t
+val save_tracks_user : ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t

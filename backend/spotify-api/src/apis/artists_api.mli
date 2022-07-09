@@ -6,7 +6,7 @@
  *)
 
 val check_current_user_follows : _type:Enums.type_0 -> ids:string -> bool list Lwt.t
-val follow_artists_users : _type:Enums.type_0 -> ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val follow_artists_users : _type:Enums.type_0 -> ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t
 val get_an_artist : id:string -> Artist_object.t Lwt.t
 val get_an_artists_albums : id:string -> ?include_groups:string -> ?market:string -> ?limit:int32 -> ?offset:int32 -> unit -> Albums_paging_object.t Lwt.t
 val get_an_artists_related_artists : id:string -> Get_multiple_artists_200_response.t Lwt.t
@@ -14,4 +14,4 @@ val get_an_artists_top_tracks : id:string -> ?market:string -> unit -> Get_an_ar
 val get_followed : _type:Enums.artistobject_type -> ?after:string -> ?limit:int32 -> unit -> Get_followed_200_response.t Lwt.t
 val get_multiple_artists : ids:string -> Get_multiple_artists_200_response.t Lwt.t
 val get_users_top_artists : ?time_range:string -> ?limit:int32 -> ?offset:int32 -> unit -> Artists_paging_object.t Lwt.t
-val unfollow_artists_users : _type:Enums.type_0 -> ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val unfollow_artists_users : _type:Enums.type_0 -> ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t

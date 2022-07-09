@@ -12,5 +12,5 @@ val get_an_artists_albums : id:string -> ?include_groups:string -> ?market:strin
 val get_multiple_albums : ids:string -> ?market:string -> unit -> Get_multiple_albums_200_response.t Lwt.t
 val get_new_releases : ?country:string -> ?limit:int32 -> ?offset:int32 -> unit -> Get_new_releases_200_response.t Lwt.t
 val get_users_saved_albums : ?limit:int32 -> ?offset:int32 -> ?market:string -> unit -> Get_users_saved_albums_200_response.t Lwt.t
-val remove_albums_user : ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
-val save_albums_user : ids:string -> request_body:(string * Any_type.t) list -> unit -> unit Lwt.t
+val remove_albums_user : ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t
+val save_albums_user : ids:string -> request_body:(string * String.t) list -> unit -> unit Lwt.t
