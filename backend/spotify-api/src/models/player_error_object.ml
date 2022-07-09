@@ -10,12 +10,12 @@ type t = {
     status: int32 option [@default None];
     (* A short description of the cause of the error.  *)
     message: string option [@default None];
-    reason: Player_error_reasons.t option [@default None];
+    (* reason: Player_error_reasons.t option [@default None]; *)
 } [@@deriving yojson { strict = false }, show ];;
 
 let create () : t = {
     status = None;
     message = None;
-    reason = None;
+    (* reason = None; *)
 }
 
