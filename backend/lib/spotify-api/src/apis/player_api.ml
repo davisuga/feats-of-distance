@@ -9,7 +9,7 @@ let add_to_queue ~uri ?device_id () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/player/queue" in
     let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "uri" (fun x -> x) uri in
+    let uri = Request.add_query_param uri "uri" (fun x -> x) "uri" in
     let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
     Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
     Request.handle_unit_response resp
@@ -100,14 +100,14 @@ let skip_users_playback_to_previous_track ?device_id () =
     Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
     Request.handle_unit_response resp
 
-let start_a_users_playback ?device_id ~request_body () =
+(* let start_a_users_playback ?device_id ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/player/play" in
     let headers = Request.default_headers in
     let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let toggle_shuffle_for_users_playback ~state ?device_id () =
     let open Lwt.Infix in
@@ -118,11 +118,11 @@ let toggle_shuffle_for_users_playback ~state ?device_id () =
     Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
     Request.handle_unit_response resp
 
-let transfer_a_users_playback ~request_body () =
+(* let transfer_a_users_playback ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/player" in
     let headers = Request.default_headers in
-    let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
+    let body = Request.write_as_json_body (JsonSupport.of_map_of  ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 

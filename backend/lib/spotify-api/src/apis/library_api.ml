@@ -5,14 +5,14 @@
  *
  *)
 
-let change_playlist_details ~playlist_id ~request_body () =
+(* let change_playlist_details ~playlist_id ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/playlists/{playlist_id}" in
     let headers = Request.default_headers in
     let uri = Request.replace_path_param uri "playlist_id" (fun x -> x) playlist_id in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let check_current_user_follows ~_type ~ids =
     let open Lwt.Infix in
@@ -55,7 +55,7 @@ let check_users_saved_tracks ~ids =
     Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
     Request.read_json_body_as_list_of (JsonSupport.to_bool) resp body
 
-let create_playlist ~user_id ~request_body () =
+(* let create_playlist ~user_id ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/users/{user_id}/playlists" in
     let headers = Request.default_headers in
@@ -72,7 +72,7 @@ let follow_artists_users ~_type ~ids ~request_body () =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let get_a_list_of_current_users_playlists ?(limit = 20l) ?(offset = 0l) () =
     let open Lwt.Infix in
@@ -152,7 +152,7 @@ let get_users_top_tracks ?(time_range = "medium_term") ?(limit = 20l) ?(offset =
     Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
     Request.read_json_body_as (JsonSupport.unwrap Tracks_paging_object.of_yojson) resp body
 
-let remove_albums_user ~ids ~request_body () =
+(* let remove_albums_user ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/albums" in
     let headers = Request.default_headers in
@@ -168,7 +168,7 @@ let remove_episodes_user ~ids ~request_body () =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `DELETE uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let remove_shows_user ~ids ?market ~save_shows_user_request_t () =
     let open Lwt.Infix in
@@ -180,7 +180,7 @@ let remove_shows_user ~ids ?market ~save_shows_user_request_t () =
     Cohttp_lwt_unix.Client.call `DELETE uri ~headers ~body >>= fun (resp, body) ->
     Request.handle_unit_response resp
 
-let remove_tracks_user ~ids ~request_body () =
+(* let remove_tracks_user ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/tracks" in
     let headers = Request.default_headers in
@@ -205,7 +205,7 @@ let save_episodes_user ~ids ~request_body () =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let save_shows_user ~ids ~save_shows_user_request_t () =
     let open Lwt.Infix in
@@ -216,7 +216,7 @@ let save_shows_user ~ids ~save_shows_user_request_t () =
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
     Request.handle_unit_response resp
 
-let save_tracks_user ~ids ~request_body () =
+(* let save_tracks_user ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/tracks" in
     let headers = Request.default_headers in
@@ -233,5 +233,5 @@ let unfollow_artists_users ~_type ~ids ~request_body () =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `DELETE uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 

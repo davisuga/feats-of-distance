@@ -5,7 +5,7 @@
  *
  *)
 
-let add_tracks_to_playlist ~playlist_id ?position ?uris ~request_body () =
+(* let add_tracks_to_playlist ~playlist_id ?position ?uris ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/playlists/{playlist_id}/tracks" in
     let headers = Request.default_headers in
@@ -14,7 +14,7 @@ let add_tracks_to_playlist ~playlist_id ?position ?uris ~request_body () =
     let uri = Request.maybe_add_query_param uri "uris" (fun x -> x) uris in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `POST uri ~headers ~body >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body
+    Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body *)
 
 let check_users_saved_tracks ~ids =
     let open Lwt.Infix in
@@ -182,7 +182,7 @@ let remove_tracks_playlist ~playlist_id ~remove_tracks_playlist_request_t () =
     Cohttp_lwt_unix.Client.call `DELETE uri ~headers ~body >>= fun (resp, body) ->
     Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body
 
-let remove_tracks_user ~ids ~request_body () =
+(* let remove_tracks_user ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/tracks" in
     let headers = Request.default_headers in
@@ -209,4 +209,4 @@ let save_tracks_user ~ids ~request_body () =
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
     Request.handle_unit_response resp
-
+ *)

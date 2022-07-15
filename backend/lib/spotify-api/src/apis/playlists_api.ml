@@ -5,7 +5,7 @@
  *
  *)
 
-let add_tracks_to_playlist ~playlist_id ?position ?uris ~request_body () =
+(* let add_tracks_to_playlist ~playlist_id ?position ?uris ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/playlists/{playlist_id}/tracks" in
     let headers = Request.default_headers in
@@ -14,16 +14,16 @@ let add_tracks_to_playlist ~playlist_id ?position ?uris ~request_body () =
     let uri = Request.maybe_add_query_param uri "uris" (fun x -> x) uris in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `POST uri ~headers ~body >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body
+    Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body *)
 
-let change_playlist_details ~playlist_id ~request_body () =
+(* let change_playlist_details ~playlist_id ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/playlists/{playlist_id}" in
     let headers = Request.default_headers in
     let uri = Request.replace_path_param uri "playlist_id" (fun x -> x) playlist_id in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let check_if_user_follows_playlist ~playlist_id ~ids =
     let open Lwt.Infix in
@@ -34,7 +34,7 @@ let check_if_user_follows_playlist ~playlist_id ~ids =
     Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
     Request.read_json_body_as_list_of (JsonSupport.to_bool) resp body
 
-let create_playlist ~user_id ~request_body () =
+(* let create_playlist ~user_id ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/users/{user_id}/playlists" in
     let headers = Request.default_headers in
@@ -50,7 +50,7 @@ let follow_playlist ~playlist_id ~request_body () =
     let uri = Request.replace_path_param uri "playlist_id" (fun x -> x) playlist_id in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let get_a_categories_playlists ~category_id ?country ?(limit = 20l) ?(offset = 0l) () =
     let open Lwt.Infix in
@@ -135,7 +135,7 @@ let remove_tracks_playlist ~playlist_id ~remove_tracks_playlist_request_t () =
     Cohttp_lwt_unix.Client.call `DELETE uri ~headers ~body >>= fun (resp, body) ->
     Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body
 
-let reorder_or_replace_playlists_tracks ~playlist_id ?uris ~request_body () =
+(* let reorder_or_replace_playlists_tracks ~playlist_id ?uris ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/playlists/{playlist_id}/tracks" in
     let headers = Request.default_headers in
@@ -143,7 +143,7 @@ let reorder_or_replace_playlists_tracks ~playlist_id ?uris ~request_body () =
     let uri = Request.maybe_add_query_param uri "uris" (fun x -> x) uris in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body
+    Request.read_json_body_as (JsonSupport.unwrap Reorder_or_replace_playlists_tracks_200_response.of_yojson) resp body *)
 
 let unfollow_playlist ~playlist_id =
     let open Lwt.Infix in

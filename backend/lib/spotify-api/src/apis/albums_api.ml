@@ -74,7 +74,7 @@ let get_users_saved_albums ?(limit = 20l) ?(offset = 0l) ?market () =
     Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
     Request.read_json_body_as (JsonSupport.unwrap Get_users_saved_albums_200_response.of_yojson) resp body
 
-let remove_albums_user ~ids ~request_body () =
+(* let remove_albums_user ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/albums" in
     let headers = Request.default_headers in
@@ -90,5 +90,5 @@ let save_albums_user ~ids ~request_body () =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 

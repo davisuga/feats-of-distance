@@ -22,7 +22,7 @@ let check_if_user_follows_playlist ~playlist_id ~ids =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
     Request.read_json_body_as_list_of (JsonSupport.to_bool) resp body
-
+(* 
 let follow_artists_users ~_type ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/following" in
@@ -40,7 +40,7 @@ let follow_playlist ~playlist_id ~request_body () =
     let uri = Request.replace_path_param uri "playlist_id" (fun x -> x) playlist_id in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let get_current_users_profile () =
     let open Lwt.Infix in
@@ -97,7 +97,7 @@ let get_users_top_tracks ?(time_range = "medium_term") ?(limit = 20l) ?(offset =
     Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
     Request.read_json_body_as (JsonSupport.unwrap Tracks_paging_object.of_yojson) resp body
 
-let unfollow_artists_users ~_type ~ids ~request_body () =
+(* let unfollow_artists_users ~_type ~ids ~request_body () =
     let open Lwt.Infix in
     let uri = Request.build_uri "/me/following" in
     let headers = Request.default_headers in
@@ -105,7 +105,7 @@ let unfollow_artists_users ~_type ~ids ~request_body () =
     let uri = Request.add_query_param uri "ids" (fun x -> x) ids in
     let body = Request.write_as_json_body (JsonSupport.of_map_of ) request_body in
     Cohttp_lwt_unix.Client.call `DELETE uri ~headers ~body >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+    Request.handle_unit_response resp *)
 
 let unfollow_playlist ~playlist_id =
     let open Lwt.Infix in
