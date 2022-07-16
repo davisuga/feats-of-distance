@@ -1,0 +1,4 @@
+(library
+ (name custom_cache)
+ (public_name custom_cache)
+ (libraries lwt core))
