@@ -2,4 +2,4 @@
  (name featsOfDistance)
  (flags
   (:standard -rectypes))
- (libraries alcotest lwt featsOfDistance))
+ (libraries alcotest featsOfDistanceLib lwt openapi))
