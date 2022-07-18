@@ -10,3 +10,4 @@ backend/samples
 .fake
 .ionide
 _build
+client/packages/app/spotify-client
