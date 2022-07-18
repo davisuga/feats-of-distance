@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://${BACKEND_URL}/graphql'
+schema: '${REACT_BACKEND_URL}/graphql'
 documents: 'features/**/*.graphql'
 generates:
   graphql/client.ts:
@@ -9,7 +9,7 @@ generates:
       - typescript-react-query
     config:
       fetcher:
-        endpoint: 'http://${BACKEND_URL}/graphql'
+        endpoint: '${REACT_BACKEND_URL}/graphql'
         fetchParams:
           headers:
             Content-Type: application/json

@@ -14,10 +14,12 @@
     "@graphql-codegen/typescript-react-query": "^3.5.14",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "axios": "*",
     "dripsy": "^3.6.0",
     "expo-linking": "^3.0.0",
     "graphql": "^16.5.0",
     "moti": "canary",
+    "openapi-client-axios": "^5.1.2",
     "solito": "latest"
   },
   "sideEffects": false,

@@ -1,15 +1,43 @@
-import { Text, useSx, View, H1, P, Row, A, TextInput, Pressable } from 'dripsy'
+import {
+  Text,
+  useSx,
+  View,
+  H1,
+  P,
+  Row,
+  A,
+  TextInput,
+  Pressable,
+  Image,
+} from 'dripsy'
+import { MotiPressable } from 'moti/interactions'
 import React, { useState } from 'react'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
-import { Artist, useSearchArtistQuery } from '../../graphql/client'
+import {
+  Artist,
+  useFeaturesQuery,
+  useSearchArtistQuery,
+} from '../../graphql/client'
+import {
+  fetchSpotifyToken,
+  getArtistFromUri,
+  getToken,
+  idOfUri,
+} from '../../rest/client'
 import { debounce } from '../../utils/debounce'
 import { ArtistList } from '../artist/ArtistList'
-
-function FindFeatsButton() {
+import { ArtistListItem } from '../artist/ArtistListItem'
+import { useQuery } from 'react-query'
+import { artistApi } from '../../rest/spotify-api'
+import { uniq } from '../../utils/array'
+const AnimatedButton: React.FC<{ onPress: () => void }> = ({
+  children,
+  onPress,
+}) => {
   return (
-    <MotiLink
-      href="/user/fernando"
+    <MotiPressable
+      onPress={onPress}
       animate={({ hovered, pressed }) => {
         'worklet'
 
@@ -31,9 +59,9 @@ function FindFeatsButton() {
           fontWeight: 'bold',
         }}
       >
-        <Text>Find feats of distance!</Text>
+        {children}
       </Text>
-    </MotiLink>
+    </MotiPressable>
   )
 }
 
@@ -56,6 +84,30 @@ export function HomeScreen() {
     }
   )
 
+  const { data: feats, refetch } = useFeaturesQuery(
+    {
+      from: selectedArtists.from?.uri || '',
+      to: selectedArtists.to?.uri || '',
+    },
+    {
+      enabled: false,
+    }
+  )
+
+  const ids = uniq(
+    feats?.features.flatMap((f) => [
+      f.start.properties.uri,
+      f.end.properties.uri,
+    ]) || []
+  ).map(idOfUri)
+
+  const { data: info } = useQuery(
+    ids,
+    () => artistApi.getMultipleArtists(ids.join(',')),
+    {
+      enabled: !!feats?.features,
+    }
+  )
   return (
     <View
       sx={{
@@ -67,9 +119,18 @@ export function HomeScreen() {
       }}
     >
       <H1 sx={{ fontWeight: '800' }}>Welcome to Feats of Distance.</H1>
-      <View sx={{ maxWidth: 600 }}>
-        <P sx={{ textAlign: 'center' }}>Search for an artist</P>
 
+      <View sx={{ maxWidth: 600 }}>
+        <Text>From</Text>
+        {selectedArtists.from && (
+          <ArtistListItem onClick={console.log} data={selectedArtists.from} />
+        )}
+
+        <Text>To</Text>
+        {selectedArtists.to && (
+          <ArtistListItem onClick={console.log} data={selectedArtists.to} />
+        )}
+        <P sx={{ textAlign: 'center' }}>Search for an artist</P>
         <TextInput
           sx={{
             borderColor: 'black',
@@ -81,6 +142,13 @@ export function HomeScreen() {
           }}
           onChangeText={debounce(setSearchTerm, 250)}
         />
+        <Pressable
+          onPress={() => {
+            setSelectedArtists({ from: undefined, to: undefined })
+          }}
+        >
+          <Text>Clear selected artists</Text>
+        </Pressable>
       </View>
       <View sx={{ height: 32, backgroundColor: 'black' }} />
 
@@ -93,20 +161,18 @@ export function HomeScreen() {
           })
         }
       />
+      {feats?.features.map((f) => (
+        <View key={f.uri}>
+          <Text>{f.start.properties.name}</Text>
+          <Text>{f.properties.name}</Text>
+          <Text>{f.end.properties.name}</Text>
+        </View>
+      ))}
       <Row>
-        <FindFeatsButton></FindFeatsButton>
+        <AnimatedButton onPress={refetch}>
+          <Text>Find feats!</Text>
+        </AnimatedButton>
       </Row>
     </View>
   )
 }
-// Accept: */*
-// Accept-Encoding: gzip, deflate
-// Accept-Language: en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7,zh-CN;q=0.6,zh;q=0.5
-// Access-Control-Request-Headers: content-type
-// Access-Control-Request-Method: POST
-// Connection: keep-alive
-// Host: 192.168.1.190:8080
-// Origin: http://localhost:3000
-// Referer: http://localhost:3000/
-// Sec-Fetch-Mode: cors
-// User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36
