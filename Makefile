@@ -42,3 +42,6 @@ db-start:
     -e NEO4J_apoc_import_file_enabled=true \
     -e NEO4J_apoc_import_file_use__neo4j__config=true \
     -e NEO4JLABS_PLUGINS=\[\"apoc\"\] neo4j:4.3
+
+spotify-client-sdk:
+	$(JAVA_HOME)/bin/java -jar openapi-generator-cli-6.0.1.jar generate -i spotify-openapi.yml -g typescript-axios -o ./client/packages/app/spotify-client --skip-validate-spec
