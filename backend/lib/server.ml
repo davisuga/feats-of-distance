@@ -143,6 +143,8 @@ let run =
       >>= (fun command -> Utils.run command.command)
       >>= Dream.html)
 
+let token = Dream.get "/token" (fun req -> Http.new_token () >>= Dream.html)
+
 let start port =
   Dream.run ~port ~interface:"0.0.0.0" ~adjust_terminal:false
   @@ Dream.logger
@@ -151,6 +153,7 @@ let start port =
        [
          Dream.post "/graphql" (Dream.graphql Lwt.return schema);
          command_route;
+         token;
          run;
          Dream.options "/graphql" (fun _req ->
              Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
