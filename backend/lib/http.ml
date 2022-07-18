@@ -127,6 +127,7 @@ let base_headers =
       {|" Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"|} );
     ("accept-language", "en");
     ("sec-ch-ua-mobile", "?0");
+    ("connection", "keep-alive");
   ]
 
 let make_extension =
@@ -203,6 +204,36 @@ let querySpotify ?token variables encode_variables decode_result operation_name
       >|= Yojson.Safe.from_string
       >|= decode_result)
 
+let fetch_all_pages fetcher =
+  let open Openapi.Paged in
+  let%lwt res = fetcher 0l in
+
+  let rec refetch current_items total offset =
+    if total <% Int32.sub %> offset <= res.limit then
+      let%lwt last_fetch = fetcher offset in
+      Lwt.return (List.append current_items last_fetch.items)
+    else
+      let%lwt next_fetch = fetcher offset in
+
+      refetch
+        (List.append next_fetch.items current_items)
+        total
+        (offset <% Int32.add %> res.limit)
+  in
+  refetch res.items res.total res.limit
+
+let get_artist_discography_all ?(token = !current_token) uri =
+  let fetch_albums offset =
+    Openapi.Artists_api.get_an_artists_albums
+      ~include_groups:"single,appears_on,album,compilation" ~token ~offset
+      ~id:(id_of_uri uri) ()
+  in
+  try%lwt fetch_all_pages fetch_albums
+  with e ->
+    failwith
+      (Printf.sprintf "Failed to get artist discography: %s"
+         (Printexc.to_string e))
+
 let searchTerm ?(token = !current_token) term =
   let open SearchDesktop in
   querySpotify ~token
@@ -249,9 +280,8 @@ let get_singles_from_artist_overview
 
 let bimap_to_list (f1 : 'a -> 'b) (f2 : 'a -> 'b) a = List.append (f1 a) (f2 a)
 
-let get_albums_and_singles_by_artist_id ?(token = !current_token) uid =
-  getArtistOverview ~token uid
-  >|= bimap_to_list get_album_ids_from_artist_overview
-        get_singles_from_artist_overview
+let get_albums_uris_by_artist_uri ?(token = !current_token) uid =
+  get_artist_discography_all uid
+  >|= List.map (fun (alb : Openapi.Simplified_album_object.t) -> alb.uri)
 
 type boolean = True | False
