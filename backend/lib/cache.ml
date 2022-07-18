@@ -9,6 +9,7 @@ module type S = sig
   val set : data -> data -> unit container
   val get_or_update : data -> (data -> data) -> data
   val map_cases : data -> (data -> 'a) -> (data -> 'a) -> 'a
+  val clear : data -> unit container
 end
 
 module RedisJsonCache = struct
@@ -64,4 +65,7 @@ struct
     match get cache_key with
     | Some cached_val -> cached_val |> handle_some
     | None -> handle_none cache_key
+
+  let clear key =
+    try Option.some @@ Sys.remove @@ cache_location key with _ -> None
 end
