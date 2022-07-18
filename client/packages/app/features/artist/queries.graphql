@@ -5,3 +5,24 @@ query searchArtist($searchTerm: String!) {
     img
   }
 }
+query features($from: String!, $to: String!) {
+  features(to: $to, from: $from) {
+    uri
+    properties {
+      name
+      uri
+    }
+    end {
+      properties {
+        name
+        uri
+      }
+    }
+    start {
+      properties {
+        name
+        uri
+      }
+    }
+  }
+}
