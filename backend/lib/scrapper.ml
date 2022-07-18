@@ -126,7 +126,7 @@ let persist_all_tracks_from_artist_id artist_id =
   try
     try%lwt persist_all_tracks_from_artist_id_exn artist_id >|= Option.some
     with exn ->
-      Dream.log "Oh shit: %s" (Printexc.to_string exn);
+      Dream.log "Error while saving %s: %s" artist_id (Printexc.to_string exn);
       Lwt.return_none
   with
   | Ppx_yojson_conv_lib__Yojson_conv.Of_yojson_error (a, yojson) ->
