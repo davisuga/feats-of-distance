@@ -106,6 +106,8 @@ module AlbumTracks = struct
   end
 end
 
+let id_of_uri uri = List.nth (String.split_on_char ':' uri) 2
+
 let base_headers =
   [
     ("content-type", "application/json;charset=UTF-8");
