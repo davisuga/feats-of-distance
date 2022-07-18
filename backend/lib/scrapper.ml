@@ -41,17 +41,17 @@ let save_track_from_json_file ?(prefix = "") path =
     |> Storage.Redis.run_cypher_query
     |> Option.some
 
-let save_artist_from_json ?(prefix = "") path =
-  try_parse_json_with Http.SearchDesktop.Result.from_yojson ~prefix path
-  |> get_first_artist_from_search_result
-  |> map_artist_of_artist_json
-  |> Storage.Queries.create_artist
-  |> Storage.Redis.run_cypher_query
+(* let save_artist_from_json ?(prefix = "") path =
+   try_parse_json_with Http.SearchDesktop.Result.from_yojson ~prefix path
+   |> get_first_artist_from_search_result
+   |> map_artist_of_artist_json
+   |> Storage.Queries.create_artist
+   |> Storage.Redis.run_cypher_query *)
 
 let read_dir path = Sys.readdir path |> Array.to_seq
 
-let save_all_artists path =
-  read_dir path |> Seq.map (save_artist_from_json ~prefix:path)
+(* let save_all_artists path =
+   read_dir path |> Seq.map (save_artist_from_json ~prefix:path) *)
 
 let save_all_tracks path =
   read_dir path |> Seq.filter_map (save_track_from_json_file ~prefix:path)
@@ -61,7 +61,7 @@ let save_all_tracks path =
 open! Lwt.Syntax
 open Lwt.Infix
 
-let print_string_list = List.iter (Printf.printf "%s, ")
+let print_string_list = List.iter (Printf.printf "%s\n\n")
 let id a = a
 
 let map_album_tracks_result_to_domain album_tracks_result =
@@ -107,17 +107,16 @@ let seq_parmap_lwt fn promise_list =
 
 let persist_all_tracks_from_artist_id_exn artist_id =
   artist_id
-  |> Http.get_albums_and_singles_by_artist_id
-  |> log ("got albums and singles by" ^ artist_id)
-  (* >|= Lwt_stream.of_list *)
+  |> Http.get_albums_uris_by_artist_uri
+  >|= log ("got albums and singles by " ^ artist_id)
   >>= Lwt_list.map_s get_and_persist_album_tracks
 
 let persist_all_tracks_from_artist_ids_p artist_ids =
   artist_ids
-  |> parmap Http.get_albums_and_singles_by_artist_id
-  |> Lwt_list.map_s id
+  |> parmap Http.get_albums_uris_by_artist_uri
+  |> Lwt_list.map_p id
   >|= parmap (parmap_lwt Http.get_album_tracks)
-  >>= Lwt_list.map_s id
+  >>= Lwt_list.map_p id
   >>= Lwt_list.map_s (Lwt_list.map_s persist_album_tracks_result)
 
 let ignore_if_raising anything = try anything () with _ -> ()
@@ -148,19 +147,33 @@ let string_of_reply_reply_list
   | None -> Lwt.return [ `Null ]
 
 let seed_from_fs () =
-  let counter = ref 0 in
-  let lines = Core.In_channel.read_lines "./lib/data" in
+  let%lwt saved = N4J.get_saved_artists () in
+  let lines =
+    Core.In_channel.read_lines "/home/davi/neo4j/import/relevant_artists.csv"
+  in
   lines
+  |> Core.List.filter ~f:(fun item ->
+         not (List.mem ("spotify:artist:" ^ item) saved))
+  |> Core.List.groupi ~break:(fun i _ _ -> i mod 100 = 0)
   |> log "lines read"
-  |> Lwt_list.filter_map_p (fun id ->
-         persist_all_tracks_from_artist_id id
-         >|= logInfo
-               ("saved "
-               ^ string_of_int !counter
-               ^ " of "
-               ^ string_of_int
-                   (counter := !counter + 1;
-                    List.length lines)))
+  |> Lwt_list.map_s
+       (Lwt_list.filter_map_p (fun csv_line ->
+            let cols = String.split_on_char ',' csv_line in
+            let id = List.nth cols 1 in
+            let name = List.nth cols 0 in
+            let uri = "spotify:artist:" ^ id in
+            (* let  = String.split_on_char ',' csv_line in *)
+            persist_all_tracks_from_artist_id uri
+            >|= logInfo ("saved " ^ name ^ ":" ^ id)
+            >>= fun x ->
+            let%lwt _ =
+              Storage.Queries.mark_artist_as_saved uri |> N4J.run_cypher_query
+            in
+            Lwt.return x))
+  >|= List.flatten
 
 let test () =
-  seed_from_fs () >|= List.map concat_json_strings >|= concat_json_strings
+  seed_from_fs ()
+  >|= List.map concat_json_strings
+  >|= concat_json_strings
+  >|= print_string
