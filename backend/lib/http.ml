@@ -58,7 +58,7 @@ module SearchDesktop = struct
     [@@deriving yojson, show]
 
     let default =
-      { searchTerm = "drake"; offset = 0; limit = 1; numberOfTopResults = 5 }
+      { searchTerm = "drake"; offset = 0; limit = 10; numberOfTopResults = 10 }
 
     let from_yojson = t_of_yojson
     let to_yojson = yojson_of_t
