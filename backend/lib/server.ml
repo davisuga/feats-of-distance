@@ -7,22 +7,25 @@ let artist =
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
-            ~resolve:(fun _info artist -> artist.id);
+            ~resolve:(fun _info artist -> artist.uri);
           field "name" ~typ:(non_null string)
             ~args:Arg.[]
             ~resolve:(fun _info artist -> artist.name);
           field "img" ~typ:string
             ~args:Arg.[]
             ~resolve:(fun _info artist -> artist.img);
+          field "description" ~typ:string
+            ~args:Arg.[]
+            ~resolve:(fun _info artist -> artist.description);
         ]))
 
 let properties =
   Graphql_lwt.Schema.(
     obj "Properties" ~fields:(fun _info ->
         [
-          field "id" ~typ:(non_null string)
+          field "uri" ~typ:(non_null string)
             ~args:Arg.[]
-            ~resolve:(fun _info (prop : N4j_path_dto.properties) -> prop.id);
+            ~resolve:(fun _info (prop : N4j_path_dto.properties) -> prop.uri);
           field "name" ~typ:(non_null string)
             ~args:Arg.[]
             ~resolve:(fun _info (prop : N4j_path_dto.properties) -> prop.name);
@@ -48,11 +51,9 @@ let feat =
   let open N4j_path_dto in
   Graphql_lwt.Schema.(
     obj "Feature" ~fields:(fun _info ->
-
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
-            
             ~resolve:(fun _info relation -> relation.id);
           field "properties" ~typ:(non_null properties)
             ~args:Arg.[]
@@ -79,6 +80,19 @@ let schema =
             | Some term ->
                 Http.search_artists term >|= Array.to_list >|= Result.ok
             | None -> Lwt.return (Result.Error "Empty search term"));
+        io_field "artist" ~typ:(non_null node)
+          ~args:Arg.[ arg "uri" ~typ:string ]
+          ~resolve:(fun _info () uri ->
+            match uri with
+            | Some uri ->
+                Storage.Queries.get_artist_by_uri uri
+                |> N4J.run_cypher_query
+                >|= Utils.trace "Response %s"
+                >|= Yojson.Safe.from_string
+                >|= Yojson.Safe.Util.index 0
+                >|= N4j_path_dto.node_of_yojson
+                >|= Result.ok
+            | None -> Lwt.return (Result.Error "Empty or invalid uri"));
         io_field "features"
           ~typ:(non_null (list (non_null feat)))
           ~args:
@@ -95,9 +109,6 @@ let schema =
                   ~limit:(Option.value limit ~default:2)
                   from to'
                 |> N4J.run_cypher_query
-                >|= N4J.get_json_response_from_reply
-                >|= Option.map utf_decimal_decode
-                >|= Option.get
                 >|= Yojson.Safe.from_string
                 >|= N4j_path_dto.path_response_dto_of_yojson
                 >|= N4j_path_dto.relations_of_response
