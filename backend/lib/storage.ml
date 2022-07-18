@@ -4,44 +4,56 @@ open! Utils
 module Queries = struct
   open Printf
 
-  (* let mark_author_as_saved artist_id =  *)
+  let require_uniqueness =
+    "CREATE CONSTRAINT uri_uniqueness FOR (a:Author) REQUIRE a.uri IS UNIQUE"
 
-  let create_shortest_path_song_nodes id_a id_b =
-    sprintf
-      {|MATCH (a1:Author {uri:'%s'}),
-      (a2:Author {uri:'%s'})
-       RETURN toJSON(nodes(shortestPath((a1)-[:FEATURES_IN|:HAS_FEATURE*1..100]->(a2))))|}
-      id_a id_b
+  (* let mark_author_as_saved artist_uri =  *)
+  module Read = struct
+    let create_shortest_path_song_nodes uri_a uri_b =
+      sprintf
+        {|MATCH (a1:Author {uri:'%s'}),
+        (a2:Author {uri:'%s'})
+         RETURN toJSON(nodes(shortestPath((a1)-[:FEATURES_IN|:HAS_FEATURE*1..100]->(a2))))|}
+        uri_a uri_b
 
-  let create_shortest_path ?(limit = 2) id_a id_b =
-    sprintf
-      {|MATCH (a1:Author {uri:'%s'}),
-          (a2:Author {uri:'%s'})
-           RETURN apoc.convert.toJson(shortestPath((a1)-[:FEATS_WITH*1..100]-(a2)))
-           LIMIT %d|}
-      id_a id_b limit
+    let create_shortest_path ?(limit = 2) uri_a uri_b =
+      sprintf
+        {|MATCH (a1:Author {uri:'%s'}),
+            (a2:Author {uri:'%s'})
+             RETURN apoc.convert.toJson(shortestPath((a1)-[:FEATS_WITH*1..100]-(a2)))
+             LIMIT %d|}
+        uri_a uri_b limit
 
-  let create_multiget ids =
-    sprintf "%s"
-      (ids |> List.map (sprintf {|(a {id: '%s'}),|}) |> String.concat "\n")
+    let reset_db_query = {|MATCH (n) DETACH DELETE n|}
 
-  let capture_ids_from_path_query =
-    Re2.find_all_exn (Re2.create_exn {|\([0-9]+\)|})
+    let get_artist_by_uri =
+      sprintf "MATCH (a:Author {uri: '%s'}) return apoc.convert.toJson(a)"
 
-  let create_artist artist =
-    sprintf {|MERGE (:Author {name: \"%s\", id: '%s', img: '%s'})|} artist.name
-      artist.id
-      (Option.value ~default:"" artist.img)
+    let get_saved_artists = sprintf "MATCH (a:Author {saved:true}) return a.uri"
+  end
+
+  include Read
+
+  let mark_artist_as_saved =
+    sprintf "match (a:Author {uri: '%s'}) set a.saved = true"
+
+  (* let create_artist artist =
+     sprintf
+       {|MERGE (a:Author { uri: '%s'}) set a.name = \"%s\" set  a.img = '%s'|}
+       artist.name artist.uri
+       (Option.value ~default:"" artist.img) *)
 
   (* let create_author_with_albums albums artist = 
      *)
   let clean_spotify_uri = Str.global_replace (Str.regexp ":") ""
 
-  let make_author_merging (name, id) =
+  let make_author_merging (name, uri) =
+    let clean_uri = clean_spotify_uri uri in
     sprintf
-      {|MERGE (%s:Author {id: '%s', name: \"%s\"})
+      {|MERGE (%s:Author {uri: '%s'}) set %s.name = \"%s\"
     |}
-      (clean_spotify_uri id) id (String.escaped name)
+      clean_uri uri clean_uri
+      (name |> String.escaped |> String.escaped)
 
   let map_snd f (a, b) = (a, f b)
   let snd (_, b) = b
@@ -74,29 +86,27 @@ module Queries = struct
 
   let create_song (song : song) =
     let song_authors = song.authors |> List.map (map_snd clean_spotify_uri) in
-    let song_authors_ids = song_authors |> List.map snd in
+    let song_authors_uris = song_authors |> List.map snd in
     sprintf "%s\n%s"
       (song.authors |> List.map make_author_merging |> String.concat "\n")
       (song
-      |> make_authors_features_for_all song_authors_ids
+      |> make_authors_features_for_all song_authors_uris
       |> String.concat "\n")
 
   let create_song_with_song_nodes (song : song) =
     let song_authors = song.authors |> List.map (map_snd clean_spotify_uri) in
     sprintf
       {|%s
-    MERGE (song:Song {name: "%s", id: "%s"})
+    MERGE (song:Song {name: "%s", uri: "%s"})
     %s|}
       (song.authors |> List.map make_author_merging |> String.concat "\n")
-      (String.escaped song.name) song.id
+      (String.escaped song.name) song.uri
       (song_authors
       |> List.map snd
       |> List.map (fun uri ->
              sprintf "MERGE (%s)-[:FEATURES_IN]->(song)-[:HAS_FEATURE]->(%s)"
                uri uri)
       |> String.concat "\n")
-
-  let reset_db_query = {|MATCH (n) DETACH DELETE n|}
 end
 
 module Redis = struct
@@ -122,7 +132,7 @@ module Redis = struct
 
   let run args =
     let* conn = conn in
-    Client.send_request conn args
+    Client.send_custom_request conn args
 
   let run_cypher_query cy = run [ "GRAPH.QUERY"; graph_db_name; cy ]
   let reset () = run_cypher_query Queries.reset_db_query
