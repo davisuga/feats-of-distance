@@ -28,13 +28,13 @@ type sharing_info = { shareId : string; shareUrl : string }
 type tracks = { totalCount : int }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]
 
-type fluffy_type = string [@@deriving yojson, show]
+type release_item_type = string [@@deriving yojson, show]
 
 type releases_item = {
   id : string;
   uri : string;
   name : string;
-  typ : fluffy_type; [@key "type"]
+  typ : release_item_type; [@key "type"]
   copyright : copyright;
   (* date : date_class; *)
   coverArt : cover_art;
