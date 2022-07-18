@@ -153,7 +153,7 @@ let current_token = ref default_token
 let query_uri =
   Uri.of_string "https://api-partner.spotify.com/pathfinder/v1/query"
 
-let rec fetchPage ~headers uri =
+let rec fetchPage' ~headers uri =
   let* resp, body = Client.get ~headers uri in
   let code = resp |> Response.status |> Code.code_of_status in
   if code = 401 then (
@@ -161,14 +161,18 @@ let rec fetchPage ~headers uri =
     current_token := fresh_token;
 
     let new_headers = make_header_with_token fresh_token in
-    fetchPage ~headers:new_headers uri)
+    fetchPage' ~headers:new_headers uri)
   else Lwt.return (resp, body)
 
 exception FetchError of string * string
 
-let fetchPage ~headers uri =
-  try%lwt fetchPage ~headers uri
-  with e -> raise (FetchError (uri |> Uri.to_string, Printexc.to_string e))
+let rec fetchPage ?(retry_count = 0) ~headers uri =
+  try%lwt fetchPage' ~headers uri
+  with e ->
+    if retry_count < 500 then
+      let%lwt () = Lwt_unix.sleep 10.1 in
+      fetchPage ~retry_count:(retry_count + 1) ~headers uri
+    else raise (FetchError (uri |> Uri.to_string, Printexc.to_string e))
 
 let querySpotify ?token variables encode_variables decode_result operation_name
     sha =
