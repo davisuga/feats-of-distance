@@ -1,3 +1,5 @@
+open Printf
+
 let flip f x y = f y x
 let ( <% ) = ( |> )
 let ( %> ) = Fun.id
@@ -74,9 +76,7 @@ let tap eff ret =
 
 (* [run cmd] runs a shell command, waits until it terminates, and
    returns a list of strings that the process outputed *)
-let run cmd =
-  Lwt_process.shell cmd |> log ("running " ^ cmd) |> Lwt_process.pread
-
+let run cmd = Lwt_process.shell cmd |> Lwt_process.pread
 let run_with_args = Lwt_process.pread
 
 module List = struct
