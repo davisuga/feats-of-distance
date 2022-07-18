@@ -59,31 +59,39 @@ let clean_batch_merge commands =
   |> List.partition (compose not is_feat_query)
   |> join_partitions
 
-let run_cypher_queries_cmd ?(sort = false) queries =
-  let statements =
-    queries
-    |> List.map (Str.split (Str.regexp "\n"))
-    |> List.flatten
-    |> List.map String.trim
-    |> List.filter (fun s -> String.length s > 6)
-    |> run_if sort clean_batch_merge
-    |> String.concat "\n"
-  in
+let prepare_queries sort queries =
+  queries
+  |> List.map (Str.split (Str.regexp "\n"))
+  |> List.flatten
+  |> List.map String.trim
+  |> List.filter (fun s -> String.length s > 6)
+  |> run_if sort clean_batch_merge
+  |> String.concat "\n"
 
-  (* let* java_path = Utils.run {|whereis java | awk -F" " '{ print $2 }'|} in
-   *)
-  Utils.run
-    (Printf.sprintf
-       "$JAVA_HOME/bin/java -jar ./backend/cypher-shell.jar --format plain -p \
-        \"%s\" -a %s -u %s \"%s\""
-       neo4j_password uri neo4j_user statements)
-  >|= trace "command result: %s"
-  >|= Str.split (Str.regexp "\n")
-  >|= List.filter_map (fun result ->
-          if String.equal result "\"null\"" then None
-          else Some (result |> remove_hd_and_last |> replace "\\\"" "\""))
-  >|= Utils.List.tail
-  >|= concat_json_strings
+let format_n4j_command =
+  Printf.sprintf
+    "$JAVA_HOME/bin/java -jar ./backend/cypher-shell.jar -d featsOfDistance \
+     --format plain -p \"%s\" -a %s -u %s \"%s\""
+
+let run_cypher_queries_cmd ?(sort = false) queries =
+  let statements = prepare_queries sort queries in
+  if String.length statements < 4 then Lwt.return ""
+  else
+    Utils.run (format_n4j_command neo4j_password uri neo4j_user statements)
+    >|= utf_decimal_decode
+    >|= trace "command result: %s"
+    >|= Str.split (Str.regexp "\n")
+    >|= List.filter_map (fun result ->
+            if String.equal result "\"null\"" then None
+            else Some (result |> remove_hd_and_last |> replace "\\\"" "\""))
+    >|= Utils.List.tail
+    >|= concat_json_strings
 
 let run_cypher_query cy = run_cypher_queries_cmd [ cy ]
 let get_json_response_from_reply r = Some r
+
+let get_saved_artists () =
+  run_cypher_query Storage.Queries.Read.get_saved_artists
+  >|= Utils.replace "[" ""
+  >|= Utils.replace "]" ""
+  >|= String.split_on_char ','
