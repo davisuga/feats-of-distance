@@ -1,4 +1,4 @@
-type properties = { name : string; id : string }
+type properties = { name : string; uri : string }
 [@@deriving yojson] [@@yojson.allow_extra_fields]
 
 type node = { id : string; properties : properties; labels : string list }
