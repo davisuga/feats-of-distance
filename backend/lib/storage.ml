@@ -50,7 +50,9 @@ module Queries = struct
     if artist_a_uri = artist_b_uri then ""
     else
       sprintf {|MERGE (%s)-[:FEATS_WITH {name:\"%s\", uri:'%s'}]->(%s)|}
-        artist_a_uri (String.escaped song.name) song.id artist_b_uri
+        artist_a_uri
+        (song.name |> String.escaped |> String.escaped)
+        song.uri artist_b_uri
 
   let seq_to_list (seq : 'a Seq.t) =
     Seq.fold_left (fun acc seq_elem -> List.append acc [ seq_elem ]) [] seq
