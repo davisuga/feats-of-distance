@@ -11,10 +11,7 @@ let map_song_from_json (track_json : Dtos.genres_item) =
     uri = track_json.track.uri;
   }
 
-let list_max is_greater list =
-  List.fold_right
-    (fun item acc -> if is_greater item acc then item else acc)
-    list (List.hd list)
+open Utils
 
 let map_artist_of_artist_json (artist_json : Dtos.artist_item_data) =
   let open Models in
@@ -25,7 +22,8 @@ let map_artist_of_artist_json (artist_json : Dtos.artist_item_data) =
       | Some avatar ->
           Some
             (avatar.sources
-            |> list_max (fun item_a item_b -> item_a.width < item_b.width))
+            |> Utils.list_max (fun item_a item_b -> item_a.width < item_b.width)
+            )
               .url
       | None -> None);
     name = artist_json.profile.name;

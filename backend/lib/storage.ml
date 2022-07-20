@@ -1,5 +1,6 @@
 open Models
 open! Utils
+open Lwt.Infix
 
 module Queries = struct
   open Printf
@@ -184,4 +185,11 @@ module Redis = struct
     | `Multibulk [ `Multibulk properties ] ->
         `List (properties |> List.map json_of_reply)
     | `Multibulk replies -> `List (replies |> List.map json_of_reply)
+
+  let string_of_reply_reply_list
+      (rrl : Redis_lwt.Client.reply list list Lwt.t option) =
+    match rrl with
+    | Some promise ->
+        promise >|= fun r -> List.flatten r |> List.map json_of_reply
+    | None -> Lwt.return [ `Null ]
 end

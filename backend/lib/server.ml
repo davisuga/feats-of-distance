@@ -84,14 +84,7 @@ let schema =
           ~args:Arg.[ arg "uri" ~typ:string ]
           ~resolve:(fun _info () uri ->
             match uri with
-            | Some uri ->
-                Storage.Queries.get_artist_by_uri uri
-                |> N4J.run_cypher_query
-                >|= Utils.trace "Response %s"
-                >|= Yojson.Safe.from_string
-                >|= Yojson.Safe.Util.index 0
-                >|= N4j_path_dto.node_of_yojson
-                >|= Result.ok
+            | Some uri -> Artist_service.get_one uri >|= Result.ok
             | None -> Lwt.return (Result.Error "Empty or invalid uri"));
         io_field "features"
           ~typ:(non_null (list (non_null feat)))
@@ -105,13 +98,7 @@ let schema =
           ~resolve:(fun _info () from to_ limit ->
             match (from, to_) with
             | Some from, Some to' ->
-                Storage.Queries.create_shortest_path
-                  ~limit:(Option.value limit ~default:2)
-                  from to'
-                |> N4J.run_cypher_query
-                >|= Yojson.Safe.from_string
-                >|= N4j_path_dto.path_response_dto_of_yojson
-                >|= N4j_path_dto.relations_of_response
+                Features_service.features_of_distance ~limit from to'
                 >|= Result.ok
             | _ -> Lwt.return (Result.Error "Invalid params"));
       ])
@@ -184,7 +171,7 @@ let start port =
          Dream.get "/save_artist/:artist_uri" (fun req ->
              match Some (Dream.param req "artist_uri") with
              | Some uri ->
-                 Scrapper.persist_all_tracks_from_artist_id uri
+                 Scrapper.persist_all_tracks_from_artist_id_opt uri
                  >|= Option.get
                  >|= List.map Yojson.Safe.from_string
                  >|= yojson_fold

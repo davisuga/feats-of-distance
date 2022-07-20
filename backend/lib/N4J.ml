@@ -20,37 +20,7 @@ let url =
   |> Uri.of_string
 
 let uri = get_env_var "N4J_URI" ~default:"http://localhost:7474"
-
-(* let run_cypher_queries cy =
-   (* Dream.log "running:\n%s" (cy |> String.concat " "); *)
-   let headers =
-     Header.add_list (Header.init ())
-       [
-         ("Content-Type", "application/json");
-         ("Authorization", "Basic " ^ neo4j_password);
-       ]
-   in
-   let body =
-     build_n4j_payload cy
-     |> yojson_of_n4j_payload
-     |> Yojson.Safe.to_string
-     |> Cohttp_lwt.Body.of_string
-   in
-
-   Cohttp_lwt_unix.Client.post ~body ~headers url
-   >>= Http.string_of_body
-   >|= utf_decimal_decode
-   >|= fun body ->
-   Utils.log ("response: " ^ body) body |> ignore;
-   body *)
 let filter_null_result = compose not (String.equal "\"null\"")
-
-(* module ListSet = Set.Make(List) *)
-let wrap_yojson_safely of_yojson yojson =
-  try of_yojson yojson
-  with Ppx_yojson_conv_lib__Yojson_conv.Of_yojson_error (e, yo) ->
-    raise (Utils.ParseError (Utils.print_yojson_exn (e, yo)))
-
 let is_feat_query = contains "FEATS_WITH"
 
 let clean_batch_merge commands =
@@ -84,14 +54,8 @@ let run_cypher_queries_cmd ?(sort = false) queries =
     >|= List.filter_map (fun result ->
             if String.equal result "\"null\"" then None
             else Some (result |> remove_hd_and_last |> replace "\\\"" "\""))
-    >|= Utils.List.tail
+    >|= Utils.ListUtils.tail
     >|= concat_json_strings
 
 let run_cypher_query cy = run_cypher_queries_cmd [ cy ]
 let get_json_response_from_reply r = Some r
-
-let get_saved_artists () =
-  run_cypher_query Storage.Queries.Read.get_saved_artists
-  >|= Utils.replace "[" ""
-  >|= Utils.replace "]" ""
-  >|= String.split_on_char ','

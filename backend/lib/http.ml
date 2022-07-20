@@ -285,5 +285,3 @@ let bimap_to_list (f1 : 'a -> 'b) (f2 : 'a -> 'b) a = List.append (f1 a) (f2 a)
 let get_albums_uris_by_artist_uri ?(token = !current_token) uid =
   get_artist_discography_all uid
   >|= List.map (fun (alb : Openapi.Simplified_album_object.t) -> alb.uri)
-
-type boolean = True | False
