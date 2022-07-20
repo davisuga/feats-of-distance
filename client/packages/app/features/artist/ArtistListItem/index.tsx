@@ -29,7 +29,6 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
               borderRadius: 5,
             }}
             accessibilityLabel="artist-pic"
-            alt=""
             source={{ uri: props.data.img }}
           />
         )}

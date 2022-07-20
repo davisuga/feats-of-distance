@@ -2,7 +2,7 @@ import axios from 'axios'
 import { tap } from '../utils/tap'
 
 const client = axios.create({
-  baseURL: process.env.REACT_BACKEND_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 })
 const spotifyClient = axios.create({
   baseURL: 'https://api.spotify.com/v1/',
