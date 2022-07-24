@@ -15,10 +15,10 @@ let prompt =
   in
   Arg.(last & vflag_all [ 0 ] [ verbose ])
 
+let server_term = Term.(const (fun _ -> Server.start port) $ prompt)
+
 let server_command =
-  Cmd.v
-    (Cmd.info "server" ~doc:"Starts a graphql server")
-    Term.(const (fun _ -> Server.start port) $ prompt)
+  Cmd.v (Cmd.info "server" ~doc:"Starts a graphql server") server_term
 
 let seed_command =
   Cmd.v
@@ -26,6 +26,8 @@ let seed_command =
     Term.(const (fun _ -> Scrapper.test ()) $ const ())
 
 let cmd =
-  Cmd.group (Cmd.info "Feats Of Distance") [ server_command; seed_command ]
+  Cmd.group ~default:server_term
+    (Cmd.info "Feats Of Distance")
+    [ server_command; seed_command ]
 
 let run () = exit (Cmd.eval cmd)
