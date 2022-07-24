@@ -1,4 +1,4 @@
 (executable
  (public_name featsOfDistance)
  (name main)
- (libraries cmdliner featsOfDistanceLib))
+ (libraries featsOfDistanceLib))
