@@ -85,3 +85,4 @@ let test () =
   >|= List.map concat_json_strings
   >|= concat_json_strings
   >|= print_string
+  |> Lwt_main.run
