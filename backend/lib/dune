@@ -1,5 +1,15 @@
 (library
- (libraries openapi str re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri)
+ (libraries
+  openapi
+  cmdliner
+  str
+  re2
+  dream
+  redis
+  redis-lwt
+  cohttp
+  cohttp-lwt-unix
+  uri)
  (name featsOfDistanceLib)
  (preprocess
   (pps ppx_yojson_conv lwt_ppx ppx_deriving.show)))
