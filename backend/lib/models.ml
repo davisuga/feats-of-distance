@@ -5,7 +5,13 @@ type song = { name : string; authors : (string * string) list; uri : string }
 [@@deriving yojson]
 
 (* song_name, *)
-type album = { name : string; uri : string; cover_art_url : string; year : int }
+type album = {
+  name : string;
+  uri : string;
+  cover_art_url : string;
+  year : int;
+  album : string option;
+}
 [@@deriving yojson]
 
 type artist = {
