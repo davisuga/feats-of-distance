@@ -24,6 +24,6 @@ type notification = {
 
 type neo4j_response = {
   results : result list;
-  notifications : notification list; (* errors : string option list; *)
+  notifications : notification list (* errors : string option list; *);
 }
 [@@deriving yojson, show] [@@yojson.allow_extra_fields]

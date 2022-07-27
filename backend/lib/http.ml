@@ -162,7 +162,6 @@ let rec fetchPage' ~headers uri =
   if code = 401 then (
     let* fresh_token = new_token () in
     current_token := fresh_token;
-
     let new_headers = make_header_with_token fresh_token in
     fetchPage' ~headers:new_headers uri)
   else Lwt.return (resp, body)
@@ -209,14 +208,12 @@ let querySpotify ?token variables encode_variables decode_result operation_name
 let fetch_all_pages fetcher =
   let open Openapi.Paged in
   let%lwt res = fetcher 0l in
-
   let rec refetch current_items total offset =
     if total <% Int32.sub %> offset <= res.limit then
       let%lwt last_fetch = fetcher offset in
       Lwt.return (List.append current_items last_fetch.items)
     else
       let%lwt next_fetch = fetcher offset in
-
       refetch
         (List.append next_fetch.items current_items)
         total

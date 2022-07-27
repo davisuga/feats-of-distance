@@ -1,5 +1,3 @@
-
-
 module type S = sig
   type 'a container
   type data
@@ -11,7 +9,6 @@ module type S = sig
   val map_cases : data -> (data -> 'a) -> (data -> 'a) -> 'a
   val clear : data -> unit container
 end
-
 
 module FsCache : S with type 'a container := 'a option and type data := string =
 struct
