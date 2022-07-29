@@ -11,3 +11,6 @@ backend/samples
 .ionide
 _build
 client/packages/app/spotify-client
+logs
+.env*
+*.key*
