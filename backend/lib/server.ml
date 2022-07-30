@@ -105,6 +105,12 @@ let schema =
 
 open Lwt.Syntax
 
+let add_headers new_headers msg =
+  new_headers
+  |> List.map (fun (key, value) -> Dream.add_header msg key value)
+  |> ignore;
+  msg
+
 let cors_middleware inner_handler req =
   let new_headers =
     [
