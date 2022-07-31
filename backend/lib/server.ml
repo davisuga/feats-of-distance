@@ -120,12 +120,7 @@ let cors_middleware inner_handler req =
     ]
   in
   let+ response = inner_handler req in
-
-  new_headers
-  |> List.map (fun (key, value) -> Dream.add_header response key value)
-  |> ignore;
-
-  response
+  response |> add_headers new_headers
 
 open! Printf
 
@@ -139,49 +134,60 @@ let command_route =
       >>= (fun command -> N4J.run_cypher_query command.command)
       >>= Dream.json)
 
-let run =
-  Dream.post "/run" (fun req ->
-      Dream.body req
-      >|= Yojson.Safe.from_string
-      >|= command_body_of_yojson
-      >>= (fun command -> Utils.run command.command)
-      >>= Dream.html)
+let handle_run req =
+  Dream.body req
+  >|= Yojson.Safe.from_string
+  >|= command_body_of_yojson
+  >>= (fun command -> Utils.run command.command)
+  |> Lwt_result.map_err (fun e ->
+         Dream.log "OOPS: %s" (Printexc.to_string e);
+         e)
+  |> Lwt_result.get_exn
+  >>= Dream.html
 
+let run = Dream.post "/run" handle_run
 let token = Dream.get "/token" (fun req -> Http.new_token () >>= Dream.html)
+
+let graphql_routes =
+  [
+    Dream.post "/graphql" (Dream.graphql Lwt.return schema);
+    Dream.options "/graphql" (fun _req ->
+        Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
+    Dream.get "/" (Dream.graphiql "/graphql");
+  ]
+
+let main_routes =
+  List.append graphql_routes
+    [
+      command_route;
+      token;
+      run;
+      Dream.get "/relation" (fun req ->
+          let from = Dream.query req "from" in
+          let to' = Dream.query req "to" in
+          match (from, to') with
+          | Some from, Some to' ->
+              Storage.Queries.create_shortest_path from to'
+              |> N4J.run_cypher_query
+              >|= N4J.get_json_response_from_reply
+              >|= Option.map utf_decimal_decode
+              >|= Option.get
+              >>= Dream.json
+          | _ -> Dream.respond "");
+      Dream.get "/save_artist/:artist_uri" (fun req ->
+          match Some (Dream.param req "artist_uri") with
+          | Some uri ->
+              Scrapper.persist_all_tracks_from_artist_id_opt uri
+              >|= Option.get
+              >|= List.map Yojson.Safe.from_string
+              >|= yojson_fold
+              >|= Yojson.Safe.to_string
+              >>= Dream.json
+          | None -> Dream.respond ~status:`Bad_Request "");
+    ]
 
 let start port =
   Dream.run ~port ~interface:"0.0.0.0" ~adjust_terminal:false
   @@ Dream.logger
   @@ cors_middleware
-  @@ Dream.router
-       [
-         Dream.post "/graphql" (Dream.graphql Lwt.return schema);
-         command_route;
-         token;
-         run;
-         Dream.options "/graphql" (fun _req ->
-             Dream.respond ~headers:[ ("Allow", "OPTIONS, GET, HEAD, POST") ] "");
-         Dream.get "/" (Dream.graphiql "/graphql");
-         Dream.get "/relation" (fun req ->
-             let from = Dream.query req "from" in
-             let to' = Dream.query req "to" in
-             match (from, to') with
-             | Some from, Some to' ->
-                 Storage.Queries.create_shortest_path from to'
-                 |> N4J.run_cypher_query
-                 >|= N4J.get_json_response_from_reply
-                 >|= Option.map utf_decimal_decode
-                 >|= Option.get
-                 >>= Dream.json
-             | _ -> Dream.respond "");
-         Dream.get "/save_artist/:artist_uri" (fun req ->
-             match Some (Dream.param req "artist_uri") with
-             | Some uri ->
-                 Scrapper.persist_all_tracks_from_artist_id_opt uri
-                 >|= Option.get
-                 >|= List.map Yojson.Safe.from_string
-                 >|= yojson_fold
-                 >|= Yojson.Safe.to_string
-                 >>= Dream.json
-             | None -> Dream.respond ~status:`Bad_Request "");
-       ]
+  @@ Dream.router [ Dream.scope "/" [] main_routes ]
