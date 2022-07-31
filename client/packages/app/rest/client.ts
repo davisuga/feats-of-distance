@@ -41,12 +41,25 @@ axios.interceptors.request.use(
     }
   },
   function (error) {
+    console.log('updating token...')
     updateToken()
 
-    // Faz alguma coisa com o erro da requisição
     return Promise.reject(error)
   }
 )
+
+axios.interceptors.response.use(
+  async function (config) {
+    return config
+  },
+  function (error) {
+    console.log('updating token...')
+    updateToken()
+
+    return Promise.reject(error)
+  }
+)
+
 export const idOfUri = (uri: string) => uri.split(':')[2]
 
 export const getArtistFromUri = (uri: string) => {

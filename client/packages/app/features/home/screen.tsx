@@ -9,9 +9,10 @@ import {
   TextInput,
   Pressable,
   Image,
+  FlatList,
 } from 'dripsy'
 import { MotiPressable } from 'moti/interactions'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 import {
@@ -30,7 +31,8 @@ import { ArtistList } from '../artist/ArtistList'
 import { ArtistListItem } from '../artist/ArtistListItem'
 import { useQuery } from 'react-query'
 import { artistApi } from '../../rest/spotify-api'
-import { uniq } from '../../utils/array'
+import { removeDuplicatesBy, uniq } from '../../utils/array'
+import { Track } from '../track/Track'
 const AnimatedButton: React.FC<{ onPress: () => void }> = ({
   children,
   onPress,
@@ -64,7 +66,7 @@ const AnimatedButton: React.FC<{ onPress: () => void }> = ({
     </MotiPressable>
   )
 }
-
+export const Spacer = <View sx={{ height: 16 }} />
 export function HomeScreen() {
   const sx = useSx()
 
@@ -75,7 +77,7 @@ export function HomeScreen() {
     to?: Artist
   }>({ from: undefined, to: undefined })
 
-  const { data } = useSearchArtistQuery(
+  const { data: searchData } = useSearchArtistQuery(
     {
       searchTerm,
     },
@@ -94,6 +96,11 @@ export function HomeScreen() {
     }
   )
 
+  // const featsArtists = useMemo(() => {
+
+  //   const properties = feats?.features.flatMap(x => [x.start.properties, x.end.properties])
+  //   return removeDuplicatesBy<typeof properties, "uri">("uri")(properties||[])}, [feats])
+
   const ids = uniq(
     feats?.features.flatMap((f) => [
       f.start.properties.uri,
@@ -101,9 +108,19 @@ export function HomeScreen() {
     ]) || []
   ).map(idOfUri)
 
-  const { data: info } = useQuery(
+  const { data: artists } = useQuery(
     ids,
-    () => artistApi.getMultipleArtists(ids.join(',')),
+    () =>
+      artistApi
+        .getMultipleArtists(ids.join(','))
+        .then((x) =>
+          x.data.artists.map((a) => ({
+            ...a,
+            img: a.images?.[0]?.url || '',
+            name: a.name,
+          }))
+        )
+        .then(),
     {
       enabled: !!feats?.features,
     }
@@ -152,22 +169,77 @@ export function HomeScreen() {
       </View>
       <View sx={{ height: 32, backgroundColor: 'black' }} />
 
-      <ArtistList
-        data={data}
-        onClickItem={(item) =>
-          setSelectedArtists({
-            ...selectedArtists,
-            [selectedArtists.from ? 'to' : 'from']: item,
-          })
-        }
-      />
-      {feats?.features.map((f) => (
-        <View key={f.uri}>
-          <Text>{f.start.properties.name}</Text>
-          <Text>{f.properties.name}</Text>
-          <Text>{f.end.properties.name}</Text>
-        </View>
-      ))}
+      {
+        <ArtistList
+          data={searchData}
+          onClickItem={(item) =>
+            setSelectedArtists({
+              ...selectedArtists,
+              [selectedArtists.from ? 'to' : 'from']: item,
+            })
+          }
+        />
+      }
+      {Spacer}
+      <View sx={{ display: 'flex' }}>
+        {feats?.features && (
+          <FlatList
+            ListFooterComponent={
+              <ArtistListItem
+                onClick={console.log}
+                data={selectedArtists.to!}
+              />
+            }
+            ListHeaderComponent={
+              <>
+                <ArtistListItem
+                  onClick={console.log}
+                  data={selectedArtists.from!}
+                />
+                {Spacer}
+              </>
+            }
+            ItemSeparatorComponent={() => Spacer}
+            data={feats?.features}
+            renderItem={({ item, index }) => {
+              const lastArtist = feats?.features[index - 1]
+              const startArtist = artists?.find(
+                (x) => x.uri === item.start.properties.uri
+              )
+              const endArtist = artists?.find(
+                (x) => x.uri === item.end.properties.uri
+              )
+
+              const artistToRender = [
+                lastArtist?.start.properties.uri,
+                lastArtist?.end.properties.uri,
+
+                selectedArtists.to?.uri,
+                selectedArtists.from?.uri,
+              ].includes(startArtist?.uri)
+                ? endArtist
+                : startArtist
+              return (
+                <View>
+                  {/* { startArtist && startArtist.uri != selectedArtists.from?.uri? (
+                  <ArtistListItem data={startArtist} />
+                ) : null} */}
+                  <Track
+                    id={item.properties.uri.replace('spotify:track:', '')}
+                  />
+                  <View sx={{ height: 16 }} />
+                  {artistToRender && index !== feats?.features.length - 1 ? (
+                    <ArtistListItem
+                      data={artistToRender}
+                      onClick={console.log}
+                    />
+                  ) : null}
+                </View>
+              )
+            }}
+          />
+        )}
+      </View>
       <Row>
         <AnimatedButton onPress={refetch}>
           <Text>Find feats!</Text>
