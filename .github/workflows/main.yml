@@ -1,12 +1,6 @@
-name: GitHub Actions Demo
-on:
-  pull_request:
-  push:
-  schedule:
-    # Prime the caches every Monday
-    - cron: 0 1 * * MON
+name: Deploy
 
-on: 
+on:
   push:
     jobs:
       build:
@@ -24,9 +18,9 @@ on:
 
           - name: Check out repository code
             uses: actions/checkout@v3
-          
+
           - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-          
+
           - name: Use OCaml ${{ matrix.ocaml-compiler }}
             uses: ocaml/setup-ocaml@v2
             with:
