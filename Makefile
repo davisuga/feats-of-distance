@@ -4,7 +4,7 @@ LOGPATH = ./backend/logs
 LOGFILE = $(LOGPATH)/$(shell date --iso=seconds)
 
 install-deps:
-	cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri 
+	cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri dune
 
 start:
 	echo "./backend/_build/default/bin/main.exe --verbose  > >(tee -a $(LOGFILE)_stdout.log) 2> >(tee -a $(LOGFILE)_stderr.log >&2)" | bash
