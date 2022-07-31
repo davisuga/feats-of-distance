@@ -7,9 +7,7 @@ jobs:
   build:
     strategy:
       fail-fast: false
-      matrix:
-        ocaml-compiler:
-          - 4.14.x
+
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -21,12 +19,13 @@ jobs:
 
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
 
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
-        uses: ocaml/setup-ocaml@v2
-        with:
-          ocaml-compiler: ${{ matrix.ocaml-compiler }}
-          dune-cache: true
+      - name: Installing OCaml
+      - run: bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+      - run: opam switch create 4.14.0+flambda+nnpchecker ocaml-variants.4.14.0+options ocaml-option-flambda ocaml-option-nnpchecker
+      - name: Install deps
+      - run: echo "N4J_URI=${{ secrets.N4J_URI }}\nN4J_PASSWORD=${{ secrets.N4J_PASSWORD }}" > .env
       - run: make install-deps
+      - name: Compile binary
       - run: make build-prod
       - run: make copy-build
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."

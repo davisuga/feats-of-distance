@@ -1,4 +1,4 @@
-include .env.local
+include .env
 export
 LOGPATH = ./backend/logs
 LOGFILE = $(LOGPATH)/$(shell date --iso=seconds)
