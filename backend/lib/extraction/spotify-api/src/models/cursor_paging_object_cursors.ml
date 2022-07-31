@@ -7,12 +7,10 @@
  *)
 
 type t = {
-    (* The cursor to use as key to find the next page of items. *)
-    after: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The cursor to use as key to find the next page of items. *)
+  after : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
 (** The cursors used to find the next set of items. *)
-let create () : t = {
-    after = None;
-}
-
+let create () : t = { after = None }

@@ -5,11 +5,8 @@
  *
  *)
 
-type t = {
-    categories: Get_categories_200_response_categories.t;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { categories : Get_categories_200_response_categories.t }
+[@@deriving yojson { strict = false }, show]
 
-let create (categories : Get_categories_200_response_categories.t) : t = {
-    categories = categories;
-}
-
+let create (categories : Get_categories_200_response_categories.t) : t =
+  { categories }

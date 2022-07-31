@@ -7,96 +7,106 @@
  *)
 
 type t = {
-    album: Track_object_album.t option [@default None];
-    (* The artists who performed the track. Each artist object includes a link in `href` to more detailed information about the artist.  *)
-    artists: Artist_object.t list;
-    (* A list of the countries in which the track can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.  *)
-    available_markets: string list;
-    (* The disc number (usually `1` unless the album consists of more than one disc).  *)
-    disc_number: int32 option [@default None];
-    (* The episode length in milliseconds.  *)
-    duration_ms: int32;
-    (* Whether or not the episode has explicit content (true = yes it does; false = no it does not OR unknown).  *)
-    explicit: bool;
-    external_ids: Track_object_external_ids.t option [@default None];
-    external_urls: Episode_base_external_urls.t;
-    (* A link to the Web API endpoint providing full details of the episode.  *)
-    href: string;
-    (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the episode.  *)
-    id: string;
-    (* True if the episode is playable in the given market. Otherwise false.  *)
-    is_playable: bool;
-    linked_from: Track_object_linked_from.t option [@default None];
-    restrictions: Episode_base_restrictions.t option [@default None];
-    (* The name of the episode.  *)
-    name: string;
-    (* The popularity of the track. The value will be between 0 and 100, with 100 being the most popular.<br>The popularity of a track is a value between 0 and 100, with 100 being the most popular. The popularity is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are.<br>Generally speaking, songs that are being played a lot now will have a higher popularity than songs that were played a lot in the past. Duplicate tracks (e.g. the same track from a single and an album) are rated independently. Artist and album popularity is derived mathematically from track popularity. _**Note**: the popularity value may lag actual popularity by a few days: the value is not updated in real time._  *)
-    popularity: int32 option [@default None];
-    (* A link to a 30 second preview (MP3 format) of the track. Can be `null`  *)
-    preview_url: string option [@default None];
-    (* The number of the track. If an album has several discs, the track number is the number on the specified disc.  *)
-    track_number: int32 option [@default None];
-    (* The object type.  *)
-    _type: Enums.episodebase_type[@default `Episode];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the episode.  *)
-    uri: string;
-    (* Whether or not the track is from a local file.  *)
-    is_local: bool option [@default None];
-    (* A URL to a 30 second preview (MP3 format) of the episode. `null` if not available.  *)
-    audio_preview_url: string;
-    (* A description of the episode. HTML tags are stripped away from this field, use `html_description` field in case HTML tags are needed.  *)
-    description: string;
-    (* A description of the episode. This field may contain HTML tags.  *)
-    html_description: string;
-    (* The cover art for the episode in various sizes, widest first.  *)
-    images: Image_object.t list;
-    (* True if the episode is hosted outside of Spotify's CDN.  *)
-    is_externally_hosted: bool;
-    (* The language used in the episode, identified by a [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code. This field is deprecated and might be removed in the future. Please use the `languages` field instead.  *)
-    language: string option [@default None];
-    (* A list of the languages used in the episode, identified by their [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.  *)
-    languages: string list;
-    (* The date the episode was first released, for example `\''1981-12-15\''`. Depending on the precision, it might be shown as `\''1981\''` or `\''1981-12\''`.  *)
-    release_date: string;
-    (* The precision with which `release_date` value is known.  *)
-    release_date_precision: Enums.release_date_precision;
-    resume_point: Episode_base_resume_point.t;
-    (* The show on which the episode belongs.  *)
-    show: Simplified_show_object.t;
-} [@@deriving yojson { strict = false }, show ];;
+  album : Track_object_album.t option; [@default None]
+  (* The artists who performed the track. Each artist object includes a link in `href` to more detailed information about the artist.  *)
+  artists : Artist_object.t list;
+  (* A list of the countries in which the track can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.  *)
+  available_markets : string list;
+  (* The disc number (usually `1` unless the album consists of more than one disc).  *)
+  disc_number : int32 option; [@default None]
+  (* The episode length in milliseconds.  *)
+  duration_ms : int32;
+  (* Whether or not the episode has explicit content (true = yes it does; false = no it does not OR unknown).  *)
+  explicit : bool;
+  external_ids : Track_object_external_ids.t option; [@default None]
+  external_urls : Episode_base_external_urls.t;
+  (* A link to the Web API endpoint providing full details of the episode.  *)
+  href : string;
+  (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the episode.  *)
+  id : string;
+  (* True if the episode is playable in the given market. Otherwise false.  *)
+  is_playable : bool;
+  linked_from : Track_object_linked_from.t option; [@default None]
+  restrictions : Episode_base_restrictions.t option; [@default None]
+  (* The name of the episode.  *)
+  name : string;
+  (* The popularity of the track. The value will be between 0 and 100, with 100 being the most popular.<br>The popularity of a track is a value between 0 and 100, with 100 being the most popular. The popularity is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are.<br>Generally speaking, songs that are being played a lot now will have a higher popularity than songs that were played a lot in the past. Duplicate tracks (e.g. the same track from a single and an album) are rated independently. Artist and album popularity is derived mathematically from track popularity. _**Note**: the popularity value may lag actual popularity by a few days: the value is not updated in real time._  *)
+  popularity : int32 option; [@default None]
+  (* A link to a 30 second preview (MP3 format) of the track. Can be `null`  *)
+  preview_url : string option; [@default None]
+  (* The number of the track. If an album has several discs, the track number is the number on the specified disc.  *)
+  track_number : int32 option; [@default None]
+  (* The object type.  *)
+  _type : Enums.episodebase_type; [@default `Episode]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the episode.  *)
+  uri : string;
+  (* Whether or not the track is from a local file.  *)
+  is_local : bool option; [@default None]
+  (* A URL to a 30 second preview (MP3 format) of the episode. `null` if not available.  *)
+  audio_preview_url : string;
+  (* A description of the episode. HTML tags are stripped away from this field, use `html_description` field in case HTML tags are needed.  *)
+  description : string;
+  (* A description of the episode. This field may contain HTML tags.  *)
+  html_description : string;
+  (* The cover art for the episode in various sizes, widest first.  *)
+  images : Image_object.t list;
+  (* True if the episode is hosted outside of Spotify's CDN.  *)
+  is_externally_hosted : bool;
+  (* The language used in the episode, identified by a [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code. This field is deprecated and might be removed in the future. Please use the `languages` field instead.  *)
+  language : string option; [@default None]
+  (* A list of the languages used in the episode, identified by their [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.  *)
+  languages : string list;
+  (* The date the episode was first released, for example `\''1981-12-15\''`. Depending on the precision, it might be shown as `\''1981\''` or `\''1981-12\''`.  *)
+  release_date : string;
+  (* The precision with which `release_date` value is known.  *)
+  release_date_precision : Enums.release_date_precision;
+  resume_point : Episode_base_resume_point.t;
+  (* The show on which the episode belongs.  *)
+  show : Simplified_show_object.t;
+}
+[@@deriving yojson { strict = false }, show]
 
 (** Information about the track or episode. *)
-let create (duration_ms : int32) (explicit : bool) (external_urls : Episode_base_external_urls.t) (href : string) (id : string) (is_playable : bool) (name : string) (_type : Enums.episodebase_type) (uri : string) (audio_preview_url : string) (description : string) (html_description : string) (images : Image_object.t list) (is_externally_hosted : bool) (languages : string list) (release_date : string) (release_date_precision : Enums.release_date_precision) (resume_point : Episode_base_resume_point.t) (show : Simplified_show_object.t) : t = {
+let create (duration_ms : int32) (explicit : bool)
+    (external_urls : Episode_base_external_urls.t) (href : string) (id : string)
+    (is_playable : bool) (name : string) (_type : Enums.episodebase_type)
+    (uri : string) (audio_preview_url : string) (description : string)
+    (html_description : string) (images : Image_object.t list)
+    (is_externally_hosted : bool) (languages : string list)
+    (release_date : string)
+    (release_date_precision : Enums.release_date_precision)
+    (resume_point : Episode_base_resume_point.t)
+    (show : Simplified_show_object.t) : t =
+  {
     album = None;
     artists = [];
     available_markets = [];
     disc_number = None;
-    duration_ms = duration_ms;
-    explicit = explicit;
+    duration_ms;
+    explicit;
     external_ids = None;
-    external_urls = external_urls;
-    href = href;
-    id = id;
-    is_playable = is_playable;
+    external_urls;
+    href;
+    id;
+    is_playable;
     linked_from = None;
     restrictions = None;
-    name = name;
+    name;
     popularity = None;
     preview_url = None;
     track_number = None;
-    _type = _type;
-    uri = uri;
+    _type;
+    uri;
     is_local = None;
-    audio_preview_url = audio_preview_url;
-    description = description;
-    html_description = html_description;
-    images = images;
-    is_externally_hosted = is_externally_hosted;
+    audio_preview_url;
+    description;
+    html_description;
+    images;
+    is_externally_hosted;
     language = None;
-    languages = languages;
-    release_date = release_date;
-    release_date_precision = release_date_precision;
-    resume_point = resume_point;
-    show = show;
-}
-
+    languages;
+    release_date;
+    release_date_precision;
+    resume_point;
+    show;
+  }

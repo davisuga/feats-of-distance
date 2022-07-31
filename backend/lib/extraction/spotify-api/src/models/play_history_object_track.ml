@@ -7,41 +7,44 @@
  *)
 
 type t = {
-    (* The artists who performed the track. Each artist object includes a link in `href` to more detailed information about the artist. *)
-    artists: Simplified_artist_object.t list;
-    (* A list of the countries in which the track can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.  *)
-    available_markets: string list;
-    (* The disc number (usually `1` unless the album consists of more than one disc). *)
-    disc_number: int32 option [@default None];
-    (* The track length in milliseconds. *)
-    duration_ms: int32 option [@default None];
-    (* Whether or not the track has explicit lyrics ( `true` = yes it does; `false` = no it does not OR unknown). *)
-    explicit: bool option [@default None];
-    external_urls: Simplified_track_object_external_urls.t option [@default None];
-    (* A link to the Web API endpoint providing full details of the track. *)
-    href: string option [@default None];
-    (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the track.  *)
-    id: string option [@default None];
-    (* Part of the response when [Track Relinking](/documentation/general/guides/track-relinking-guide/) is applied. If `true`, the track is playable in the given market. Otherwise `false`.  *)
-    is_playable: bool option [@default None];
-    linked_from: Simplified_track_object_linked_from.t option [@default None];
-    restrictions: Simplified_track_object_restrictions.t option [@default None];
-    (* The name of the track. *)
-    name: string option [@default None];
-    (* A URL to a 30 second preview (MP3 format) of the track.  *)
-    preview_url: string option [@default None];
-    (* The number of the track. If an album has several discs, the track number is the number on the specified disc.  *)
-    track_number: int32 option [@default None];
-    (* The object type: \''track\''.  *)
-    _type: string option [@default None];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the track.  *)
-    uri: string option [@default None];
-    (* Whether or not the track is from a local file.  *)
-    is_local: bool option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The artists who performed the track. Each artist object includes a link in `href` to more detailed information about the artist. *)
+  artists : Simplified_artist_object.t list;
+  (* A list of the countries in which the track can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.  *)
+  available_markets : string list;
+  (* The disc number (usually `1` unless the album consists of more than one disc). *)
+  disc_number : int32 option; [@default None]
+  (* The track length in milliseconds. *)
+  duration_ms : int32 option; [@default None]
+  (* Whether or not the track has explicit lyrics ( `true` = yes it does; `false` = no it does not OR unknown). *)
+  explicit : bool option; [@default None]
+  external_urls : Simplified_track_object_external_urls.t option;
+      [@default None]
+  (* A link to the Web API endpoint providing full details of the track. *)
+  href : string option; [@default None]
+  (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the track.  *)
+  id : string option; [@default None]
+  (* Part of the response when [Track Relinking](/documentation/general/guides/track-relinking-guide/) is applied. If `true`, the track is playable in the given market. Otherwise `false`.  *)
+  is_playable : bool option; [@default None]
+  linked_from : Simplified_track_object_linked_from.t option; [@default None]
+  restrictions : Simplified_track_object_restrictions.t option; [@default None]
+  (* The name of the track. *)
+  name : string option; [@default None]
+  (* A URL to a 30 second preview (MP3 format) of the track.  *)
+  preview_url : string option; [@default None]
+  (* The number of the track. If an album has several discs, the track number is the number on the specified disc.  *)
+  track_number : int32 option; [@default None]
+  (* The object type: \''track\''.  *)
+  _type : string option; [@default None]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the track.  *)
+  uri : string option; [@default None]
+  (* Whether or not the track is from a local file.  *)
+  is_local : bool option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
 (** The track the user listened to. *)
-let create () : t = {
+let create () : t =
+  {
     artists = [];
     available_markets = [];
     disc_number = None;
@@ -59,5 +62,4 @@ let create () : t = {
     _type = None;
     uri = None;
     is_local = None;
-}
-
+  }

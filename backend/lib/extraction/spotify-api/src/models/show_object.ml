@@ -6,58 +6,66 @@
  *)
 
 type t = {
-    (* A list of the countries in which the show can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.  *)
-    available_markets: string list;
-    (* The copyright statements of the show.  *)
-    copyrights: Copyright_object.t list;
-    (* A description of the show. HTML tags are stripped away from this field, use `html_description` field in case HTML tags are needed.  *)
-    description: string;
-    (* A description of the show. This field may contain HTML tags.  *)
-    html_description: string;
-    (* Whether or not the show has explicit content (true = yes it does; false = no it does not OR unknown).  *)
-    explicit: bool;
-    external_urls: Show_base_external_urls.t;
-    (* A link to the Web API endpoint providing full details of the show.  *)
-    href: string;
-    (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the show.  *)
-    id: string;
-    (* The cover art for the show in various sizes, widest first.  *)
-    images: Image_object.t list;
-    (* True if all of the shows episodes are hosted outside of Spotify's CDN. This field might be `null` in some cases.  *)
-    is_externally_hosted: bool;
-    (* A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.  *)
-    languages: string list;
-    (* The media type of the show.  *)
-    media_type: string;
-    (* The name of the episode.  *)
-    name: string;
-    (* The publisher of the show.  *)
-    publisher: string;
-    (* The object type.  *)
-    _type: Enums.showbase_type[@default `Show];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the show.  *)
-    uri: string;
-    (* The episodes of the show.  *)
-    episodes: Episodes_paging_object.t;
-} [@@deriving yojson { strict = false }, show ];;
-
-let create (available_markets : string list) (copyrights : Copyright_object.t list) (description : string) (html_description : string) (explicit : bool) (external_urls : Show_base_external_urls.t) (href : string) (id : string) (images : Image_object.t list) (is_externally_hosted : bool) (languages : string list) (media_type : string) (name : string) (publisher : string) (_type : Enums.showbase_type) (uri : string) (episodes : Episodes_paging_object.t) : t = {
-    available_markets = available_markets;
-    copyrights = copyrights;
-    description = description;
-    html_description = html_description;
-    explicit = explicit;
-    external_urls = external_urls;
-    href = href;
-    id = id;
-    images = images;
-    is_externally_hosted = is_externally_hosted;
-    languages = languages;
-    media_type = media_type;
-    name = name;
-    publisher = publisher;
-    _type = _type;
-    uri = uri;
-    episodes = episodes;
+  (* A list of the countries in which the show can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.  *)
+  available_markets : string list;
+  (* The copyright statements of the show.  *)
+  copyrights : Copyright_object.t list;
+  (* A description of the show. HTML tags are stripped away from this field, use `html_description` field in case HTML tags are needed.  *)
+  description : string;
+  (* A description of the show. This field may contain HTML tags.  *)
+  html_description : string;
+  (* Whether or not the show has explicit content (true = yes it does; false = no it does not OR unknown).  *)
+  explicit : bool;
+  external_urls : Show_base_external_urls.t;
+  (* A link to the Web API endpoint providing full details of the show.  *)
+  href : string;
+  (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the show.  *)
+  id : string;
+  (* The cover art for the show in various sizes, widest first.  *)
+  images : Image_object.t list;
+  (* True if all of the shows episodes are hosted outside of Spotify's CDN. This field might be `null` in some cases.  *)
+  is_externally_hosted : bool;
+  (* A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.  *)
+  languages : string list;
+  (* The media type of the show.  *)
+  media_type : string;
+  (* The name of the episode.  *)
+  name : string;
+  (* The publisher of the show.  *)
+  publisher : string;
+  (* The object type.  *)
+  _type : Enums.showbase_type; [@default `Show]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the show.  *)
+  uri : string;
+  (* The episodes of the show.  *)
+  episodes : Episodes_paging_object.t;
 }
+[@@deriving yojson { strict = false }, show]
 
+let create (available_markets : string list)
+    (copyrights : Copyright_object.t list) (description : string)
+    (html_description : string) (explicit : bool)
+    (external_urls : Show_base_external_urls.t) (href : string) (id : string)
+    (images : Image_object.t list) (is_externally_hosted : bool)
+    (languages : string list) (media_type : string) (name : string)
+    (publisher : string) (_type : Enums.showbase_type) (uri : string)
+    (episodes : Episodes_paging_object.t) : t =
+  {
+    available_markets;
+    copyrights;
+    description;
+    html_description;
+    explicit;
+    external_urls;
+    href;
+    id;
+    images;
+    is_externally_hosted;
+    languages;
+    media_type;
+    name;
+    publisher;
+    _type;
+    uri;
+    episodes;
+  }

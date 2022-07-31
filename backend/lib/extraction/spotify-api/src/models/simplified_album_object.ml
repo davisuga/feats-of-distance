@@ -6,51 +6,58 @@
  *)
 
 type t = {
-    (* The type of the album.  *)
-    album_type: Enums.album_type;
-    (* The number of tracks in the album. *)
-    total_tracks: int32;
-    (* The markets in which the album is available: [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). _**NOTE**: an album is considered available in a market when at least 1 of its tracks is available in that market._  *)
-    available_markets: string list;
-    external_urls: Album_base_external_urls.t;
-    (* A link to the Web API endpoint providing full details of the album.  *)
-    href: string;
-    (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the album.  *)
-    id: string;
-    (* The cover art for the album in various sizes, widest first.  *)
-    images: Image_object.t list;
-    (* The name of the album. In case of an album takedown, the value may be an empty string.  *)
-    name: string;
-    (* The date the album was first released.  *)
-    release_date: string;
-    (* The precision with which `release_date` value is known.  *)
-    release_date_precision: Enums.release_date_precision;
-    restrictions: Album_base_restrictions.t option [@default None];
-    (* The object type.  *)
-    _type: Enums.albumbase_type[@default `Album];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the album.  *)
-    uri: string;
-    (* The field is present when getting an artist's albums. Compare to album_type this field represents relationship between the artist and the album.  *)
-    album_group: Enums.album_group option [@default None];
-    (* The artists of the album. Each artist object includes a link in `href` to more detailed information about the artist.  *)
-    artists: Simplified_artist_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
-
-let create (album_type : Enums.album_type) (total_tracks : int32) (available_markets : string list) (external_urls : Album_base_external_urls.t) (href : string) (id : string) (images : Image_object.t list) (name : string) (release_date : string) (release_date_precision : Enums.release_date_precision) (_type : Enums.albumbase_type) (uri : string) (artists : Simplified_artist_object.t list) : t = {
-    album_type = album_type;
-    total_tracks = total_tracks;
-    available_markets = available_markets;
-    external_urls = external_urls;
-    href = href;
-    id = id;
-    images = images;
-    name = name;
-    release_date = release_date;
-    release_date_precision = release_date_precision;
-    restrictions = None;
-    _type = _type;
-    uri = uri;
-    album_group = None;
-    artists = artists;
+  (* The type of the album.  *)
+  album_type : Enums.album_type;
+  (* The number of tracks in the album. *)
+  total_tracks : int32;
+  (* The markets in which the album is available: [ISO 3166-1 alpha-2 country codes](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). _**NOTE**: an album is considered available in a market when at least 1 of its tracks is available in that market._  *)
+  available_markets : string list;
+  external_urls : Album_base_external_urls.t;
+  (* A link to the Web API endpoint providing full details of the album.  *)
+  href : string;
+  (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the album.  *)
+  id : string;
+  (* The cover art for the album in various sizes, widest first.  *)
+  images : Image_object.t list;
+  (* The name of the album. In case of an album takedown, the value may be an empty string.  *)
+  name : string;
+  (* The date the album was first released.  *)
+  release_date : string;
+  (* The precision with which `release_date` value is known.  *)
+  release_date_precision : Enums.release_date_precision;
+  restrictions : Album_base_restrictions.t option; [@default None]
+  (* The object type.  *)
+  _type : Enums.albumbase_type; [@default `Album]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the album.  *)
+  uri : string;
+  (* The field is present when getting an artist's albums. Compare to album_type this field represents relationship between the artist and the album.  *)
+  album_group : Enums.album_group option; [@default None]
+  (* The artists of the album. Each artist object includes a link in `href` to more detailed information about the artist.  *)
+  artists : Simplified_artist_object.t list;
 }
+[@@deriving yojson { strict = false }, show]
 
+let create (album_type : Enums.album_type) (total_tracks : int32)
+    (available_markets : string list)
+    (external_urls : Album_base_external_urls.t) (href : string) (id : string)
+    (images : Image_object.t list) (name : string) (release_date : string)
+    (release_date_precision : Enums.release_date_precision)
+    (_type : Enums.albumbase_type) (uri : string)
+    (artists : Simplified_artist_object.t list) : t =
+  {
+    album_type;
+    total_tracks;
+    available_markets;
+    external_urls;
+    href;
+    id;
+    images;
+    name;
+    release_date;
+    release_date_precision;
+    restrictions = None;
+    _type;
+    uri;
+    album_group = None;
+    artists;
+  }

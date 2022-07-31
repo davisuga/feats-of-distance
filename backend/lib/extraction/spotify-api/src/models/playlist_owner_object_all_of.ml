@@ -6,11 +6,9 @@
  *)
 
 type t = {
-    (* The name displayed on the user's profile. `null` if not available.  *)
-    display_name: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
-
-let create () : t = {
-    display_name = None;
+  (* The name displayed on the user's profile. `null` if not available.  *)
+  display_name : string option; [@default None]
 }
+[@@deriving yojson { strict = false }, show]
 
+let create () : t = { display_name = None }

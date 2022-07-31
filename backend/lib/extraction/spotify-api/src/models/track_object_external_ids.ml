@@ -7,18 +7,14 @@
  *)
 
 type t = {
-    (* [International Standard Recording Code](http://en.wikipedia.org/wiki/International_Standard_Recording_Code)  *)
-    isrc: string option [@default None];
-    (* [International Article Number](http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29)  *)
-    ean: string option [@default None];
-    (* [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code)  *)
-    upc: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* [International Standard Recording Code](http://en.wikipedia.org/wiki/International_Standard_Recording_Code)  *)
+  isrc : string option; [@default None]
+  (* [International Article Number](http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29)  *)
+  ean : string option; [@default None]
+  (* [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code)  *)
+  upc : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
 (** Known external IDs for the track.  *)
-let create () : t = {
-    isrc = None;
-    ean = None;
-    upc = None;
-}
-
+let create () : t = { isrc = None; ean = None; upc = None }

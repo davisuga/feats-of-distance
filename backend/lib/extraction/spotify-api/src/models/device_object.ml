@@ -6,23 +6,25 @@
  *)
 
 type t = {
-    (* The device ID. *)
-    id: string option [@default None];
-    (* If this device is the currently active device. *)
-    is_active: bool option [@default None];
-    (* If this device is currently in a private session. *)
-    is_private_session: bool option [@default None];
-    (* Whether controlling this device is restricted. At present if this is \''true\'' then no Web API commands will be accepted by this device. *)
-    is_restricted: bool option [@default None];
-    (* The name of the device. *)
-    name: string option [@default None];
-    (* Device type, such as \''computer\'', \''smartphone\'' or \''speaker\''. *)
-    _type: string option [@default None];
-    (* The current volume in percent. *)
-    volume_percent: int32 option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The device ID. *)
+  id : string option; [@default None]
+  (* If this device is the currently active device. *)
+  is_active : bool option; [@default None]
+  (* If this device is currently in a private session. *)
+  is_private_session : bool option; [@default None]
+  (* Whether controlling this device is restricted. At present if this is \''true\'' then no Web API commands will be accepted by this device. *)
+  is_restricted : bool option; [@default None]
+  (* The name of the device. *)
+  name : string option; [@default None]
+  (* Device type, such as \''computer\'', \''smartphone\'' or \''speaker\''. *)
+  _type : string option; [@default None]
+  (* The current volume in percent. *)
+  volume_percent : int32 option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
+let create () : t =
+  {
     id = None;
     is_active = None;
     is_private_session = None;
@@ -30,5 +32,4 @@ let create () : t = {
     name = None;
     _type = None;
     volume_percent = None;
-}
-
+  }

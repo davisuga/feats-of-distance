@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    snapshot_id: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+type t = { snapshot_id : string option [@default None] }
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
-    snapshot_id = None;
-}
-
+let create () : t = { snapshot_id = None }

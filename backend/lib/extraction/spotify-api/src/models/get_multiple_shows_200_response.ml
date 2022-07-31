@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    shows: Simplified_show_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { shows : Simplified_show_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create (shows : Simplified_show_object.t list) : t = {
-    shows = shows;
-}
-
+let create (shows : Simplified_show_object.t list) : t = { shows }

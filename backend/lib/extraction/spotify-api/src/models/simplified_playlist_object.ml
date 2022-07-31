@@ -6,32 +6,34 @@
  *)
 
 type t = {
-    (* `true` if the owner allows other users to modify the playlist.  *)
-    collaborative: bool option [@default None];
-    (* The playlist description. _Only returned for modified, verified playlists, otherwise_ `null`.  *)
-    description: string option [@default None];
-    external_urls: Playlist_object_external_urls.t option [@default None];
-    (* A link to the Web API endpoint providing full details of the playlist.  *)
-    href: string option [@default None];
-    (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the playlist.  *)
-    id: string option [@default None];
-    (* Images for the playlist. The array may be empty or contain up to three images. The images are returned by size in descending order. See [Working with Playlists](/documentation/general/guides/working-with-playlists/). _**Note**: If returned, the source URL for the image (`url`) is temporary and will expire in less than a day._  *)
-    images: Image_object.t list;
-    (* The name of the playlist.  *)
-    name: string option [@default None];
-    owner: Playlist_object_owner.t option [@default None];
-    (* The playlist's public/private status: `true` the playlist is public, `false` the playlist is private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/general/guides/working-with-playlists/)  *)
-    public: bool option [@default None];
-    (* The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version  *)
-    snapshot_id: string option [@default None];
-    tracks: Simplified_playlist_object_tracks.t option [@default None];
-    (* The object type: \''playlist\''  *)
-    _type: string option [@default None];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the playlist.  *)
-    uri: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* `true` if the owner allows other users to modify the playlist.  *)
+  collaborative : bool option; [@default None]
+  (* The playlist description. _Only returned for modified, verified playlists, otherwise_ `null`.  *)
+  description : string option; [@default None]
+  external_urls : Playlist_object_external_urls.t option; [@default None]
+  (* A link to the Web API endpoint providing full details of the playlist.  *)
+  href : string option; [@default None]
+  (* The [Spotify ID](/documentation/web-api/#spotify-uris-and-ids) for the playlist.  *)
+  id : string option; [@default None]
+  (* Images for the playlist. The array may be empty or contain up to three images. The images are returned by size in descending order. See [Working with Playlists](/documentation/general/guides/working-with-playlists/). _**Note**: If returned, the source URL for the image (`url`) is temporary and will expire in less than a day._  *)
+  images : Image_object.t list;
+  (* The name of the playlist.  *)
+  name : string option; [@default None]
+  owner : Playlist_object_owner.t option; [@default None]
+  (* The playlist's public/private status: `true` the playlist is public, `false` the playlist is private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](/documentation/general/guides/working-with-playlists/)  *)
+  public : bool option; [@default None]
+  (* The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version  *)
+  snapshot_id : string option; [@default None]
+  tracks : Simplified_playlist_object_tracks.t option; [@default None]
+  (* The object type: \''playlist\''  *)
+  _type : string option; [@default None]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the playlist.  *)
+  uri : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
+let create () : t =
+  {
     collaborative = None;
     description = None;
     external_urls = None;
@@ -45,5 +47,4 @@ let create () : t = {
     tracks = None;
     _type = None;
     uri = None;
-}
-
+  }

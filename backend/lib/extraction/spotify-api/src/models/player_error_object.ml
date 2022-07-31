@@ -6,16 +6,12 @@
  *)
 
 type t = {
-    (* The HTTP status code. Either `404 NOT FOUND` or `403 FORBIDDEN`.  Also returned in the response header.  *)
-    status: int32 option [@default None];
-    (* A short description of the cause of the error.  *)
-    message: string option [@default None];
-    (* reason: Player_error_reasons.t option [@default None]; *)
-} [@@deriving yojson { strict = false }, show ];;
-
-let create () : t = {
-    status = None;
-    message = None;
-    (* reason = None; *)
+  (* The HTTP status code. Either `404 NOT FOUND` or `403 FORBIDDEN`.  Also returned in the response header.  *)
+  status : int32 option; [@default None]
+  (* A short description of the cause of the error.  *)
+  message : string option; [@default None]
+      (* reason: Player_error_reasons.t option [@default None]; *)
 }
+[@@deriving yojson { strict = false }, show]
 
+let create () : t = { status = None; message = None (* reason = None; *) }

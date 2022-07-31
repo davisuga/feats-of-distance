@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    playlists: Playlists_paging_object.t;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { playlists : Playlists_paging_object.t }
+[@@deriving yojson { strict = false }, show]
 
-let create (playlists : Playlists_paging_object.t) : t = {
-    playlists = playlists;
-}
-
+let create (playlists : Playlists_paging_object.t) : t = { playlists }

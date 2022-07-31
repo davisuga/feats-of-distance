@@ -6,14 +6,11 @@
  *)
 
 type t = {
-    (* The HTTP status code (also returned in the response header; see [Response Status Codes](/documentation/web-api/#response-status-codes) for more information).  *)
-    status: int32;
-    (* A short description of the cause of the error.  *)
-    message: string;
-} [@@deriving yojson { strict = false }, show ];;
-
-let create (status : int32) (message : string) : t = {
-    status = status;
-    message = message;
+  (* The HTTP status code (also returned in the response header; see [Response Status Codes](/documentation/web-api/#response-status-codes) for more information).  *)
+  status : int32;
+  (* A short description of the cause of the error.  *)
+  message : string;
 }
+[@@deriving yojson { strict = false }, show]
 
+let create (status : int32) (message : string) : t = { status; message }

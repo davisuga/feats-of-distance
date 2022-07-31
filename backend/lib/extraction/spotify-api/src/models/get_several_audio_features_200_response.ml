@@ -5,11 +5,8 @@
  *
  *)
 
-type t = {
-    audio_features: Audio_features_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { audio_features : Audio_features_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create (audio_features : Audio_features_object.t list) : t = {
-    audio_features = audio_features;
-}
-
+let create (audio_features : Audio_features_object.t list) : t =
+  { audio_features }

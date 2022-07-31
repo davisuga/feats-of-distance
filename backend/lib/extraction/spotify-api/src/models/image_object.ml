@@ -6,17 +6,14 @@
  *)
 
 type t = {
-    (* The source URL of the image.  *)
-    url: string;
-    (* The image height in pixels.  *)
-    height: int32 option;
-    (* The image width in pixels.  *)
-    width: int32 option;
-} [@@deriving yojson { strict = false }, show ];;
-
-let create (url : string) (height : int32 option) (width : int32 option) : t = {
-    url = url;
-    height = height;
-    width = width;
+  (* The source URL of the image.  *)
+  url : string;
+  (* The image height in pixels.  *)
+  height : int32 option;
+  (* The image width in pixels.  *)
+  width : int32 option;
 }
+[@@deriving yojson { strict = false }, show]
 
+let create (url : string) (height : int32 option) (width : int32 option) : t =
+  { url; height; width }

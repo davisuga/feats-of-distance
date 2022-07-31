@@ -7,20 +7,16 @@
  *)
 
 type t = {
-    (* The object type, e.g. \''artist\'', \''playlist\'', \''album\'', \''show\''.  *)
-    _type: string option [@default None];
-    (* A link to the Web API endpoint providing full details of the track. *)
-    href: string option [@default None];
-    external_urls: Context_object_external_urls.t option [@default None];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the context.  *)
-    uri: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The object type, e.g. \''artist\'', \''playlist\'', \''album\'', \''show\''.  *)
+  _type : string option; [@default None]
+  (* A link to the Web API endpoint providing full details of the track. *)
+  href : string option; [@default None]
+  external_urls : Context_object_external_urls.t option; [@default None]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the context.  *)
+  uri : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
 (** The context the track was played from. *)
-let create () : t = {
-    _type = None;
-    href = None;
-    external_urls = None;
-    uri = None;
-}
-
+let create () : t =
+  { _type = None; href = None; external_urls = None; uri = None }

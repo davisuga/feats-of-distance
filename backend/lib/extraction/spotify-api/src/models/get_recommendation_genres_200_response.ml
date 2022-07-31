@@ -5,11 +5,6 @@
  *
  *)
 
-type t = {
-    genres: string list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { genres : string list } [@@deriving yojson { strict = false }, show]
 
-let create (genres : string list) : t = {
-    genres = genres;
-}
-
+let create (genres : string list) : t = { genres }

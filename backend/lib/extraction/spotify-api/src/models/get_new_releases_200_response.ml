@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    albums: Albums_paging_object.t;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { albums : Albums_paging_object.t }
+[@@deriving yojson { strict = false }, show]
 
-let create (albums : Albums_paging_object.t) : t = {
-    albums = albums;
-}
-
+let create (albums : Albums_paging_object.t) : t = { albums }

@@ -6,15 +6,11 @@
  *)
 
 type t = {
-    track: Play_history_object_track.t option [@default None];
-    (* The date and time the track was played. *)
-    played_at: string option [@default None];
-    context: Play_history_object_context.t option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
-
-let create () : t = {
-    track = None;
-    played_at = None;
-    context = None;
+  track : Play_history_object_track.t option; [@default None]
+  (* The date and time the track was played. *)
+  played_at : string option; [@default None]
+  context : Play_history_object_context.t option; [@default None]
 }
+[@@deriving yojson { strict = false }, show]
 
+let create () : t = { track = None; played_at = None; context = None }

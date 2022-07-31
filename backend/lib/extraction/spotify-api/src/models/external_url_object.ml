@@ -6,11 +6,9 @@
  *)
 
 type t = {
-    (* The [Spotify URL](/documentation/web-api/#spotify-uris-and-ids) for the object.  *)
-    spotify: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
-
-let create () : t = {
-    spotify = None;
+  (* The [Spotify URL](/documentation/web-api/#spotify-uris-and-ids) for the object.  *)
+  spotify : string option; [@default None]
 }
+[@@deriving yojson { strict = false }, show]
 
+let create () : t = { spotify = None }

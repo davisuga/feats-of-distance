@@ -5,11 +5,6 @@
  *
  *)
 
-type t = {
-    markets: string list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { markets : string list } [@@deriving yojson { strict = false }, show]
 
-let create () : t = {
-    markets = [];
-}
-
+let create () : t = { markets = [] }

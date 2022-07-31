@@ -5,16 +5,23 @@
  *
  *)
 
-let search ~q ~_type ?market ?(limit = 20l) ?(offset = 0l) ?include_external () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/search" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "q" (fun x -> x) q in
-    let uri = Request.add_query_param_list uri "type" (List.map Enums.show_type_1) _type in
-    let uri = Request.maybe_add_query_param uri "market" (fun x -> x) market in
-    let uri = Request.add_query_param uri "limit" Int32.to_string limit in
-    let uri = Request.add_query_param uri "offset" Int32.to_string offset in
-    let uri = Request.maybe_add_query_param uri "include_external" Enums.show_include_external include_external in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Search_200_response.of_yojson) resp body
-
+let search ~q ~_type ?market ?(limit = 20l) ?(offset = 0l) ?include_external ()
+    =
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/search" in
+  let headers = Request.default_headers in
+  let uri = Request.add_query_param uri "q" (fun x -> x) q in
+  let uri =
+    Request.add_query_param_list uri "type" (List.map Enums.show_type_1) _type
+  in
+  let uri = Request.maybe_add_query_param uri "market" (fun x -> x) market in
+  let uri = Request.add_query_param uri "limit" Int32.to_string limit in
+  let uri = Request.add_query_param uri "offset" Int32.to_string offset in
+  let uri =
+    Request.maybe_add_query_param uri "include_external"
+      Enums.show_include_external include_external
+  in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Search_200_response.of_yojson)
+    resp body

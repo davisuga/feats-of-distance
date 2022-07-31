@@ -6,11 +6,9 @@
  *)
 
 type t = {
-    (* The show on which the episode belongs.  *)
-    show: Simplified_show_object.t;
-} [@@deriving yojson { strict = false }, show ];;
-
-let create (show : Simplified_show_object.t) : t = {
-    show = show;
+  (* The show on which the episode belongs.  *)
+  show : Simplified_show_object.t;
 }
+[@@deriving yojson { strict = false }, show]
 
+let create (show : Simplified_show_object.t) : t = { show }

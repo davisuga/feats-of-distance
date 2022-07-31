@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    items: Playlist_track_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { items : Playlist_track_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
-    items = [];
-}
-
+let create () : t = { items = [] }

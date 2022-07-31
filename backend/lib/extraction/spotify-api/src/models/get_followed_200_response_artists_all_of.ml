@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    items: Artist_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { items : Artist_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
-    items = [];
-}
-
+let create () : t = { items = [] }

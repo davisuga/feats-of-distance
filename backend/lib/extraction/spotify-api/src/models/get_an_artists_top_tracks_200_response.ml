@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    tracks: Track_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { tracks : Track_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create (tracks : Track_object.t list) : t = {
-    tracks = tracks;
-}
-
+let create (tracks : Track_object.t list) : t = { tracks }

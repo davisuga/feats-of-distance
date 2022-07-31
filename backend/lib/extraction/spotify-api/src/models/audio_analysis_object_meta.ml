@@ -6,23 +6,25 @@
  *)
 
 type t = {
-    (* The version of the Analyzer used to analyze this track. *)
-    analyzer_version: string option [@default None];
-    (* The platform used to read the track's audio data. *)
-    platform: string option [@default None];
-    (* A detailed status code for this track. If analysis data is missing, this code may explain why. *)
-    detailed_status: string option [@default None];
-    (* The return code of the analyzer process. 0 if successful, 1 if any errors occurred. *)
-    status_code: int32 option [@default None];
-    (* The Unix timestamp (in seconds) at which this track was analyzed. *)
-    timestamp: int32 option [@default None];
-    (* The amount of time taken to analyze this track. *)
-    analysis_time: float option [@default None];
-    (* The method used to read the track's audio data. *)
-    input_process: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The version of the Analyzer used to analyze this track. *)
+  analyzer_version : string option; [@default None]
+  (* The platform used to read the track's audio data. *)
+  platform : string option; [@default None]
+  (* A detailed status code for this track. If analysis data is missing, this code may explain why. *)
+  detailed_status : string option; [@default None]
+  (* The return code of the analyzer process. 0 if successful, 1 if any errors occurred. *)
+  status_code : int32 option; [@default None]
+  (* The Unix timestamp (in seconds) at which this track was analyzed. *)
+  timestamp : int32 option; [@default None]
+  (* The amount of time taken to analyze this track. *)
+  analysis_time : float option; [@default None]
+  (* The method used to read the track's audio data. *)
+  input_process : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
+let create () : t =
+  {
     analyzer_version = None;
     platform = None;
     detailed_status = None;
@@ -30,5 +32,4 @@ let create () : t = {
     timestamp = None;
     analysis_time = None;
     input_process = None;
-}
-
+  }

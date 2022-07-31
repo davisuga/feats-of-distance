@@ -6,99 +6,134 @@
  *)
 
 let add_to_queue ~uri ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/queue" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "uri" (fun x -> x) "uri" in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/queue" in
+  let headers = Request.default_headers in
+  let uri = Request.add_query_param uri "uri" (fun x -> x) "uri" in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 let get_a_users_available_devices () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/devices" in
-    let headers = Request.default_headers in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Devices_object.of_yojson) resp body
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/devices" in
+  let headers = Request.default_headers in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Devices_object.of_yojson)
+    resp body
 
-let get_information_about_the_users_current_playback ?market ?additional_types () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player" in
-    let headers = Request.default_headers in
-    let uri = Request.maybe_add_query_param uri "market" (fun x -> x) market in
-    let uri = Request.maybe_add_query_param uri "additional_types" (fun x -> x) additional_types in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Currently_playing_context_object.of_yojson) resp body
+let get_information_about_the_users_current_playback ?market ?additional_types
+    () =
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player" in
+  let headers = Request.default_headers in
+  let uri = Request.maybe_add_query_param uri "market" (fun x -> x) market in
+  let uri =
+    Request.maybe_add_query_param uri "additional_types"
+      (fun x -> x)
+      additional_types
+  in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Currently_playing_context_object.of_yojson)
+    resp body
 
 let get_recently_played ?(limit = 20l) ?after ?before () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/recently-played" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "limit" Int32.to_string limit in
-    let uri = Request.maybe_add_query_param uri "after" Int32.to_string after in
-    let uri = Request.maybe_add_query_param uri "before" Int32.to_string before in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Get_recently_played_200_response.of_yojson) resp body
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/recently-played" in
+  let headers = Request.default_headers in
+  let uri = Request.add_query_param uri "limit" Int32.to_string limit in
+  let uri = Request.maybe_add_query_param uri "after" Int32.to_string after in
+  let uri = Request.maybe_add_query_param uri "before" Int32.to_string before in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Get_recently_played_200_response.of_yojson)
+    resp body
 
 let get_the_users_currently_playing_track ?market ?additional_types () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/currently-playing" in
-    let headers = Request.default_headers in
-    let uri = Request.maybe_add_query_param uri "market" (fun x -> x) market in
-    let uri = Request.maybe_add_query_param uri "additional_types" (fun x -> x) additional_types in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Currently_playing_object.of_yojson) resp body
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/currently-playing" in
+  let headers = Request.default_headers in
+  let uri = Request.maybe_add_query_param uri "market" (fun x -> x) market in
+  let uri =
+    Request.maybe_add_query_param uri "additional_types"
+      (fun x -> x)
+      additional_types
+  in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Currently_playing_object.of_yojson)
+    resp body
 
 let pause_a_users_playback ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/pause" in
-    let headers = Request.default_headers in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/pause" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 let seek_to_position_in_currently_playing_track ~position_ms ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/seek" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "position_ms" Int32.to_string position_ms in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/seek" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.add_query_param uri "position_ms" Int32.to_string position_ms
+  in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 let set_repeat_mode_on_users_playback ~state ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/repeat" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "state" (fun x -> x) state in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/repeat" in
+  let headers = Request.default_headers in
+  let uri = Request.add_query_param uri "state" (fun x -> x) state in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 let set_volume_for_users_playback ~volume_percent ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/volume" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "volume_percent" Int32.to_string volume_percent in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/volume" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.add_query_param uri "volume_percent" Int32.to_string volume_percent
+  in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 let skip_users_playback_to_next_track ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/next" in
-    let headers = Request.default_headers in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/next" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 let skip_users_playback_to_previous_track ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/previous" in
-    let headers = Request.default_headers in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/previous" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `POST uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 (* let start_a_users_playback ?device_id ~request_body () =
     let open Lwt.Infix in
@@ -110,13 +145,15 @@ let skip_users_playback_to_previous_track ?device_id () =
     Request.handle_unit_response resp *)
 
 let toggle_shuffle_for_users_playback ~state ?device_id () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/me/player/shuffle" in
-    let headers = Request.default_headers in
-    let uri = Request.add_query_param uri "state" string_of_bool state in
-    let uri = Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id in
-    Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
-    Request.handle_unit_response resp
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/me/player/shuffle" in
+  let headers = Request.default_headers in
+  let uri = Request.add_query_param uri "state" string_of_bool state in
+  let uri =
+    Request.maybe_add_query_param uri "device_id" (fun x -> x) device_id
+  in
+  Cohttp_lwt_unix.Client.call `PUT uri ~headers >>= fun (resp, body) ->
+  Request.handle_unit_response resp
 
 (* let transfer_a_users_playback ~request_body () =
     let open Lwt.Infix in
@@ -125,4 +162,3 @@ let toggle_shuffle_for_users_playback ~state ?device_id () =
     let body = Request.write_as_json_body (JsonSupport.of_map_of  ) request_body in
     Cohttp_lwt_unix.Client.call `PUT uri ~headers ~body >>= fun (resp, body) ->
     Request.handle_unit_response resp *)
-

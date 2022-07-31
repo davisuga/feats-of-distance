@@ -6,23 +6,25 @@
  *)
 
 type t = {
-    (* The name displayed on the user's profile. `null` if not available.  *)
-    display_name: string option [@default None];
-    external_urls: Public_user_object_external_urls.t option [@default None];
-    followers: Public_user_object_followers.t option [@default None];
-    (* A link to the Web API endpoint for this user.  *)
-    href: string option [@default None];
-    (* The [Spotify user ID](/documentation/web-api/#spotify-uris-and-ids) for this user.  *)
-    id: string option [@default None];
-    (* The user's profile image.  *)
-    images: Image_object.t list;
-    (* The object type.  *)
-    _type: Enums.publicuserobject_type option [@default Some(`User)];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for this user.  *)
-    uri: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The name displayed on the user's profile. `null` if not available.  *)
+  display_name : string option; [@default None]
+  external_urls : Public_user_object_external_urls.t option; [@default None]
+  followers : Public_user_object_followers.t option; [@default None]
+  (* A link to the Web API endpoint for this user.  *)
+  href : string option; [@default None]
+  (* The [Spotify user ID](/documentation/web-api/#spotify-uris-and-ids) for this user.  *)
+  id : string option; [@default None]
+  (* The user's profile image.  *)
+  images : Image_object.t list;
+  (* The object type.  *)
+  _type : Enums.publicuserobject_type option; [@default Some `User]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for this user.  *)
+  uri : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
+let create () : t =
+  {
     display_name = None;
     external_urls = None;
     followers = None;
@@ -31,5 +33,4 @@ let create () : t = {
     images = [];
     _type = None;
     uri = None;
-}
-
+  }

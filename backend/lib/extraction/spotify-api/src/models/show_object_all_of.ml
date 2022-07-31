@@ -5,12 +5,8 @@
  *
  *)
 
-type t = {
-    (* The episodes of the show.  *)
-    episodes: Episodes_paging_object.t;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { (* The episodes of the show.  *)
+           episodes : Episodes_paging_object.t }
+[@@deriving yojson { strict = false }, show]
 
-let create (episodes : Episodes_paging_object.t) : t = {
-    episodes = episodes;
-}
-
+let create (episodes : Episodes_paging_object.t) : t = { episodes }

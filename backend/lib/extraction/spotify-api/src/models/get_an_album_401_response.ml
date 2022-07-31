@@ -5,11 +5,6 @@
  *
  *)
 
-type t = {
-    error: Error_object.t;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { error : Error_object.t } [@@deriving yojson { strict = false }, show]
 
-let create (error : Error_object.t) : t = {
-    error = error;
-}
-
+let create (error : Error_object.t) : t = { error }

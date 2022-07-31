@@ -6,18 +6,14 @@
  *)
 
 type t = {
-    (* The date and time the track or episode was added. _**Note**: some very old playlists may return `null` in this field._  *)
-    added_at: string option [@default None];
-    added_by: Playlist_track_object_added_by.t option [@default None];
-    (* Whether this track or episode is a [local file](https://developer.spotify.com/web-api/local-files-spotify-playlists/) or not.  *)
-    is_local: bool option [@default None];
-    track: Playlist_track_object_track.t option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
-
-let create () : t = {
-    added_at = None;
-    added_by = None;
-    is_local = None;
-    track = None;
+  (* The date and time the track or episode was added. _**Note**: some very old playlists may return `null` in this field._  *)
+  added_at : string option; [@default None]
+  added_by : Playlist_track_object_added_by.t option; [@default None]
+  (* Whether this track or episode is a [local file](https://developer.spotify.com/web-api/local-files-spotify-playlists/) or not.  *)
+  is_local : bool option; [@default None]
+  track : Playlist_track_object_track.t option; [@default None]
 }
+[@@deriving yojson { strict = false }, show]
 
+let create () : t =
+  { added_at = None; added_by = None; is_local = None; track = None }

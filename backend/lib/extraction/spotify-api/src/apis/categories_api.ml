@@ -5,35 +5,45 @@
  *
  *)
 
-let get_a_categories_playlists ~category_id ?country ?(limit = 20l) ?(offset = 0l) () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/browse/categories/{category_id}/playlists" in
-    let headers = Request.default_headers in
-    let uri = Request.replace_path_param uri "category_id" (fun x -> x) category_id in
-    let uri = Request.maybe_add_query_param uri "country" (fun x -> x) country in
-    let uri = Request.add_query_param uri "limit" Int32.to_string limit in
-    let uri = Request.add_query_param uri "offset" Int32.to_string offset in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Get_a_categories_playlists_200_response.of_yojson) resp body
+let get_a_categories_playlists ~category_id ?country ?(limit = 20l)
+    ?(offset = 0l) () =
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/browse/categories/{category_id}/playlists" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.replace_path_param uri "category_id" (fun x -> x) category_id
+  in
+  let uri = Request.maybe_add_query_param uri "country" (fun x -> x) country in
+  let uri = Request.add_query_param uri "limit" Int32.to_string limit in
+  let uri = Request.add_query_param uri "offset" Int32.to_string offset in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Get_a_categories_playlists_200_response.of_yojson)
+    resp body
 
 let get_a_category ~category_id ?country ?locale () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/browse/categories/{category_id}" in
-    let headers = Request.default_headers in
-    let uri = Request.replace_path_param uri "category_id" (fun x -> x) category_id in
-    let uri = Request.maybe_add_query_param uri "country" (fun x -> x) country in
-    let uri = Request.maybe_add_query_param uri "locale" (fun x -> x) locale in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Category_object.of_yojson) resp body
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/browse/categories/{category_id}" in
+  let headers = Request.default_headers in
+  let uri =
+    Request.replace_path_param uri "category_id" (fun x -> x) category_id
+  in
+  let uri = Request.maybe_add_query_param uri "country" (fun x -> x) country in
+  let uri = Request.maybe_add_query_param uri "locale" (fun x -> x) locale in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Category_object.of_yojson)
+    resp body
 
 let get_categories ?country ?locale ?(limit = 20l) ?(offset = 0l) () =
-    let open Lwt.Infix in
-    let uri = Request.build_uri "/browse/categories" in
-    let headers = Request.default_headers in
-    let uri = Request.maybe_add_query_param uri "country" (fun x -> x) country in
-    let uri = Request.maybe_add_query_param uri "locale" (fun x -> x) locale in
-    let uri = Request.add_query_param uri "limit" Int32.to_string limit in
-    let uri = Request.add_query_param uri "offset" Int32.to_string offset in
-    Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
-    Request.read_json_body_as (JsonSupport.unwrap Get_categories_200_response.of_yojson) resp body
-
+  let open Lwt.Infix in
+  let uri = Request.build_uri "/browse/categories" in
+  let headers = Request.default_headers in
+  let uri = Request.maybe_add_query_param uri "country" (fun x -> x) country in
+  let uri = Request.maybe_add_query_param uri "locale" (fun x -> x) locale in
+  let uri = Request.add_query_param uri "limit" Int32.to_string limit in
+  let uri = Request.add_query_param uri "offset" Int32.to_string offset in
+  Cohttp_lwt_unix.Client.call `GET uri ~headers >>= fun (resp, body) ->
+  Request.read_json_body_as
+    (JsonSupport.unwrap Get_categories_200_response.of_yojson)
+    resp body

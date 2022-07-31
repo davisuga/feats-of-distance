@@ -6,20 +6,21 @@
  *)
 
 type t = {
-    tracks: Simplified_tracks_paging_object.t option [@default None];
-    artists: Simplified_artists_paging_object.t option [@default None];
-    albums: Albums_paging_object.t option [@default None];
-    playlists: Playlists_paging_object.t option [@default None];
-    shows: Shows_paging_object.t option [@default None];
-    episodes: Episodes_paging_object.t option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  tracks : Simplified_tracks_paging_object.t option; [@default None]
+  artists : Simplified_artists_paging_object.t option; [@default None]
+  albums : Albums_paging_object.t option; [@default None]
+  playlists : Playlists_paging_object.t option; [@default None]
+  shows : Shows_paging_object.t option; [@default None]
+  episodes : Episodes_paging_object.t option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
+let create () : t =
+  {
     tracks = None;
     artists = None;
     albums = None;
     playlists = None;
     shows = None;
     episodes = None;
-}
-
+  }

@@ -6,13 +6,11 @@
  *)
 
 type t = {
-    (* A description of the playlists *)
-    message: string;
-    playlists: Playlists_paging_object.t;
-} [@@deriving yojson { strict = false }, show ];;
-
-let create (message : string) (playlists : Playlists_paging_object.t) : t = {
-    message = message;
-    playlists = playlists;
+  (* A description of the playlists *)
+  message : string;
+  playlists : Playlists_paging_object.t;
 }
+[@@deriving yojson { strict = false }, show]
 
+let create (message : string) (playlists : Playlists_paging_object.t) : t =
+  { message; playlists }

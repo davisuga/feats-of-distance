@@ -5,11 +5,7 @@
  *
  *)
 
-type t = {
-    episodes: Episode_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { episodes : Episode_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create (episodes : Episode_object.t list) : t = {
-    episodes = episodes;
-}
-
+let create (episodes : Episode_object.t list) : t = { episodes }

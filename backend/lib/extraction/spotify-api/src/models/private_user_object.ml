@@ -6,30 +6,33 @@
  *)
 
 type t = {
-    (* The country of the user, as set in the user's account profile. An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). _This field is only available when the current user has granted access to the [user-read-private](/documentation/general/guides/authorization-guide/#list-of-scopes) scope._  *)
-    country: string option [@default None];
-    (* The name displayed on the user's profile. `null` if not available.  *)
-    display_name: string option [@default None];
-    (* The user's email address, as entered by the user when creating their account. _**Important!** This email address is unverified; there is no proof that it actually belongs to the user._ _This field is only available when the current user has granted access to the [user-read-email](/documentation/general/guides/authorization-guide/#list-of-scopes) scope._  *)
-    email: string option [@default None];
-    explicit_content: Private_user_object_explicit_content.t option [@default None];
-    external_urls: Private_user_object_external_urls.t option [@default None];
-    followers: Private_user_object_followers.t option [@default None];
-    (* A link to the Web API endpoint for this user.  *)
-    href: string option [@default None];
-    (* The [Spotify user ID](/documentation/web-api/#spotify-uris-and-ids) for the user.  *)
-    id: string option [@default None];
-    (* The user's profile image. *)
-    images: Image_object.t list;
-    (* The user's Spotify subscription level: \''premium\'', \''free\'', etc. (The subscription level \''open\'' can be considered the same as \''free\''.) _This field is only available when the current user has granted access to the [user-read-private](/documentation/general/guides/authorization-guide/#list-of-scopes) scope._  *)
-    product: string option [@default None];
-    (* The object type: \''user\''  *)
-    _type: string option [@default None];
-    (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the user.  *)
-    uri: string option [@default None];
-} [@@deriving yojson { strict = false }, show ];;
+  (* The country of the user, as set in the user's account profile. An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). _This field is only available when the current user has granted access to the [user-read-private](/documentation/general/guides/authorization-guide/#list-of-scopes) scope._  *)
+  country : string option; [@default None]
+  (* The name displayed on the user's profile. `null` if not available.  *)
+  display_name : string option; [@default None]
+  (* The user's email address, as entered by the user when creating their account. _**Important!** This email address is unverified; there is no proof that it actually belongs to the user._ _This field is only available when the current user has granted access to the [user-read-email](/documentation/general/guides/authorization-guide/#list-of-scopes) scope._  *)
+  email : string option; [@default None]
+  explicit_content : Private_user_object_explicit_content.t option;
+      [@default None]
+  external_urls : Private_user_object_external_urls.t option; [@default None]
+  followers : Private_user_object_followers.t option; [@default None]
+  (* A link to the Web API endpoint for this user.  *)
+  href : string option; [@default None]
+  (* The [Spotify user ID](/documentation/web-api/#spotify-uris-and-ids) for the user.  *)
+  id : string option; [@default None]
+  (* The user's profile image. *)
+  images : Image_object.t list;
+  (* The user's Spotify subscription level: \''premium\'', \''free\'', etc. (The subscription level \''open\'' can be considered the same as \''free\''.) _This field is only available when the current user has granted access to the [user-read-private](/documentation/general/guides/authorization-guide/#list-of-scopes) scope._  *)
+  product : string option; [@default None]
+  (* The object type: \''user\''  *)
+  _type : string option; [@default None]
+  (* The [Spotify URI](/documentation/web-api/#spotify-uris-and-ids) for the user.  *)
+  uri : string option; [@default None]
+}
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
+let create () : t =
+  {
     country = None;
     display_name = None;
     email = None;
@@ -42,5 +45,4 @@ let create () : t = {
     product = None;
     _type = None;
     uri = None;
-}
-
+  }

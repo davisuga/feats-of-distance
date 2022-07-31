@@ -5,12 +5,8 @@
  *
  *)
 
-type t = {
-    (* A list of 0..n Device objects *)
-    devices: Device_object.t list;
-} [@@deriving yojson { strict = false }, show ];;
+type t = { (* A list of 0..n Device objects *)
+           devices : Device_object.t list }
+[@@deriving yojson { strict = false }, show]
 
-let create () : t = {
-    devices = [];
-}
-
+let create () : t = { devices = [] }
