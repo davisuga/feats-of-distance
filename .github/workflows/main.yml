@@ -20,8 +20,8 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
 
       - name: Installing OCaml
-        - run: bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
-        - run: opam switch create 4.14.0+flambda+nnpchecker ocaml-variants.4.14.0+options ocaml-option-flambda ocaml-option-nnpchecker
+        run: bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+        run: opam switch create 4.14.0+flambda+nnpchecker ocaml-variants.4.14.0+options ocaml-option-flambda ocaml-option-nnpchecker
       - name: Install deps
         run: echo "N4J_URI=${{ secrets.N4J_URI }}\nN4J_PASSWORD=${{ secrets.N4J_PASSWORD }}" > .env
         run: make install-deps
