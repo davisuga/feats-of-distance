@@ -58,7 +58,6 @@ let persist_all_tracks_from_artist_id_opt artist_id =
 
 let seed_from_fs () =
   let%lwt saved = Artist_service.get_all_saved () in
-
   Core.In_channel.read_lines "~/neo4j/import/relevant_artists.csv"
   |> Core.List.filter ~f:(fun item ->
          not (List.mem ("spotify:artist:" ^ item) saved))
