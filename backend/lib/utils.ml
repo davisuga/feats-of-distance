@@ -1,5 +1,5 @@
 open Printf
-
+open Lwt.Infix
 let flip f x y = f y x
 let ( <% ) = ( |> )
 let ( %> ) = Fun.id
@@ -27,10 +27,13 @@ let logInfo m anything =
 let tap eff ret =
   eff ret |> ignore;
   ret
-
-(* [run cmd] runs a shell command, waits until it terminates, and
+exception ShellError of exn
+(** [run cmd] runs a shell command, waits until it terminates, and
    returns a list of strings that the process outputed *)
-let run cmd = Lwt_process.shell cmd |> Lwt_process.pread
+let run cmd =
+  try%lwt Lwt_process.shell cmd |> Lwt_process.pread  |> Lwt_result.ok
+  with e -> Lwt_result.fail (ShellError e)
+
 let run_with_args = Lwt_process.pread
 
 exception ParseError of string
@@ -40,7 +43,7 @@ let print_yojson_exn (a, yojson) =
     (Yojson.Safe.show yojson) (Printexc.to_string a)
 
 module StringUtils = struct
-  let replace input output = Str.global_replace (Str.regexp_string input) output
+  let replace expr output = Str.global_replace (Str.regexp_string expr) output
   let concat_json_strings strings = sprintf "[%s]" (String.concat "," strings)
   let remove_hd_and_last result = String.sub result 1 (String.length result - 2)
 
@@ -82,7 +85,7 @@ module StringUtils = struct
         Re2.rewrite_exn ~template:character (Re2.create_exn decimal_code) acc)
       utf_decimal_table s
 
-  let contains sub string_a =
+  let contains ~sub string_a =
     Core.String.substr_index string_a ~pattern:sub <> None
 end
 
