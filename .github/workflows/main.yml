@@ -20,19 +20,19 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
 
       - name: Installing OCaml
-      - run: bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
-      - run: opam switch create 4.14.0+flambda+nnpchecker ocaml-variants.4.14.0+options ocaml-option-flambda ocaml-option-nnpchecker
+        - run: bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+        - run: opam switch create 4.14.0+flambda+nnpchecker ocaml-variants.4.14.0+options ocaml-option-flambda ocaml-option-nnpchecker
       - name: Install deps
-      - run: echo "N4J_URI=${{ secrets.N4J_URI }}\nN4J_PASSWORD=${{ secrets.N4J_PASSWORD }}" > .env
-      - run: make install-deps
+        run: echo "N4J_URI=${{ secrets.N4J_URI }}\nN4J_PASSWORD=${{ secrets.N4J_PASSWORD }}" > .env
+        run: make install-deps
       - name: Compile binary
-      - run: make build-prod
-      - run: make copy-build
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+        run: make build-prod
+        run: make copy-build
+        run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+        run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Archive binary
         uses: actions/upload-artifact@v3
         with:
