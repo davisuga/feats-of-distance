@@ -15,7 +15,9 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Check out repository code
         uses: actions/checkout@v3
 
@@ -30,6 +32,7 @@ jobs:
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
+      - run: npm i -g esy
       - run: echo "N4J_URI=${{ secrets.N4J_URI }}\nN4J_PASSWORD=${{ secrets.N4J_PASSWORD }}" > .env
       - run: make install-deps
       - run: make build-prod

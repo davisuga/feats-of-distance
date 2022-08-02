@@ -14,3 +14,4 @@ client/packages/app/spotify-client
 logs
 .env*
 *.key*
+**/_esy/**

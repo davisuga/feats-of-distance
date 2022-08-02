@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "ocaml": "4.14.x",
+    "@opam/dune": "3.3.0",
+    "@opam/uri": "4.2.0",
+    "@opam/cohttp-lwt-unix": "5.0.0",
+    "@opam/cohttp": "5.0.0",
+    "@opam/redis-lwt": "0.6",
+    "@opam/redis": "0.6",
+    "@opam/dream": "1.0.0~alpha4",
+    "@opam/re2": "v0.15.0",
+    "@opam/cmdliner": "1.1.1",
+    "@opam/ppx_deriving": "*",
+    "@opam/ppx_yojson_conv": "*",
+    "@opam/lwt_ppx": "*",
+    "@opam/ppx_deriving_yojson": "*"
+  },
+  "devDependencies": {
+    "@opam/alcotest": "*"
+  }
+}

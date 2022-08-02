@@ -1,9 +1,11 @@
 open Models
 open Utils
+open Graphql
 
 let artist =
   Graphql_lwt.Schema.(
-    obj "Artist" ~fields:(fun _info ->
+    obj "Artist"
+      ~fields:
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
@@ -17,11 +19,12 @@ let artist =
           field "description" ~typ:string
             ~args:Arg.[]
             ~resolve:(fun _info artist -> artist.description);
-        ]))
+        ])
 
 let properties =
   Graphql_lwt.Schema.(
-    obj "Properties" ~fields:(fun _info ->
+    obj "Properties"
+      ~fields:
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
@@ -29,11 +32,12 @@ let properties =
           field "name" ~typ:(non_null string)
             ~args:Arg.[]
             ~resolve:(fun _info (prop : N4j_path_dto.properties) -> prop.name);
-        ]))
+        ])
 
 let node =
   Graphql_lwt.Schema.(
-    obj "Node" ~fields:(fun _info ->
+    obj "Node"
+      ~fields:
         [
           field "id" ~typ:(non_null string)
             ~args:Arg.[]
@@ -45,12 +49,13 @@ let node =
             ~typ:(non_null (list (non_null string)))
             ~args:Arg.[]
             ~resolve:(fun _info (prop : N4j_path_dto.node) -> prop.labels);
-        ]))
+        ])
 
 let feat =
   let open N4j_path_dto in
   Graphql_lwt.Schema.(
-    obj "Feature" ~fields:(fun _info ->
+    obj "Feature"
+      ~fields:
         [
           field "uri" ~typ:(non_null string)
             ~args:Arg.[]
@@ -64,7 +69,7 @@ let feat =
           field "end" ~typ:(non_null node)
             ~args:Arg.[]
             ~resolve:(fun _info relation -> relation.end_);
-        ]))
+        ])
 
 open! Lwt.Infix
 
@@ -139,7 +144,7 @@ let handle_run req =
   >|= Yojson.Safe.from_string
   >|= command_body_of_yojson
   >>= (fun command -> Utils.run command.command)
-  |> Lwt_result.map_err (fun e ->
+  |> Lwt_result.map_error (fun e ->
          Dream.log "OOPS: %s" (Printexc.to_string e);
          e)
   |> Lwt_result.get_exn

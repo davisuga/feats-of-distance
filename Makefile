@@ -4,19 +4,19 @@ LOGPATH = ./backend/logs
 LOGFILE = $(LOGPATH)/$(shell date --iso=seconds)
 
 install-deps:
-	cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri dune -y
-
+	# cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri dune -y
+	cd ./backend && esy
 start:
-	echo "./backend/_build/default/bin/main.exe --verbose  > >(tee -a $(LOGFILE)_stdout.log) 2> >(tee -a $(LOGFILE)_stderr.log >&2)" | bash
+	echo "./backend/_esy/default/build/default/bin/main.exe --verbose  > >(tee -a $(LOGFILE)_stdout.log) 2> >(tee -a $(LOGFILE)_stderr.log >&2)" | bash
 
 build-watch:
-	cd ./backend && dune build -w && cd ..
+	cd ./backend && esy dune build -w && cd ..
 
 build-prod:
-	cd ./backend; dune build --profile production; cd ..
+	cd ./backend; esy dune build --profile production; cd ..
 
 copy-build:
-	rm -rf ./backend/main.exe; cp ./backend/_build/default/bin/main.exe ./backend
+	rm -rf ./backend/main.exe; cp ./backend/_esy/default/build/default/bin/main.exe ./backend
 
 redeploy-heroku: build-prod copy-build
 	git add ./backend/main.exe; git commit -m "redeploy"; git push heroku main
