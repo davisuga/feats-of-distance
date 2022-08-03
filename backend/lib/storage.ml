@@ -127,9 +127,18 @@ module Redis = struct
     |> Option.join
     |> Option.value ~default:6379
 
+  let conn =
+    let%lwt unauth_conn =
+      Client.connect { host = redis_host; port = redis_port }
+    in
+    match Sys.getenv_opt "REDIS_PASSWORD" with
+    | Some pwd ->
+        let%lwt _ = Client.auth unauth_conn pwd in
+        Lwt.return unauth_conn
+    | None -> Lwt.return unauth_conn
+
   let ( let* ) = Lwt.bind
   let graph_db_name = "featsOfDistance"
-  let conn = Client.connect { host = redis_host; port = redis_port }
 
   let run args =
     let* conn = conn in
