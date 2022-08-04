@@ -25,6 +25,7 @@ let is_feat_query = contains ~sub:"FEATS_WITH"
 
 let clean_batch_merge commands =
   commands
+  
   |> uniq_string_list
   |> List.partition (compose not is_feat_query)
   |> join_partitions
@@ -40,8 +41,7 @@ let prepare_queries sort queries =
 
 let format_n4j_command =
   Printf.sprintf
-    "$JAVA_HOME/bin/java -jar ./backend/cypher-shell.jar -d featsOfDistance \
-     --format plain -p \"%s\" -a %s -u %s \"%s\" 2>&1"
+    "./backend/neo4j-caller -p=\"%s\" --uri=%s -user=%s -statement=\"%s\" 2>&1"
 
 exception DbConnectionFailed
 
@@ -58,25 +58,17 @@ let run_cypher_queries_cmd ?(sort = false) queries =
           Lwt.fail DbConnectionFailed
         else
           results
-          |> utf_decimal_decode
           |> trace "command results: %s."
+          |> utf_decimal_decode
           |> Str.split (Str.regexp "\n")
           |> List.filter_map (fun result ->
                  if String.equal result "\"null\"" then None
                  else Some (result |> remove_hd_and_last |> replace "\\\"" "\""))
-          |> Utils.ListUtils.tail
-          |> concat_json_strings
+          |> String.concat ""
           |> Lwt.return
     | Error e ->
         Dream.log "Ooops: %s" (Printexc.to_string e);
         Lwt.fail e
-(* >>= (fun response ->
-      let _ = Dream.log "reponse: %s" response in
-      if Utils.StringUtils.contains ~sub:"Connection refused" response then
-        let _ = Dream.log "deu ruim" in
-
-        Lwt.fail DbConnectionFailed
-      else Lwt.return response) *)
 
 let run_cypher_query cy = run_cypher_queries_cmd [ cy ]
 let get_json_response_from_reply r = Some r
