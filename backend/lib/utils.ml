@@ -8,9 +8,9 @@ let get_env_var var ~default = Sys.getenv_opt var |> Option.value ~default
 open Printf
 
 let log m anything =
-  if Option.is_some (Array.find_opt (fun arg -> arg = "--verbose") Sys.argv)
+  if Option.is_some (List.find_opt (fun arg -> arg = "--verbose") (Array.to_list Sys.argv))
   then (
-    printf "%s" m;
+    Dream.log "%s" m;
     print_newline ();
     anything)
   else anything
@@ -18,7 +18,8 @@ let log m anything =
 let trace msg anything = log (Printf.sprintf msg anything) anything
 
 let logInfo m anything =
-  if Option.is_some (Array.find_opt (fun arg -> arg = "--info") Sys.argv) then (
+  if Option.is_some (List.find_opt (fun arg -> arg = "--info") (Array.to_list Sys.argv))
+    then (
     printf "%s" m;
     print_newline ();
     anything)
@@ -31,6 +32,7 @@ exception ShellError of exn
 (** [run cmd] runs a shell command, waits until it terminates, and
    returns a list of strings that the process outputed *)
 let run cmd =
+  log ("running " ^ cmd) ();
   try%lwt Lwt_process.shell cmd |> Lwt_process.pread  |> Lwt_result.ok
   with e -> Lwt_result.fail (ShellError e)
 
