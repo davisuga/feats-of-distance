@@ -69,6 +69,39 @@ let run_cypher_queries_cmd ?(sort = false) queries =
     | Error e ->
         Dream.log "Ooops: %s" (Printexc.to_string e);
         Lwt.fail e
-
+module CypherShell = struct
+  let format_n4j_command =
+    Printf.sprintf
+      "$JAVA_HOME/bin/java -jar ./backend/cypher-shell.jar -d featsOfDistance \
+        --format plain -p \"%s\" -a %s -u %s \"%s\" 2>&1"
+  
+  exception DbConnectionFailed
+  
+  let run_cypher_queries_cmd ?(sort = false) queries =
+    let statements = prepare_queries sort queries in
+    if String.length statements < 4 then Lwt.return ""
+    else
+      let%lwt command_result =
+        Utils.run (format_n4j_command neo4j_password uri neo4j_user statements)
+      in
+      match command_result with
+      | Ok results ->
+          if Utils.contains ~sub:"Connection refused" results then
+            Lwt.fail DbConnectionFailed
+          else
+            results
+            |> utf_decimal_decode
+            |> trace "command results: %s."
+            |> Str.split (Str.regexp "\n")
+            |> List.filter_map (fun result ->
+                    if String.equal result "\"null\"" then None
+                    else Some (result |> remove_hd_and_last |> replace "\\\"" "\""))
+            |> Utils.ListUtils.tail
+            |> concat_json_strings
+            |> Lwt.return
+      | Error e ->
+          Dream.log "Ooops: %s" (Printexc.to_string e);
+          Lwt.fail e
+end
 let run_cypher_query cy = run_cypher_queries_cmd [ cy ]
 let get_json_response_from_reply r = Some r
