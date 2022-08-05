@@ -5,7 +5,6 @@ let get_one uri =
   |> N4J.run_cypher_query
   >|= Utils.trace "Response %s"
   >|= Yojson.Safe.from_string
-  >|= Yojson.Safe.Util.index 0
   >|= N4j_path_dto.node_of_yojson
 
 let get_all_saved () =
