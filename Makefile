@@ -7,8 +7,8 @@ install-deps:
 	# cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri dune -y
 	cd ./backend && esy
 start:
-	echo "./backend/_esy/default/build/default/bin/main.exe --verbose  > >(tee -a $(LOGFILE)_stdout.log) 2> >(tee -a $(LOGFILE)_stderr.log >&2)" | bash
-
+	# echo "./backend/_esy/default/build/default/bin/main.exe --verbose  > >(tee -a $(LOGFILE)_stdout.log) 2> >(tee -a $(LOGFILE)_stderr.log >&2)" | bash
+	./backend/_esy/default/build/default/bin/main.exe --verbose
 build-watch:
 	cd ./backend && esy dune build -w && cd ..
 
