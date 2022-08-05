@@ -57,10 +57,10 @@ func helloWorld(uri, username, password, command string) (string, error) {
 }
 
 func main() {
-	statementPtr := flag.String("statement", "", "a string for description")
-	passwordPtr := flag.String("p", "", "a string for description")
-	userPtr := flag.String("user", "", "a string for description")
-	uriPtr := flag.String("uri", "", "a string for description")
+	statementPtr := flag.String("statement", "", "The Cypher statement to run")
+	passwordPtr := flag.String("p", "", "Connection password")
+	userPtr := flag.String("user", "", "Login")
+	uriPtr := flag.String("uri", "", "Connection string")
 	flag.Parse()
 	result, err := helloWorld(*uriPtr, *userPtr, *passwordPtr, *statementPtr)
 	if err != nil {
