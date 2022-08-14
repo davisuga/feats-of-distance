@@ -7,8 +7,8 @@ import { ItemOf } from '../../../utils/type'
 type ArtistListItemProps<T = Artist> = {
   data: T
   onClick: (val: T) => void
-  imgStyle: SxProp
-  style: SxProp
+  imgStyle?: SxProp
+  style?: SxProp
 }
 export const ArtistListItem = (props: ArtistListItemProps) => {
   globalThis['env'] = process.env
@@ -31,10 +31,14 @@ export const ArtistListItem = (props: ArtistListItemProps) => {
               }}
               accessibilityLabel="artist-pic"
               source={{ uri: props.data.img }}
+              //@ts-ignore
+              alt=""
             />
             <View
               sx={{
-                width: props.imgStyle.width || 150,
+                //@ts-ignore
+
+                width: props.imgStyle?.width || 150,
                 height: 150,
                 borderRadius: 5,
 

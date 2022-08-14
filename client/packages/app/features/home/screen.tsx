@@ -219,11 +219,9 @@ export function HomeScreen() {
               ].includes(startArtist?.uri)
                 ? endArtist
                 : startArtist
+
               return (
                 <View>
-                  {/* { startArtist && startArtist.uri != selectedArtists.from?.uri? (
-                  <ArtistListItem data={startArtist} />
-                ) : null} */}
                   <Track
                     id={item.properties.uri.replace('spotify:track:', '')}
                   />

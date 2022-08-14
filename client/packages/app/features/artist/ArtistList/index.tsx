@@ -13,7 +13,13 @@ export const ArtistList = ({ data, onClickItem }: ArtistListProps) => {
   const renderItem = ({ item }: Parameters<ListRenderItem<Artist>>[0]) => {
     return (
       <View sx={{ margin: 10 }}>
-        <ArtistListItem key={item.uri} data={item} onClick={onClickItem} />
+        <ArtistListItem
+          key={item.uri}
+          data={item}
+          onClick={onClickItem}
+          imgStyle={{}}
+          style={{}}
+        />
       </View>
     )
   }
