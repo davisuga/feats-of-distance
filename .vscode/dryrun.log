@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/davi/gits/FeatOfDistance'
+cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri dune -y
+make: Leaving directory '/home/davi/gits/FeatOfDistance'
+ 

@@ -1,0 +1,1 @@
+{"buildTargets":["azure-deploy","azure-start-local","be-test","be-test-watch","build-prod","build-watch","client-gen-types","copy-build","db-start","install-deps","redeploy-heroku","spotify-client-sdk","start","utop","web-start"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

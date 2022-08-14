@@ -1,3 +1,7 @@
 {
-  "go.gopath": "/home/davi/go"
+  "go.gopath": "/home/davi/go",
+  "ocaml.sandbox": {
+    "kind": "esy",
+    "root": "${workspaceFolder:backend}"
+  }
 }

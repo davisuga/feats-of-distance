@@ -1,0 +1,504 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue Aug  2 20:41:24 2022
+
+# Variables
+
+# environment
+VSCODE_GIT_ASKPASS_MAIN = /usr/share/code-insiders/resources/app/extensions/git/dist/askpass-main.js
+# 'override' directive
+GNUMAKEFLAGS := 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+DESKTOP_SESSION = cinnamon
+# environment
+OPAM_SWITCH_PREFIX = /home/davi/.opam/4.14.0+flambda+nnpchecker
+# default
+.SHELLFLAGS := -c
+# environment
+OCAML_TOPLEVEL_PATH = /home/davi/.opam/4.14.0+flambda+nnpchecker/lib/toplevel
+# environment
+XDG_SESSION_CLASS = user
+# environment
+XDG_SESSION_TYPE = x11
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+NVM_INC = /home/davi/.nvm/versions/node/v14.18.1/include/node
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+GTK3_MODULES = xapp-gtk3-module
+# environment
+OCAML_LSP_SERVER_LOG = -
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# environment
+GDMSESSION = cinnamon
+# default
+MAKE_VERSION := 4.2.1
+# environment
+PRISMA_CLIENT_ENGINE_TYPE = 
+# makefile
+CURDIR := /home/davi/gits/FeatOfDistance
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/code-insiders
+# environment
+DATABASE_URL_DEV = postgresql://admin:1234@localhost/deno-tasks
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-cinnamon:/etc/xdg:/usr/share/kubuntu-default-settings/kf5-settings
+# environment
+GTK_OVERLAY_SCROLLING = 1
+# makefile (from '.env', line 1)
+MAKEFILE_LIST :=  Makefile .env
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code-insiders.desktop
+# environment
+USERNAME = davi
+# environment
+MANDATORY_PATH = /usr/share/gconf/cinnamon.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/gnome:/usr/share/cinnamon:/home/davi/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 3)
+LOGPATH = ./backend/logs
+# environment
+LC_CTYPE = pt_BR.UTF-8
+# environment
+P9K_SSH = 0
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-a31c1cf8-399a-473f-b17d-967d2f6b2100.sock
+# environment
+LC_NAME = pt_BR.UTF-8
+# environment
+VSCODE_CWD = /home/davi/gits/FeatOfDistance/backend
+# environment
+GOPROXY = https://proxy.golang.org,direct
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /home/davi/.fly/bin:/home/davi/.opam/4.14.0+flambda+nnpchecker/bin:/home/davi/.deno/bin:/home/davi/.cabal/bin:/home/davi/.ghcup/bin:/home/davi/.fly/bin:/home/davi/.nvm/versions/node/v14.18.1/bin:/home/davi/.deno/bin:/home/davi/.cargo/bin:/home/davi/.local/bin:/home/davi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/davi/.dotnet/tools:/home/davi/.local/share/coursier/bin:/home/davi/.dotnet/tools:/platform-tools:/home/davi/bin/dex-tools-2.1:/home/davi/Documents/carp-v0.5.4-x86_64-linux/bin:/home/davi/Android/Sdk/emulator:/home/davi/Android/Sdk/tools:/home/davi/Android/Sdk/tools/bin:/home/davi/Android/Sdk/platform-tools:/usr/lib/jvm/java-11-openjdk-amd64/bin:/bin:/home/davi/.local/share/coursier/bin:/home/davi/.dotnet/tools:/home/davi/Android/Sdk/platform-tools:/home/davi/bin/dex-tools-2.1:/home/davi/Documents/carp-v0.5.4-x86_64-linux/bin:/home/davi/Android/Sdk/emulator:/home/davi/Android/Sdk/tools:/home/davi/Android/Sdk/tools/bin:/home/davi/Android/Sdk/platform-tools:/usr/lib/jvm/java-11-openjdk-amd64/bin:/bin
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+SESSION_MANAGER = local/hp:@/tmp/.ICE-unix/3038,unix/hp:/tmp/.ICE-unix/3038
+# environment
+FLYCTL_INSTALL = /home/davi/.fly
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+GH_PERSONAL_TOKEN = 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
+# environment
+CARP_DIR = /home/davi/Documents/carp-v0.5.4-x86_64-linux
+# environment
+GH_WORK_TOKEN = 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
+# environment
+GOPATH = /home/davi/go
+# environment
+NVM_BIN = /home/davi/.nvm/versions/node/v14.18.1/bin
+# environment
+OCAMLRUNPARAM = b
+# environment
+VSCODE_LOG_STACK = true
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+ANDROID_HOME = /home/davi/Android/Sdk
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+# environment
+XDG_SESSION_DESKTOP = cinnamon
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 788960
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :1
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /home/davi/gits/FeatOfDistance
+# environment
+QT_QPA_PLATFORMTHEME = qt5ct
+# default
+.LOADED := 
+# environment
+XDG_SEAT = seat0
+# environment
+PKG_CONFIG_PATH = /home/davi/.opam/4.14.0+flambda+nnpchecker/lib/pkgconfig
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+MANPATH = :/home/davi/.nvm/versions/node/v14.18.1/share/man:/home/davi/.opam/4.14.0+flambda+nnpchecker/man
+# environment
+GOMODCACHE = /home/davi/go/pkg/mod
+# environment
+HOME = /home/davi
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /home/davi/.config/Code - Insiders/CachedData/72b4be55fad0d41092d7df8e03b5597c715fd2e2
+# environment
+LOGNAME = davi
+# makefile (from '.env', line 3)
+NEXT_PUBLIC_BACKEND_URL = http://localhost:8081
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+NVM_CD_FLAGS = -q
+# automatic
++F = $(notdir $+)
+# environment
+ZSH = /home/davi/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 2
+# environment
+MAKELEVEL := 0
+# environment
+VSCODE_GIT_IPC_HANDLE = /run/user/1000/vscode-git-6fe9faf667.sock
+# environment
+COLORTERM = truecolor
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# makefile (from '.env', line 1)
+N4J_URI = neo4j+s://80878a09.databases.neo4j.io
+# environment
+JAVA_HOME = /usr/lib/jvm/java-11-openjdk-amd64
+# environment
+NEO4J_KEY = SlZ6b85XMAqbnpkIlOOCgzQS5SSBHrWgGSCur-u99nM
+# environment
+XDG_SESSION_ID = 2
+# environment
+USER = davi
+# environment
+CAML_LD_LIBRARY_PATH = /home/davi/.opam/4.14.0+flambda+nnpchecker/lib/stublibs:/home/davi/.opam/4.14.0+flambda+nnpchecker/lib/ocaml/stublibs:/home/davi/.opam/4.14.0+flambda+nnpchecker/lib/ocaml
+# environment
+LC_MONETARY = pt_BR.UTF-8
+# makefile
+.DEFAULT_GOAL := install-deps
+# environment
+XDG_CURRENT_DESKTOP = X-Cinnamon
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = pt_BR.UTF-8
+# makefile (from '.env', line 2)
+N4J_PASSWORD = SlZ6b85XMAqbnpkIlOOCgzQS5SSBHrWgGSCur-u99nM
+# default
+MAKE_COMMAND := make
+# environment
+OLDPWD = /home/davi/gits/FeatOfDistance
+# environment
+VSCODE_GIT_ASKPASS_EXTRA_ARGS = --ms-enable-electron-run-as-node
+# environment
+TERM_PROGRAM = vscode
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-78429616-1.67.0-insider-main.sock
+# environment
+VSCODE_GIT_ASKPASS_NODE = /usr/share/code-insiders/code-insiders
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+TERM_PROGRAM_VERSION = 1.67.0-insider
+# environment
+NVM_DIR = /home/davi/.nvm
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# makefile (from 'Makefile', line 4)
+LOGFILE = $(LOGPATH)/$(shell date --iso=seconds)
+# environment
+LC_PAPER = pt_BR.UTF-8
+# environment
+NO_AT_BRIDGE = 1
+# environment
+CINNAMON_VERSION = 5.2.7
+# environment
+DENO_INSTALL = /home/davi/.deno
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
+# environment
+GIT_ASKPASS = /usr/share/code-insiders/resources/app/extensions/git/dist/askpass.sh
+# default
+MAKEFILES := 
+# environment
+LC_NUMERIC = pt_BR.UTF-8
+# automatic
+<F = $(notdir $<)
+# environment
+REACT_EDITOR = code-insiders
+# environment
+ 
+LC_MEASUREMENT = pt_BR.UTF-8
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# environment
+DATABASE_MIGRATE_URL = postgres://gbetdomfmvpuie:872242b1aeb7560b356681ab9a6cf14a19d66e5dbd2c0466c8cdf518658f8a1b@ec2-44-198-215-235.compute-1.amazonaws.com:5432/d3skd24t40nn5l
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+P9K_TTY = old
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-insiders-url-handler.desktop
+# environment
+WINDOWPATH = 2
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+LC_IDENTIFICATION = pt_BR.UTF-8
+# default
+.RECIPEPREFIX := 
+# environment
+LC_ADDRESS = pt_BR.UTF-8
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+_P9K_TTY = /dev/pts/4
+# environment
+VSCODE_PID = 788960
+# variable set hash-table stats:
+# Load=155/1024=15%, Rehash=0, Collisions=24/183=13%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 66307, inode 3129785): 25 files, no impossibilities.
+
+# 25 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+spotify-client-sdk:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 56):
+	$(JAVA_HOME)/bin/java -jar openapi-generator-cli-6.0.1.jar generate -i spotify-openapi.yml -g typescript-axios -o ./client/packages/app/spotify-client --skip-validate-spec
+
+db-start:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 37):
+	docker run -it \--name testneo4j \
+    --publish=7474:7474 --publish=7687:7687 \
+    -v $HOME/neo4j/data:/data \
+    -v $HOME/neo4j/logs:/logs \
+    -v $HOME/neo4j/import:/var/lib/neo4j/import \
+    -v $HOME/neo4j/plugins:/plugins \
+    --env NEO4J_AUTH=none \
+    -e NEO4J_apoc_export_file_enabled=true \
+    -e NEO4J_apoc_import_file_enabled=true \
+    -e NEO4J_apoc_import_file_use__neo4j__config=true \
+    -e NEO4JLABS_PLUGINS=\[\"apoc\"\] neo4j:4.3
+
+utop:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 30):
+	cd ./backend && dune utop
+
+client-gen-types:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 25):
+	cd ./client/packages/app && yarn gen
+
+be-test:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 32):
+	cd ./backend && dune runtest
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+be-test-watch:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 35):
+	cd ./backend && dune runtest -w
+
+redeploy-heroku: build-prod copy-build
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 22):
+	git add ./backend/main.exe; git commit -m "redeploy"; git push heroku main
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 18:47:52.696184788
+#  File has been updated.
+#  Successfully updated.
+
+start:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 10):
+	echo "./backend/_build/default/bin/main.exe --verbose  > >(tee -a $(LOGFILE)_stdout.log) 2> >(tee -a $(LOGFILE)_stderr.log >&2)" | bash
+
+azure-deploy: build-prod copy-build
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 50):
+	func azure functionapp publish featsOfDistance 
+
+build-watch:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 13):
+	cd ./backend && dune build -w && cd ..
+
+# Not a target:
+.env:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-31 17:18:37.38372347
+#  File has been updated.
+#  Successfully updated.
+
+azure-start-local: copy-build
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 53):
+	func start
+	
+
+build-prod:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 16):
+	cd ./backend; dune build --profile production; cd ..
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+copy-build:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 19):
+	rm -rf ./backend/main.exe; cp ./backend/_build/default/bin/main.exe ./backend
+
+web-start:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 28):
+	cd ./client/ && yarn web
+
+install-deps:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 7):
+	cd ./backend && opam install cmdliner re2 dream redis redis-lwt cohttp cohttp-lwt-unix uri dune -y
+
+# files hash-table stats:
+# Load=20/1024=2%, Rehash=0, Collisions=0/36=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 45 / storage = 587 B / avg = 13 B
+# current buf: size = 8162 B / used = 587 B / count = 45 / avg = 13 B
+
+# strcache performance: lookups = 71 / hit rate = 36%
+# hash-table stats:
+# Load=45/8192=1%, Rehash=0, Collisions=1/71=1%
+# Finished Make data base on Tue Aug  2 20:41:24 2022
+
+ 

@@ -1,3 +1,15 @@
+# FROM ubuntu:18.04
+
+# RUN apt-get update
+# RUN apt-get install -y libssl1.1 libev4
+# RUN apt-get install netbase
+# COPY ./main.exe main.exe
+# COPY ./golang/neo4j-caller neo4j-caller
+# ENV PORT 8080
+
+# EXPOSE 8080
+
+# CMD ["./main.exe"]
 FROM ocaml/opam:alpine as build
 
 # Install system dependencies
