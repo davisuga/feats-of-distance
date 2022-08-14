@@ -1,4 +1,6 @@
 (executable
  (public_name featsOfDistance)
  (name main)
+ (modes
+  (byte exe))
  (libraries featsOfDistanceLib))
