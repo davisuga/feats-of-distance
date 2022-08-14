@@ -80,7 +80,7 @@ let schema =
         io_field "artists"
           ~typ:(non_null (list (non_null artist)))
           ~args:Arg.[ arg "search_term" ~typ:string ]
-          ~resolve:(fun _info () search_term ->
+          ~resolve:(fun _info _ search_term ->
             match search_term with
             | Some term ->
                 Http.search_artists term >|= Array.to_list >|= Result.ok

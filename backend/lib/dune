@@ -20,6 +20,6 @@
  (dev
   (flags
    (:standard -w -66-27-30-32-33)))
- (prod
+ (production
   (flags
    (:standard -O3))))
