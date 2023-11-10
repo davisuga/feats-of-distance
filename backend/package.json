@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "ocaml": "4.12.x",
+    "ocaml": "5.x.x",
     "@opam/dune": "3.3.0",
     "@opam/uri": "4.2.0",
     "@opam/cohttp-lwt-unix": "5.0.0",
